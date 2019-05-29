@@ -7,7 +7,7 @@ package edu.ncsu.csc216.pack_scheduler.user;
  *
  */
 public class Student {
-	
+
 	/** Student's first name */
 	private String firstName;
 	/** Student's last name */
@@ -22,17 +22,19 @@ public class Student {
 	private int maxCredits;
 	/** Maximum number of credits any student can enroll in */
 	public final static int MAX_CREDITS = 18;
-	
+
 	/**
 	 * Construct a Student object with all fields
-	 * @param firstName First name of the student
-	 * @param lastName Last name of the student
-	 * @param id Student's unity ID
-	 * @param email Student's email address
-	 * @param password Student's password
+	 * 
+	 * @param firstName  First name of the student
+	 * @param lastName   Last name of the student
+	 * @param id         Student's unity ID
+	 * @param email      Student's email address
+	 * @param password   Student's password
 	 * @param maxCredits Maximum number of credits student can enroll in
 	 */
-	public Student(String firstName, String lastName, String id, String email, String password, int maxCredits) throws IllegalArgumentException {
+	public Student(String firstName, String lastName, String id, String email, String password, int maxCredits)
+			throws IllegalArgumentException {
 		setFirstName(firstName);
 		setLastName(lastName);
 		setId(id);
@@ -40,21 +42,23 @@ public class Student {
 		setPassword(password);
 		setMaxCredits(maxCredits);
 	}
-	
+
 	/**
 	 * Constructs a student object with default maxCredits of 18
+	 * 
 	 * @param firstName First name of student
-	 * @param lastName Last name of student
-	 * @param id Student's unity ID
-	 * @param email Student's email address
-	 * @param password Student's password
+	 * @param lastName  Last name of student
+	 * @param id        Student's unity ID
+	 * @param email     Student's email address
+	 * @param password  Student's password
 	 */
 	public Student(String firstName, String lastName, String id, String email, String password) {
 		this(firstName, lastName, id, email, password, MAX_CREDITS);
 	}
-	
+
 	/**
 	 * Method to return firstName of student
+	 * 
 	 * @return Returns student's first name
 	 */
 	public String getFirstName() {
@@ -63,6 +67,7 @@ public class Student {
 
 	/**
 	 * Method to set firstName of student
+	 * 
 	 * @param firstName The firstName to set
 	 */
 	public void setFirstName(String firstName) {
@@ -71,17 +76,19 @@ public class Student {
 		}
 		this.firstName = firstName;
 	}
-	
+
 	/**
 	 * Method to return lastName of student
+	 * 
 	 * @return Returns student's last name
 	 */
 	public String getLastName() {
 		return lastName;
 	}
-	
+
 	/**
 	 * Method to set lastName of student
+	 * 
 	 * @param lastName the lastName to set
 	 */
 	public void setLastName(String lastName) {
@@ -93,6 +100,7 @@ public class Student {
 
 	/**
 	 * Method to return id of student
+	 * 
 	 * @return Returns student's Unity ID
 	 */
 	public String getId() {
@@ -101,6 +109,7 @@ public class Student {
 
 	/**
 	 * Method set's student's Unity ID
+	 * 
 	 * @param id the id to set
 	 */
 	private void setId(String id) {
@@ -112,6 +121,7 @@ public class Student {
 
 	/**
 	 * Method to return student's email address
+	 * 
 	 * @return Returns student's email address
 	 */
 	public String getEmail() {
@@ -120,6 +130,7 @@ public class Student {
 
 	/**
 	 * Method to set student's email address
+	 * 
 	 * @param email The email to set
 	 */
 	public void setEmail(String email) {
@@ -137,6 +148,7 @@ public class Student {
 
 	/**
 	 * Method to return password
+	 * 
 	 * @return Returns the student's password
 	 */
 	public String getPassword() {
@@ -145,6 +157,7 @@ public class Student {
 
 	/**
 	 * Method to set student's password
+	 * 
 	 * @param password the password to set
 	 */
 	public void setPassword(String password) {
@@ -156,6 +169,7 @@ public class Student {
 
 	/**
 	 * Method to return maximum number of credits student can enroll in
+	 * 
 	 * @return Returns maxCredits for student
 	 */
 	public int getMaxCredits() {
@@ -164,6 +178,7 @@ public class Student {
 
 	/**
 	 * Sets the maximum number of credits the student can take
+	 * 
 	 * @param maxCredits the maxCredits to set
 	 */
 	public void setMaxCredits(int maxCredits) {
@@ -190,7 +205,9 @@ public class Student {
 	}
 
 	/**
-	 * Compares given student object to this student to check for equality on all fields
+	 * Compares given student object to this student to check for equality on all
+	 * fields
+	 * 
 	 * @param obj The student to compare this student to
 	 * @return Returns true if the students are the same for all fields
 	 */
@@ -235,6 +252,7 @@ public class Student {
 
 	/**
 	 * Returns string representation of student object with all fields
+	 * 
 	 * @return Returns string representation of student info
 	 */
 	@Override
