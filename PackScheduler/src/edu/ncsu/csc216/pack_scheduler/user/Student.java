@@ -1,5 +1,11 @@
 package edu.ncsu.csc216.pack_scheduler.user;
 
+/**
+ * Class defines state and behavior for Student objects
+ * 
+ * @author Nick Garner
+ *
+ */
 public class Student {
 	
 	/** Student's first name */
@@ -94,6 +100,7 @@ public class Student {
 	}
 
 	/**
+	 * Method set's student's Unity ID
 	 * @param id the id to set
 	 */
 	private void setId(String id) {
@@ -156,6 +163,7 @@ public class Student {
 	}
 
 	/**
+	 * Sets the maximum number of credits the student can take
 	 * @param maxCredits the maxCredits to set
 	 */
 	public void setMaxCredits(int maxCredits) {
