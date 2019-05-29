@@ -72,7 +72,8 @@ public class StudentRecordIO {
 	 * @return Student object with field info from input file
 	 */
 	private static Student processStudent(String line) {
-		Scanner lineParse = new Scanner(line).useDelimiter(",");
+		Scanner lineParse = new Scanner(line);
+		lineParse.useDelimiter(",");
 		String firstName = lineParse.next();
 		String lastName = lineParse.next();
 		String id = lineParse.next();
