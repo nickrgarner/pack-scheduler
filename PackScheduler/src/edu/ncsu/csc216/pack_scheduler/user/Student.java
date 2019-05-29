@@ -60,7 +60,7 @@ public class Student {
 	 * @param firstName The firstName to set
 	 */
 	public void setFirstName(String firstName) {
-		if (firstName.equals(null) || firstName.equals("")) {
+		if (firstName == null || firstName.equals("")) {
 			throw new IllegalArgumentException();
 		}
 		this.firstName = firstName;
@@ -79,7 +79,7 @@ public class Student {
 	 * @param lastName the lastName to set
 	 */
 	public void setLastName(String lastName) {
-		if (lastName.equals(null) || lastName.equals("")) {
+		if (lastName == null || lastName.equals("")) {
 			throw new IllegalArgumentException();
 		}
 		this.lastName = lastName;
@@ -97,7 +97,7 @@ public class Student {
 	 * @param id the id to set
 	 */
 	private void setId(String id) {
-		if (id.equals(null) || id.equals("")) {
+		if (id == null || id.equals("")) {
 			throw new IllegalArgumentException();
 		}
 		this.id = id;
@@ -116,7 +116,7 @@ public class Student {
 	 * @param email The email to set
 	 */
 	public void setEmail(String email) {
-		if (email.equals(null) || email.equals("")) {
+		if (email == null || email.equals("")) {
 			throw new IllegalArgumentException();
 		}
 		if (!email.contains("@") || !email.contains(".")) {
@@ -141,7 +141,7 @@ public class Student {
 	 * @param password the password to set
 	 */
 	public void setPassword(String password) {
-		if (password.equals(null) || password.equals("")) {
+		if (password == null || password.equals("")) {
 			throw new IllegalArgumentException();
 		}
 		this.password = password;
@@ -163,6 +163,66 @@ public class Student {
 			throw new IllegalArgumentException();
 		}
 		this.maxCredits = maxCredits;
+	}
+
+	/**
+	 * Ensures that student objects with matching field data hash to the same value
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + maxCredits;
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		return result;
+	}
+
+	/**
+	 * Compares given student object to this student to check for equality on all fields
+	 * @param obj The student to compare this student to
+	 * @return Returns true if the students are the same for all fields
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Student other = (Student) obj;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (firstName == null) {
+			if (other.firstName != null)
+				return false;
+		} else if (!firstName.equals(other.firstName))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (lastName == null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!lastName.equals(other.lastName))
+			return false;
+		if (maxCredits != other.maxCredits)
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		return true;
 	}
 
 	/**
