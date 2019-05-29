@@ -105,7 +105,7 @@ public class Student {
 	 */
 	private void setId(String id) {
 		if (id == null || id.equals("")) {
-			throw new IllegalArgumentException("Invalid ig");
+			throw new IllegalArgumentException("Invalid id");
 		}
 		this.id = id;
 	}
