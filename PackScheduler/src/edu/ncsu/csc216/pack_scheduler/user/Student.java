@@ -15,7 +15,7 @@ public class Student {
 	/** Maximum number of credits the student can enroll in */
 	private int maxCredits;
 	/** Maximum number of credits any student can enroll in */
-	public final int MAX_CREDITS = 18;
+	public final static int MAX_CREDITS = 18;
 	
 	/**
 	 * Construct a Student object with all fields
@@ -44,8 +44,7 @@ public class Student {
 	 * @param password Student's password
 	 */
 	public Student(String firstName, String lastName, String id, String email, String password) {
-		this(firstName, lastName, id, email, password, 0);
-		setMaxCredits(MAX_CREDITS);
+		this(firstName, lastName, id, email, password, MAX_CREDITS);
 	}
 	
 	/**
