@@ -7,7 +7,6 @@ import java.util.Scanner;
 import java.io.FileInputStream;
 import java.io.PrintStream;
 import java.io.File;
-import java.util.NoSuchElementException;
 
 import edu.ncsu.csc216.pack_scheduler.user.Student;
 
@@ -72,7 +71,7 @@ public class StudentRecordIO {
 	 * @param line Line to be processed
 	 * @return Student object with field info from input file
 	 */
-	private static Student processStudent(String line) throws NoSuchElementException{
+	private static Student processStudent(String line) {
 		Scanner lineParse = new Scanner(line);
 		lineParse.useDelimiter(",");
 		String firstName = lineParse.next();
@@ -80,7 +79,13 @@ public class StudentRecordIO {
 		String id = lineParse.next();
 		String email = lineParse.next();
 		String password = lineParse.next();
-		int maxCredits = Integer.parseInt(lineParse.next());
+		int maxCredits = 0;
+		if (lineParse.hasNext()) {
+			maxCredits = Integer.parseInt(lineParse.next());
+		}
+		else {
+			maxCredits = 18;
+		}
 		lineParse.close();
 		Student output = new Student(firstName, lastName, id, email, password, maxCredits);
 		return output;
