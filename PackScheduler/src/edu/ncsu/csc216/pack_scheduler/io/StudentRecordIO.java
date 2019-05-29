@@ -3,6 +3,7 @@ package edu.ncsu.csc216.pack_scheduler.io;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.io.FileInputStream;
 import java.io.PrintStream;
@@ -72,21 +73,25 @@ public class StudentRecordIO {
 	 * @return Student object with field info from input file
 	 */
 	private static Student processStudent(String line) {
-		Scanner lineParse = new Scanner(line);
-		lineParse.useDelimiter(",");
-		String firstName = lineParse.next();
-		String lastName = lineParse.next();
-		String id = lineParse.next();
-		String email = lineParse.next();
-		String password = lineParse.next();
-		int maxCredits = 0;
-		if (lineParse.hasNext()) {
+		String firstName;
+		String lastName;
+		String id;
+		String email;
+		String password;
+		int maxCredits;
+		try {
+			Scanner lineParse = new Scanner(line);
+			lineParse.useDelimiter(",");
+			firstName = lineParse.next();
+			lastName = lineParse.next();
+			id = lineParse.next();
+			email = lineParse.next();
+			password = lineParse.next();
 			maxCredits = Integer.parseInt(lineParse.next());
+			lineParse.close();
+		} catch (NoSuchElementException e) {
+			throw new IllegalArgumentException();
 		}
-		else {
-			maxCredits = 18;
-		}
-		lineParse.close();
 		Student output = new Student(firstName, lastName, id, email, password, maxCredits);
 		return output;
 	}
