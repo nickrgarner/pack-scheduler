@@ -23,6 +23,13 @@ public class Student {
 	/** Maximum number of credits any student can enroll in */
 	public final static int MAX_CREDITS = 18;
 
+//	/**
+//	 * Null constructor
+//	 */
+//	public Student() {
+//
+//	}
+
 	/**
 	 * Construct a Student object with all fields
 	 * 

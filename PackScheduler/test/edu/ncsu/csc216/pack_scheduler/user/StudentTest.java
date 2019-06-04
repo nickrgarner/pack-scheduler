@@ -369,8 +369,8 @@ public class StudentTest {
 		Student s7 = new Student(FIRST_NAME, LAST_NAME, ID, EMAIL, "caput draconis", MAX_CREDITS);
 		Student s8 = new Student(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, 16);
 		Object test = new Object();
-//		Student s9 = new Student(null, null, null, null, null, MAX_CREDITS);
-//		Student s10 = new Student(null, null, null, null, null, MAX_CREDITS);
+//		Student s9 = new Student();
+//		Student s10 = new Student();
 
 		// Test identical objects both ways
 		assertTrue(s1.equals(s2));
@@ -393,9 +393,23 @@ public class StudentTest {
 		//Test class mismatch
 		assertFalse(s1.equals(test));
 		
-//		//Test null params
+//		//Test comparison to null Students
 //		assertTrue(s9.equals(s10));
 //		assertFalse(s1.equals(s9));
+//		
+//		//Test null Student email
+//		assertFalse(s9.equals(s1));
+//		
+//		//Test null Student firstName
+//		s9.setEmail(EMAIL);
+//		assertFalse(s9.equals(s1));
+//		
+//		//Test null Student ID
+//		s9.setFirstName(FIRST_NAME);
+//		assertFalse(s9.equals(s1));
+		
+		//Test null Student lastName
+		
 	}
 
 	/**

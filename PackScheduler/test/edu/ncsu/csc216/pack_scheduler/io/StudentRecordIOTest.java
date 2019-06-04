@@ -2,28 +2,94 @@ package edu.ncsu.csc216.pack_scheduler.io;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
+//import org.junit.Before;
 import org.junit.Test;
+
+import edu.ncsu.csc216.pack_scheduler.user.Student;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Tests StudentRecordIO class.
+ * 
  * @author Nick Garner
  *
  */
 public class StudentRecordIOTest {
 
-	@Before
-	public void setUp() throws Exception {
-	}
+	/** Valid student records */
+	private final String validTestFile = "test-files/student_records.txt";
+	/** Invalid student records */
+	private final String invalidTestFile = "test-files/invalid_student_records.txt";
 
+	/** Expected results for valid student records */
+	private final String validStudent1 = "Zahir,King,zking,orci.Donec@ametmassaQuisque.com,0ÉRú±\"ÃùuŸ¦Ù\\7X²F´şâ9•{-OîFâapÄ,15";
+	private final String validStudent2 = "Cassandra,Schwartz,cschwartz,semper@imperdietornare.co.uk,0ÉRú±\"ÃùuŸ¦Ù\\7X²F´şâ9•{-OîFâapÄ,4";
+	private final String validStudent3 = "Shannon,Hansen,shansen,convallis.est.vitae@arcu.ca,0ÉRú±\"ÃùuŸ¦Ù\\7X²F´şâ9•{-OîFâapÄ,14";
+	private final String validStudent4 = "Demetrius,Austin,daustin,Curabitur.egestas.nunc@placeratorcilacus.co.uk,0ÉRú±\"ÃùuŸ¦Ù\\7X²F´şâ9•{-OîFâapÄ,18";
+	private final String validStudent5 = "Raymond,Brennan,rbrennan,litora.torquent@pellentesquemassalobortis.ca,0ÉRú±\"ÃùuŸ¦Ù\\7X²F´şâ9•{-OîFâapÄ,12";
+	private final String validStudent6 = "Emerald,Frost,efrost,adipiscing@acipsumPhasellus.edu,0ÉRú±\"ÃùuŸ¦Ù\\7X²F´şâ9•{-OîFâapÄ,3";
+	private final String validStudent7 = "Lane,Berg,lberg,sociis@non.org,0ÉRú±\"ÃùuŸ¦Ù\\7X²F´şâ9•{-OîFâapÄ,14";
+	private final String validStudent8 = "Griffith,Stone,gstone,porta@magnamalesuadavel.net,0ÉRú±\"ÃùuŸ¦Ù\\7X²F´şâ9•{-OîFâapÄ,17";
+	private final String validStudent9 = "Althea,Hicks,ahicks,Phasellus.dapibus@luctusfelis.com,0ÉRú±\"ÃùuŸ¦Ù\\7X²F´şâ9•{-OîFâapÄ,11";
+	private final String validStudent10 = "Dylan,Nolan,dnolan,placerat.Cras.dictum@dictum.net,0ÉRú±\"ÃùuŸ¦Ù\\7X²F´şâ9•{-OîFâapÄ,5";
+
+	/** Array to hold expected results */
+	private final String[] validStudents = { validStudent1, validStudent2, validStudent3, validStudent4, validStudent5,
+			validStudent6, validStudent7, validStudent8, validStudent9, validStudent10 };
+
+//	@Before
+//	public void setUp() throws Exception {
+//	}
+
+	/**
+	 * Tests readValidCourseRecords().
+	 */
 	@Test
-	public void testReadStudentRecords() {
-		fail("Not yet implemented");
+	public void testReadValidStudentRecords() {
+		try {
+			ArrayList<Student> students = StudentRecordIO.readStudentRecords(validTestFile);
+			assertEquals(10, students.size());
+			//Loop to check file contents
+			for (int i = 0; i < validStudents.length; i++) {
+				assertEquals(validStudents[i], students.get(i).toString());
+			}
+		} catch (FileNotFoundException e) {
+			fail("Could not find file: " + validTestFile);
+		}
+	}
+	
+	/**
+	 * Tests readInvalidCourseRecords().
+	 */
+	@Test
+	public void testReadInvalidStudentRecords() {
+		try {
+			ArrayList<Student> students = StudentRecordIO.readStudentRecords(invalidTestFile);
+			assertEquals(0, students.size());
+		} catch (FileNotFoundException e) {
+			fail("Could not find file: " + invalidTestFile);
+		}
+		
 	}
 
+	/**
+	 * Tests writeStudentRecords() method.
+	 */
 	@Test
 	public void testWriteStudentRecords() {
-		fail("Not yet implemented");
+		ArrayList<Student> students = new ArrayList<Student>();
+		students.add(new Student("Harry", "Potter", "hpotter", "scarboy@ncsu.edu", "expectopatronum", 15));
+		students.add(new Student("Ronald", "Weasley", "rweasley", "scabbersfan@ncsu.edu", "obliviate", 12));
+		students.add(new Student("Hermione", "Granger", "hgrange", "SPEWPres@ncsu.edu", "leviosa", 18));
+		
+		try {
+			StudentRecordIO.writeStudentRecords("test-files/actual_student_records.txt", students);
+		} catch (IOException e) {
+			fail("Cannot write to target file");
+		}
 	}
 
 }
