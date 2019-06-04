@@ -12,6 +12,8 @@ import java.util.Scanner;
 import org.junit.Before;
 import org.junit.Test;
 
+import edu.ncsu.csc216.pack_scheduler.user.Student;
+
 /**
  * Tests StudentDirectory.
  * @author Sarah Heckman
@@ -103,6 +105,54 @@ public class StudentDirectoryTest {
 		assertEquals(FIRST_NAME, studentDirectory[0][0]);
 		assertEquals(LAST_NAME, studentDirectory[0][1]);
 		assertEquals(ID, studentDirectory[0][2]);
+		
+		//Test addStudent with null password
+		StudentDirectory sd1 = new StudentDirectory();
+		try {
+			sd1.addStudent(FIRST_NAME, LAST_NAME, ID, EMAIL, null, PASSWORD, MAX_CREDITS);
+			fail();
+		} catch (IllegalArgumentException e) {
+			String [][] sdTest = sd1.getStudentDirectory();
+			assertEquals(0, sdTest.length);
+		}
+		
+		//Test addStudent with null repeatePassword
+		StudentDirectory sd2 = new StudentDirectory();
+		try {
+			sd2.addStudent(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, null, MAX_CREDITS);
+			fail();
+		} catch (IllegalArgumentException e) {
+			String [][] sdTest = sd2.getStudentDirectory();
+			assertEquals(0, sdTest.length);			
+		}
+		
+		//Test addStudent with empty String password
+		StudentDirectory sd3 = new StudentDirectory();
+		try {
+			sd3.addStudent(FIRST_NAME, LAST_NAME, ID, EMAIL, "", PASSWORD, MAX_CREDITS);
+			fail();
+		} catch (IllegalArgumentException e) {
+			String [][] sdTest = sd3.getStudentDirectory();
+			assertEquals(0, sdTest.length);
+		}
+				
+		//Test addStudent with empty String password
+		StudentDirectory sd4 = new StudentDirectory();
+		try {
+			sd4.addStudent(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, "", MAX_CREDITS);
+			fail();
+		} catch (IllegalArgumentException e) {
+			String [][] sdTest = sd4.getStudentDirectory();
+			assertEquals(0, sdTest.length);
+		}
+		
+		//Test addStudent with duplicate Student
+		StudentDirectory sd5 = new StudentDirectory();
+//		Student student1 = new Student(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, MAX_CREDITS);
+//		Student student2 = new Student(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, MAX_CREDITS);
+		assertTrue(sd5.addStudent(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, PASSWORD, MAX_CREDITS));
+		assertFalse(sd5.addStudent(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, PASSWORD, MAX_CREDITS));
+		assertTrue(sd5.addStudent(FIRST_NAME, LAST_NAME, "nrgarner", EMAIL, PASSWORD, PASSWORD, MAX_CREDITS));
 	}
 
 	/**
@@ -135,6 +185,14 @@ public class StudentDirectoryTest {
 		assertEquals(1, sd.getStudentDirectory().length);
 		sd.saveStudentDirectory("test-files/actual_student_records.txt");
 		checkFiles("test-files/expected_student_records.txt", "test-files/actual_student_records.txt");
+		
+//		//Test invalid file type
+//		try {
+//			sd.saveStudentDirectory("locked_file.txt");
+//			fail();
+//		} catch (IllegalArgumentException e) {
+//			
+//		}
 	}
 	
 	/**
