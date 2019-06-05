@@ -132,16 +132,6 @@ public class StudentDirectoryTest {
 	}
 
 	/**
-	 * Tests that loadStudentsFromFile() properly throws an IllegalArgumentException
-	 * for an improper file.
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void testLoadStudentsFromFileException() {
-		StudentDirectory testDir = new StudentDirectory();
-		testDir.loadStudentsFromFile("test-files/nonexistant.txt");
-	}
-
-	/**
 	 * Tests StudentDirectory.addStudent().
 	 */
 	@Test
