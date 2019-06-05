@@ -388,7 +388,7 @@ public class StudentTest {
 		assertFalse(s1.equals(s8));
 		
 		//Test compare to null object
-		assertFalse(s1.equals(null));
+		assertFalse(s1 == null);
 		
 		//Test class mismatch
 		assertFalse(s1.equals(test));

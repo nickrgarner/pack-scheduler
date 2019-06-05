@@ -12,7 +12,7 @@ import java.util.Scanner;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.ncsu.csc216.pack_scheduler.user.Student;
+//import edu.ncsu.csc216.pack_scheduler.user.Student;
 
 /**
  * Tests StudentDirectory.
@@ -188,9 +188,10 @@ public class StudentDirectoryTest {
 		
 //		//Test invalid file type
 //		try {
-//			sd.saveStudentDirectory("locked_file.txt");
+//			sd.saveStudentDirectory("test-files/locked_file.txt");
 //			fail();
 //		} catch (IllegalArgumentException e) {
+//			assertEquals();
 //			
 //		}
 	}
@@ -215,5 +216,4 @@ public class StudentDirectoryTest {
 			fail("Error reading files.");
 		}
 	}
-
 }
