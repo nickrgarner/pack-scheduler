@@ -375,8 +375,8 @@ public class StudentTest {
 		// Test identical objects both ways
 		assertTrue(s1.equals(s2));
 		assertTrue(s2.equals(s1));
-		
-		//Test same object
+
+		// Test same object
 		assertTrue(s1.equals(s1));
 
 		// Test each field
@@ -386,13 +386,13 @@ public class StudentTest {
 		assertFalse(s1.equals(s6));
 		assertFalse(s1.equals(s7));
 		assertFalse(s1.equals(s8));
-		
-		//Test compare to null object
+
+		// Test compare to null object
 		assertFalse(s1 == null);
-		
-		//Test class mismatch
+
+		// Test class mismatch
 		assertFalse(s1.equals(test));
-		
+
 //		//Test comparison to null Students
 //		assertTrue(s9.equals(s10));
 //		assertFalse(s1.equals(s9));
@@ -407,9 +407,9 @@ public class StudentTest {
 //		//Test null Student ID
 //		s9.setFirstName(FIRST_NAME);
 //		assertFalse(s9.equals(s1));
-		
-		//Test null Student lastName
-		
+
+		// Test null Student lastName
+
 	}
 
 	/**

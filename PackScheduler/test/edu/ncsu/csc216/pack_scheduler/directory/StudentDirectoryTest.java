@@ -12,7 +12,6 @@ import java.util.Scanner;
 import org.junit.Before;
 import org.junit.Test;
 
-
 /**
  * Tests StudentDirectory. Rewriting provided tests as instructed on Piazza for
  * Lab 1.
@@ -250,7 +249,7 @@ public class StudentDirectoryTest {
 		sd.saveStudentDirectory("test-files/actual_student_records.txt");
 		checkFiles("test-files/expected_student_records.txt", "test-files/actual_student_records.txt");
 	}
-		
+
 	/**
 	 * Helper method to compare two files for the same contents
 	 * 

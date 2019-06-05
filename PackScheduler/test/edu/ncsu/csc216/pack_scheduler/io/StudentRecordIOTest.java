@@ -25,16 +25,16 @@ public class StudentRecordIOTest {
 	private final String invalidTestFile = "test-files/invalid_student_records.txt";
 
 	/** Expected results for valid student records */
-	private final String validStudent1 = "Zahir,King,zking,orci.Donec@ametmassaQuisque.com,0ÉRú±\"ÃùuŸ¦Ù\\7X²F´þâ9•{-OîFâapÄ,15";
-	private final String validStudent2 = "Cassandra,Schwartz,cschwartz,semper@imperdietornare.co.uk,0ÉRú±\"ÃùuŸ¦Ù\\7X²F´þâ9•{-OîFâapÄ,4";
-	private final String validStudent3 = "Shannon,Hansen,shansen,convallis.est.vitae@arcu.ca,0ÉRú±\"ÃùuŸ¦Ù\\7X²F´þâ9•{-OîFâapÄ,14";
-	private final String validStudent4 = "Demetrius,Austin,daustin,Curabitur.egestas.nunc@placeratorcilacus.co.uk,0ÉRú±\"ÃùuŸ¦Ù\\7X²F´þâ9•{-OîFâapÄ,18";
-	private final String validStudent5 = "Raymond,Brennan,rbrennan,litora.torquent@pellentesquemassalobortis.ca,0ÉRú±\"ÃùuŸ¦Ù\\7X²F´þâ9•{-OîFâapÄ,12";
-	private final String validStudent6 = "Emerald,Frost,efrost,adipiscing@acipsumPhasellus.edu,0ÉRú±\"ÃùuŸ¦Ù\\7X²F´þâ9•{-OîFâapÄ,3";
-	private final String validStudent7 = "Lane,Berg,lberg,sociis@non.org,0ÉRú±\"ÃùuŸ¦Ù\\7X²F´þâ9•{-OîFâapÄ,14";
-	private final String validStudent8 = "Griffith,Stone,gstone,porta@magnamalesuadavel.net,0ÉRú±\"ÃùuŸ¦Ù\\7X²F´þâ9•{-OîFâapÄ,17";
-	private final String validStudent9 = "Althea,Hicks,ahicks,Phasellus.dapibus@luctusfelis.com,0ÉRú±\"ÃùuŸ¦Ù\\7X²F´þâ9•{-OîFâapÄ,11";
-	private final String validStudent10 = "Dylan,Nolan,dnolan,placerat.Cras.dictum@dictum.net,0ÉRú±\"ÃùuŸ¦Ù\\7X²F´þâ9•{-OîFâapÄ,5";
+	private final String validStudent1 = "Zahir,King,zking,orci.Donec@ametmassaQuisque.com,0ï¿½Rï¿½ï¿½\"ï¿½ï¿½uï¿½ï¿½ï¿½\\7Xï¿½Fï¿½ï¿½ï¿½9ï¿½{-Oï¿½Fï¿½apï¿½,15";
+	private final String validStudent2 = "Cassandra,Schwartz,cschwartz,semper@imperdietornare.co.uk,0ï¿½Rï¿½ï¿½\"ï¿½ï¿½uï¿½ï¿½ï¿½\\7Xï¿½Fï¿½ï¿½ï¿½9ï¿½{-Oï¿½Fï¿½apï¿½,4";
+	private final String validStudent3 = "Shannon,Hansen,shansen,convallis.est.vitae@arcu.ca,0ï¿½Rï¿½ï¿½\"ï¿½ï¿½uï¿½ï¿½ï¿½\\7Xï¿½Fï¿½ï¿½ï¿½9ï¿½{-Oï¿½Fï¿½apï¿½,14";
+	private final String validStudent4 = "Demetrius,Austin,daustin,Curabitur.egestas.nunc@placeratorcilacus.co.uk,0ï¿½Rï¿½ï¿½\"ï¿½ï¿½uï¿½ï¿½ï¿½\\7Xï¿½Fï¿½ï¿½ï¿½9ï¿½{-Oï¿½Fï¿½apï¿½,18";
+	private final String validStudent5 = "Raymond,Brennan,rbrennan,litora.torquent@pellentesquemassalobortis.ca,0ï¿½Rï¿½ï¿½\"ï¿½ï¿½uï¿½ï¿½ï¿½\\7Xï¿½Fï¿½ï¿½ï¿½9ï¿½{-Oï¿½Fï¿½apï¿½,12";
+	private final String validStudent6 = "Emerald,Frost,efrost,adipiscing@acipsumPhasellus.edu,0ï¿½Rï¿½ï¿½\"ï¿½ï¿½uï¿½ï¿½ï¿½\\7Xï¿½Fï¿½ï¿½ï¿½9ï¿½{-Oï¿½Fï¿½apï¿½,3";
+	private final String validStudent7 = "Lane,Berg,lberg,sociis@non.org,0ï¿½Rï¿½ï¿½\"ï¿½ï¿½uï¿½ï¿½ï¿½\\7Xï¿½Fï¿½ï¿½ï¿½9ï¿½{-Oï¿½Fï¿½apï¿½,14";
+	private final String validStudent8 = "Griffith,Stone,gstone,porta@magnamalesuadavel.net,0ï¿½Rï¿½ï¿½\"ï¿½ï¿½uï¿½ï¿½ï¿½\\7Xï¿½Fï¿½ï¿½ï¿½9ï¿½{-Oï¿½Fï¿½apï¿½,17";
+	private final String validStudent9 = "Althea,Hicks,ahicks,Phasellus.dapibus@luctusfelis.com,0ï¿½Rï¿½ï¿½\"ï¿½ï¿½uï¿½ï¿½ï¿½\\7Xï¿½Fï¿½ï¿½ï¿½9ï¿½{-Oï¿½Fï¿½apï¿½,11";
+	private final String validStudent10 = "Dylan,Nolan,dnolan,placerat.Cras.dictum@dictum.net,0ï¿½Rï¿½ï¿½\"ï¿½ï¿½uï¿½ï¿½ï¿½\\7Xï¿½Fï¿½ï¿½ï¿½9ï¿½{-Oï¿½Fï¿½apï¿½,5";
 
 	/** Array to hold expected results */
 	private final String[] validStudents = { validStudent1, validStudent2, validStudent3, validStudent4, validStudent5,
@@ -52,7 +52,7 @@ public class StudentRecordIOTest {
 		try {
 			ArrayList<Student> students = StudentRecordIO.readStudentRecords(validTestFile);
 			assertEquals(10, students.size());
-			//Loop to check file contents
+			// Loop to check file contents
 			for (int i = 0; i < validStudents.length; i++) {
 				assertEquals(validStudents[i], students.get(i).toString());
 			}
@@ -60,7 +60,7 @@ public class StudentRecordIOTest {
 			fail("Could not find file: " + validTestFile);
 		}
 	}
-	
+
 	/**
 	 * Tests readInvalidCourseRecords().
 	 */
@@ -72,7 +72,7 @@ public class StudentRecordIOTest {
 		} catch (FileNotFoundException e) {
 			fail("Could not find file: " + invalidTestFile);
 		}
-		
+
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class StudentRecordIOTest {
 		students.add(new Student("Harry", "Potter", "hpotter", "scarboy@ncsu.edu", "expectopatronum", 15));
 		students.add(new Student("Ronald", "Weasley", "rweasley", "scabbersfan@ncsu.edu", "obliviate", 12));
 		students.add(new Student("Hermione", "Granger", "hgrange", "SPEWPres@ncsu.edu", "leviosa", 18));
-		
+
 		try {
 			StudentRecordIO.writeStudentRecords("test-files/actual_student_records.txt", students);
 		} catch (IOException e) {
