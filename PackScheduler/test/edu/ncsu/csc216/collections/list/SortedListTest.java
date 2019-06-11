@@ -83,7 +83,8 @@ public class SortedListTest {
 
 	/**
 	 * Tests that SortedList.get method properly retrieves item at sorted index and
-	 * properly throws IndexOutOfBoundsException for index < 0 or index >= size().
+	 * properly throws IndexOutOfBoundsException for index less than 0 or index
+	 * greater than / equal to size().
 	 */
 	@Test
 	public void testGet() {
@@ -130,8 +131,8 @@ public class SortedListTest {
 
 	/**
 	 * Tests that SortedList.remove properly removes element at given index and
-	 * properly generates IndexOutOfBoundsException for index < 0 || index >=
-	 * size().
+	 * properly generates IndexOutOfBoundsException for index less than 0 or index
+	 * greater than / equal to size().
 	 */
 	@Test
 	public void testRemove() {

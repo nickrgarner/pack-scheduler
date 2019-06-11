@@ -20,7 +20,7 @@ import edu.ncsu.csc216.pack_scheduler.user.Student;
 public class StudentRecordIO {
 
 	/**
-	 * Reads input from txt file and returns ArrayList of processed students, minus
+	 * Reads input from txt file and returns SortedList of processed students, minus
 	 * duplicates
 	 * 
 	 * @param fileName File name to read and process
@@ -53,10 +53,10 @@ public class StudentRecordIO {
 	}
 
 	/**
-	 * Writes stored studentDirectory ArrayList of Students to given output fileName
+	 * Writes stored studentDirectory SortedList of Students to given output fileName
 	 * 
 	 * @param fileName         File to write to
-	 * @param studentDirectory ArrayList of stored student records
+	 * @param studentDirectory SortedList of stored student records
 	 * @throws IOException Cannot write student records to file
 	 */
 	public static void writeStudentRecords(String fileName, SortedList<Student> studentDirectory) throws IOException {

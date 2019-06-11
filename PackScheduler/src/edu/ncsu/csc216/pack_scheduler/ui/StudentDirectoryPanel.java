@@ -376,7 +376,7 @@ public class StudentDirectoryPanel extends JPanel implements ActionListener {
 		 * Sets the given value to the given {row, col} location.
 		 * @param value Object to modify in the data.
 		 * @param row location to modify the data.
-		 * @param column location to modify the data.
+		 * @param col location to modify the data.
 		 */
 		public void setValueAt(Object value, int row, int col) {
 			data[row][col] = value;

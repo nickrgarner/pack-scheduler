@@ -231,9 +231,9 @@ public class StudentDirectoryTest {
 		// Check for proper contents
 		String[][] dirArray = testDir.getStudentDirectory();
 		assertEquals(8, dirArray.length);
-		assertEquals("Demetrius", dirArray[2][0]);
-		assertEquals("ahicks", dirArray[6][2]);
-		assertEquals("Frost", dirArray[4][1]);
+		assertEquals("Demetrius", dirArray[0][0]);
+		assertEquals("gstone", dirArray[7][2]);
+		assertEquals("Frost", dirArray[2][1]);
 	}
 
 	/**
