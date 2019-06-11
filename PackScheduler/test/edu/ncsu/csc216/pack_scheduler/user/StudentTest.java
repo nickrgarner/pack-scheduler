@@ -449,4 +449,24 @@ public class StudentTest {
 		assertEquals(s1, s.toString());
 	}
 
+	/**
+	 * Tests that Student.compareTo method returns -1 if this object should be
+	 * ordered before the comparison object, 0 if they match, or 1 if this object
+	 * should be ordered after the comparison object. Comparisons are based on
+	 * Student's lastName, firstName, and id fields.
+	 */
+	@Test
+	public void testCompareTo() {
+		// Create Student test objects
+		Student s1 = new Student("Fred", "Weasley", "fweasle", EMAIL, PASSWORD, MAX_CREDITS);
+		Student s2 = new Student("George", "Weasley", "gweasle", EMAIL, PASSWORD, MAX_CREDITS);
+		Student s3 = new Student("Harry", "Potter", "hpotter", EMAIL, PASSWORD, MAX_CREDITS);
+		Student s4 = new Student("Hermione", "Granger", "hgrange", EMAIL, PASSWORD, MAX_CREDITS);
+		Student s5 = new Student("Hermione", "Granger", "hgrange", EMAIL, PASSWORD, MAX_CREDITS);
+
+		// Test for proper compareTo values
+		assertEquals(-1, s1.compareTo(s2));
+		assertEquals(1, s3.compareTo(s4));
+		assertEquals(0, s4.compareTo(s5));
+	}
 }

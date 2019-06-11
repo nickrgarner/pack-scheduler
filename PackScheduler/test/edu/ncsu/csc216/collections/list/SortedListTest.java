@@ -229,7 +229,6 @@ public class SortedListTest {
 		} catch (NullPointerException e) {
 			assertEquals(null, e.getMessage());
 		}
-
 	}
 
 	/**
@@ -255,6 +254,7 @@ public class SortedListTest {
 		list.clear();
 
 		// Test that the list is empty
+		assertEquals(0, list.size());
 		assertTrue(list.isEmpty());
 
 	}
