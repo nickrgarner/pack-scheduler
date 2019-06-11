@@ -32,6 +32,8 @@ public class Student implements Comparable<Student> {
 	 * @param email      Student's email address
 	 * @param password   Student's password
 	 * @param maxCredits Maximum number of credits student can enroll in
+	 * @throws IllegalArgumentException When parameters violate requirements
+	 *                                  detailed in setter methods.
 	 */
 	public Student(String firstName, String lastName, String id, String email, String password, int maxCredits)
 			throws IllegalArgumentException {
@@ -44,7 +46,7 @@ public class Student implements Comparable<Student> {
 	}
 
 	/**
-	 * Constructs a student object with default maxCredits of 18
+	 * Constructs a Student object with default maxCredits of 18
 	 * 
 	 * @param firstName First name of student
 	 * @param lastName  Last name of student
@@ -57,7 +59,7 @@ public class Student implements Comparable<Student> {
 	}
 
 	/**
-	 * Method to return firstName of student
+	 * Method to return firstName of Student as a String
 	 * 
 	 * @return Returns student's first name
 	 */
@@ -69,6 +71,7 @@ public class Student implements Comparable<Student> {
 	 * Method to set firstName of student
 	 * 
 	 * @param firstName The firstName to set
+	 * @throws IllegalArgumentException When parameter is null or the empty string.
 	 */
 	public void setFirstName(String firstName) {
 		if (firstName == null || firstName.equals("")) {
@@ -78,7 +81,7 @@ public class Student implements Comparable<Student> {
 	}
 
 	/**
-	 * Method to return lastName of student
+	 * Method to return lastName of Student as a String
 	 * 
 	 * @return Returns student's last name
 	 */
@@ -87,9 +90,10 @@ public class Student implements Comparable<Student> {
 	}
 
 	/**
-	 * Method to set lastName of student
+	 * Method to set lastName of student to given String parameter.
 	 * 
 	 * @param lastName the lastName to set
+	 * @throws IllegalArgumentException When parameter is null or the empty string.
 	 */
 	public void setLastName(String lastName) {
 		if (lastName == null || lastName.equals("")) {
@@ -99,7 +103,7 @@ public class Student implements Comparable<Student> {
 	}
 
 	/**
-	 * Method to return id of student
+	 * Method to return Unity ID of Student as a String
 	 * 
 	 * @return Returns student's Unity ID
 	 */
@@ -108,7 +112,7 @@ public class Student implements Comparable<Student> {
 	}
 
 	/**
-	 * Method set's student's Unity ID
+	 * Method set's student's Unity ID to given String parameter.
 	 * 
 	 * @param id the id to set
 	 */
@@ -120,7 +124,7 @@ public class Student implements Comparable<Student> {
 	}
 
 	/**
-	 * Method to return student's email address
+	 * Method to return student's email address as a String
 	 * 
 	 * @return Returns student's email address
 	 */
@@ -129,9 +133,13 @@ public class Student implements Comparable<Student> {
 	}
 
 	/**
-	 * Method to set student's email address
+	 * Method to set student's email address to given String parameter.
 	 * 
 	 * @param email The email to set
+	 * @throws IllegalArgumentException When parameter is null or the empty string,
+	 *                                  if parameter does not contain at least one
+	 *                                  "@" sign and one . (dot) sign, or if there
+	 *                                  is no dot after the last "@" sign.
 	 */
 	public void setEmail(String email) {
 		if (email == null || email.equals("")) {
@@ -159,6 +167,7 @@ public class Student implements Comparable<Student> {
 	 * Method to set student's password
 	 * 
 	 * @param password the password to set
+	 * @throws IllegalArgumentException When parameter is null or the empty string.
 	 */
 	public void setPassword(String password) {
 		if (password == null || password.equals("")) {
@@ -168,7 +177,8 @@ public class Student implements Comparable<Student> {
 	}
 
 	/**
-	 * Method to return maximum number of credits student can enroll in
+	 * Method to return maximum number of credits this Student can enroll in as an
+	 * int
 	 * 
 	 * @return Returns maxCredits for student
 	 */
@@ -180,9 +190,10 @@ public class Student implements Comparable<Student> {
 	 * Sets the maximum number of credits the student can take
 	 * 
 	 * @param maxCredits the maxCredits to set
+	 * @throws IllegalArgumentException When the maxCredits parameter is less than 3 or greater than 18
 	 */
 	public void setMaxCredits(int maxCredits) {
-		if (maxCredits < 3 || maxCredits > 18) {
+		if (maxCredits < 3 || maxCredits > MAX_CREDITS) {
 			throw new IllegalArgumentException("Invalid max credits");
 		}
 		this.maxCredits = maxCredits;
@@ -190,6 +201,7 @@ public class Student implements Comparable<Student> {
 
 	/**
 	 * Ensures that student objects with matching field data hash to the same value
+	 * @return Hash value of method caller
 	 */
 	@Override
 	public int hashCode() {
@@ -261,39 +273,37 @@ public class Student implements Comparable<Student> {
 	}
 
 	/**
-	 * Returns -1, 0, or 1 if this object comes before, matches, or comes after the comparison parameter. Comparison is based on Student's lastName, firstName, and id fields, in that order.
-	 * @param comparison The Student to compare to the method caller based on lastName, firstName, and id.
+	 * Returns -1, 0, or 1 if this object comes before, matches, or comes after the
+	 * comparison parameter. Comparison is based on Student's lastName, firstName,
+	 * and id fields, in that order.
+	 * 
+	 * @param comparison The Student to compare to the method caller based on
+	 *                   lastName, firstName, and id.
 	 */
 	@Override
 	public int compareTo(Student comparison) {
 		int lastNameCompare = this.getLastName().compareTo(comparison.getLastName());
 		int firstNameCompare = this.getFirstName().compareTo(comparison.getFirstName());
 		int idCompare = this.getId().compareTo(comparison.getId());
-		
+
 		if (lastNameCompare != 0) {
 			if (lastNameCompare < 0) {
 				return -1;
-			}
-			else if (lastNameCompare > 0) {
+			} else if (lastNameCompare > 0) {
 				return 1;
 			}
-		}
-		else if (firstNameCompare != 0) {
+		} else if (firstNameCompare != 0) {
 			if (firstNameCompare < 0) {
 				return -1;
-			}
-			else if (firstNameCompare > 0) {
+			} else if (firstNameCompare > 0) {
 				return 1;
 			}
-		}
-		else {
+		} else {
 			if (idCompare < 0) {
 				return -1;
-			}
-			else if (idCompare > 0) {
+			} else if (idCompare > 0) {
 				return 1;
-			}
-			else {
+			} else {
 				return 0;
 			}
 		}

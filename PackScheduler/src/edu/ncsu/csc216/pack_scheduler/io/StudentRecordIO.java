@@ -2,13 +2,13 @@ package edu.ncsu.csc216.pack_scheduler.io;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.io.FileInputStream;
 import java.io.PrintStream;
 import java.io.File;
 
+import edu.ncsu.csc216.collections.list.SortedList;
 import edu.ncsu.csc216.pack_scheduler.user.Student;
 
 /**
@@ -20,16 +20,16 @@ import edu.ncsu.csc216.pack_scheduler.user.Student;
 public class StudentRecordIO {
 
 	/**
-	 * Reads input from txt file and returns ArrayList of processed students, sans
+	 * Reads input from txt file and returns ArrayList of processed students, minus
 	 * duplicates
 	 * 
 	 * @param fileName File name to read and process
-	 * @return Returns ArrayList of students
+	 * @return Returns SortedList of students
 	 * @throws FileNotFoundException File cannot be found as named
 	 */
-	public static ArrayList<Student> readStudentRecords(String fileName) throws FileNotFoundException {
+	public static SortedList<Student> readStudentRecords(String fileName) throws FileNotFoundException {
 		Scanner fileReader = new Scanner(new FileInputStream(fileName));
-		ArrayList<Student> output = new ArrayList<Student>();
+		SortedList<Student> output = new SortedList<Student>();
 		while (fileReader.hasNextLine()) {
 			try {
 				Student student = processStudent(fileReader.nextLine());
@@ -53,13 +53,13 @@ public class StudentRecordIO {
 	}
 
 	/**
-	 * Writes stored ArrayList of students to output file
+	 * Writes stored studentDirectory ArrayList of Students to given output fileName
 	 * 
 	 * @param fileName         File to write to
 	 * @param studentDirectory ArrayList of stored student records
 	 * @throws IOException Cannot write student records to file
 	 */
-	public static void writeStudentRecords(String fileName, ArrayList<Student> studentDirectory) throws IOException {
+	public static void writeStudentRecords(String fileName, SortedList<Student> studentDirectory) throws IOException {
 		PrintStream fileWriter = new PrintStream(new File(fileName));
 		for (int i = 0; i < studentDirectory.size(); i++) {
 			fileWriter.println(studentDirectory.get(i).toString());
