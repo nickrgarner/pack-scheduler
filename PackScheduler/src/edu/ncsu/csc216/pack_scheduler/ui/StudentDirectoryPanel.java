@@ -330,7 +330,7 @@ public class StudentDirectoryPanel extends JPanel implements ActionListener {
 		
 		/**
 		 * Constructs the {@link StudentDirectoryTableModel} by requesting the latest information
-		 * from the {@link RequirementTrackerModel}.
+		 * from the RequirementTrackerModel.
 		 */
 		public StudentDirectoryTableModel() {
 			updateData();
@@ -384,7 +384,7 @@ public class StudentDirectoryPanel extends JPanel implements ActionListener {
 		}
 		
 		/**
-		 * Updates the given model with {@link Student} information from the {@link StudentDirectory}.
+		 * Updates the given model with Student information from the {@link StudentDirectory}.
 		 */
 		public void updateData() {
 			data = studentDirectory.getStudentDirectory();
