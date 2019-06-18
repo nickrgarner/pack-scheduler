@@ -31,7 +31,7 @@ public class StudentDirectory {
 
 	/**
 	 * Creates an empty student directory. All students in the previous list are
-	 * list unless saved by the user.
+	 * lost unless saved by the user.
 	 */
 	public void newStudentDirectory() {
 		studentDirectory = new SortedList<Student>();
@@ -146,6 +146,7 @@ public class StudentDirectory {
 	 * Saves all students in the directory to a file.
 	 * 
 	 * @param fileName name of file to save students to.
+	 * @throws IllegalArgumentException If file cannot be written to.
 	 */
 	public void saveStudentDirectory(String fileName) {
 		try {

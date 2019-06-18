@@ -1,7 +1,10 @@
 package edu.ncsu.csc216.pack_scheduler.user;
 
 /**
- * Class defines state and behavior for Student objects
+ * Class defines state and behavior for Student users, implements Comparable
+ * interface. Student objects consist of relevant registration information like
+ * name, id, email, password, etc. Functionality includes getters/setters,
+ * equals and compareTo methods, and object String representation.
  * 
  * @author Nick Garner
  *
@@ -190,7 +193,8 @@ public class Student implements Comparable<Student> {
 	 * Sets the maximum number of credits the student can take
 	 * 
 	 * @param maxCredits the maxCredits to set
-	 * @throws IllegalArgumentException When the maxCredits parameter is less than 3 or greater than 18
+	 * @throws IllegalArgumentException When the maxCredits parameter is less than 3
+	 *                                  or greater than 18
 	 */
 	public void setMaxCredits(int maxCredits) {
 		if (maxCredits < 3 || maxCredits > MAX_CREDITS) {
@@ -201,6 +205,7 @@ public class Student implements Comparable<Student> {
 
 	/**
 	 * Ensures that student objects with matching field data hash to the same value
+	 * 
 	 * @return Hash value of method caller
 	 */
 	@Override

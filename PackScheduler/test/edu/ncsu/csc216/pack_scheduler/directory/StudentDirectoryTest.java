@@ -20,7 +20,7 @@ import org.junit.Test;
  */
 public class StudentDirectoryTest {
 
-	/** Valid course records */
+	/** Valid Student records */
 	private final String validTestFile = "test-files/student_records.txt";
 	/** Test first name */
 	private static final String FIRST_NAME = "Stu";
@@ -36,7 +36,7 @@ public class StudentDirectoryTest {
 	private static final int MAX_CREDITS = 15;
 
 	/**
-	 * Resets course_records.txt for use in other tests.
+	 * Resets student_records.txt for use in other tests.
 	 * 
 	 * @throws Exception if something fails during setup.
 	 */
