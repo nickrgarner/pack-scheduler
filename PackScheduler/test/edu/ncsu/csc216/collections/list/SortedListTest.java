@@ -13,7 +13,7 @@ import org.junit.Test;
 public class SortedListTest {
 
 	/**
-	 * Method tests that SortedList constructor properly creates an empty ArrayList
+	 * Method tests that SortedList constructor properly creates an empty SortedList
 	 * and properly increases in size past initial capacity of 10.
 	 */
 	@Test
