@@ -24,7 +24,7 @@ import edu.ncsu.csc216.pack_scheduler.course.Course;
 public class CourseRecordIO {
 
 	/**
-	 * Reads courses in from text file by line, adds to ArrayList storage
+	 * Reads courses in from text file by line, adds to SortedList storage
 	 * 
 	 * @param fileName Name of file to read in from
 	 * @return Returns SortedList of valid courses
@@ -95,10 +95,10 @@ public class CourseRecordIO {
 	}
 	
 	/**
-	 * Writes stored ArrayList of courses to output file
+	 * Writes stored SortedList of courses to output file
 	 * 
 	 * @param fileName File to be written to
-	 * @param courses  ArrayList of stored courses
+	 * @param courses  SortedList of stored courses
 	 * @throws IOException Cannot write course records to file
 	 */
 	public static void writeCourseRecords(String fileName, SortedList<Course> courses) throws IOException {

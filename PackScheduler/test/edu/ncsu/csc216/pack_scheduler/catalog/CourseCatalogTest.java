@@ -12,6 +12,8 @@ import java.util.Scanner;
 import org.junit.Before;
 import org.junit.Test;
 
+import edu.ncsu.csc216.pack_scheduler.course.Course;
+
 /**
  * Tests CourseCatalog class, load, add, remove, save, and reset functions.
  * 
@@ -147,12 +149,20 @@ public class CourseCatalogTest {
 		assertEquals("Programming Concepts - Java", catArray[4][2]);
 		assertEquals("TH 1:30PM-2:45PM", catArray[2][3]);
 	}
+	
+	/**
+	 * Tests that CourseCatalog.getCourseFromCatalog() returns the proper course
+	 */
+	@Test
+	public void testGetCourseFromCatalog() {
+		CourseCatalog cc = new CourseCatalog();
+		cc.loadCoursesFromFile(validTestFile);
+		assertEquals(8, cc.getCourseCatalog().length);
+		Course testCourse = new Course("CSC216", "Programming Concepts - Java", "001", 4, "sesmith5", "TH", 1330, 1445);
+		assertEquals(testCourse, cc.getCourseFromCatalog("CSC216", "001"));
+		assertEquals(null, cc.getCourseFromCatalog("MA241", "004"));
+	}
 
-//	@Test
-//	public void testGetCourseFromCatalog() {
-//		fail("Not yet implemented");
-//	}
-//
 //	@Test
 //	public void testGetCourseCatalog() {
 //		fail("Not yet implemented");
