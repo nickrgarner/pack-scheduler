@@ -156,4 +156,13 @@ public class StudentDirectory {
 			throw new IllegalArgumentException("Unable to write to file " + fileName);
 		}
 	}
+	
+	public Student getStudentById (String id) {
+		for (int i = 0; i < studentDirectory.size(); i++) {
+			if (studentDirectory.get(i).getId().equalsIgnoreCase(id)) {
+				return studentDirectory.get(i);
+			}
+		}
+		return null;
+	}
 }
