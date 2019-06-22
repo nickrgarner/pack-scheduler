@@ -51,7 +51,7 @@ public class StudentTest {
 	@Test
 	public void testStudentStringStringStringStringStringInt() {
 		// Tests null id param
-		Student invalid = null;
+		User invalid = null;
 		try {
 			invalid = new Student(FIRST_NAME, LAST_NAME, null, EMAIL, PASSWORD, MAX_CREDITS);
 		} catch (IllegalArgumentException e) {
@@ -360,14 +360,14 @@ public class StudentTest {
 	@Test
 	public void testEqualsObject() {
 		// Create Student test objects
-		Student s1 = new Student(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, MAX_CREDITS);
-		Student s2 = new Student(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, MAX_CREDITS);
-		Student s3 = new Student("Fred", LAST_NAME, ID, EMAIL, PASSWORD, MAX_CREDITS);
-		Student s4 = new Student(FIRST_NAME, "Weasley", ID, EMAIL, PASSWORD, MAX_CREDITS);
-		Student s5 = new Student(FIRST_NAME, LAST_NAME, "fweas", EMAIL, PASSWORD, MAX_CREDITS);
-		Student s6 = new Student(FIRST_NAME, LAST_NAME, ID, "fweas@ncsu.edu", PASSWORD, MAX_CREDITS);
-		Student s7 = new Student(FIRST_NAME, LAST_NAME, ID, EMAIL, "caput draconis", MAX_CREDITS);
-		Student s8 = new Student(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, 16);
+		User s1 = new Student(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, MAX_CREDITS);
+		User s2 = new Student(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, MAX_CREDITS);
+		User s3 = new Student("Fred", LAST_NAME, ID, EMAIL, PASSWORD, MAX_CREDITS);
+		User s4 = new Student(FIRST_NAME, "Weasley", ID, EMAIL, PASSWORD, MAX_CREDITS);
+		User s5 = new Student(FIRST_NAME, LAST_NAME, "fweas", EMAIL, PASSWORD, MAX_CREDITS);
+		User s6 = new Student(FIRST_NAME, LAST_NAME, ID, "fweas@ncsu.edu", PASSWORD, MAX_CREDITS);
+		User s7 = new Student(FIRST_NAME, LAST_NAME, ID, EMAIL, "caput draconis", MAX_CREDITS);
+		User s8 = new Student(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, 16);
 		Object test = new Object();
 //		Student s9 = new Student();
 //		Student s10 = new Student();
@@ -419,14 +419,14 @@ public class StudentTest {
 	@Test
 	public void testHashCode() {
 		// Create Student test objects
-		Student s1 = new Student(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, MAX_CREDITS);
-		Student s2 = new Student(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, MAX_CREDITS);
-		Student s3 = new Student("Fred", LAST_NAME, ID, EMAIL, PASSWORD, MAX_CREDITS);
-		Student s4 = new Student(FIRST_NAME, "Weasley", ID, EMAIL, PASSWORD, MAX_CREDITS);
-		Student s5 = new Student(FIRST_NAME, LAST_NAME, "fweas", EMAIL, PASSWORD, MAX_CREDITS);
-		Student s6 = new Student(FIRST_NAME, LAST_NAME, ID, "fweas@ncsu.edu", PASSWORD, MAX_CREDITS);
-		Student s7 = new Student(FIRST_NAME, LAST_NAME, ID, EMAIL, "caput draconis", MAX_CREDITS);
-		Student s8 = new Student(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, 16);
+		User s1 = new Student(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, MAX_CREDITS);
+		User s2 = new Student(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, MAX_CREDITS);
+		User s3 = new Student("Fred", LAST_NAME, ID, EMAIL, PASSWORD, MAX_CREDITS);
+		User s4 = new Student(FIRST_NAME, "Weasley", ID, EMAIL, PASSWORD, MAX_CREDITS);
+		User s5 = new Student(FIRST_NAME, LAST_NAME, "fweas", EMAIL, PASSWORD, MAX_CREDITS);
+		User s6 = new Student(FIRST_NAME, LAST_NAME, ID, "fweas@ncsu.edu", PASSWORD, MAX_CREDITS);
+		User s7 = new Student(FIRST_NAME, LAST_NAME, ID, EMAIL, "caput draconis", MAX_CREDITS);
+		User s8 = new Student(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, 16);
 
 		// Test identical objects for same hash code
 		assertEquals(s1.hashCode(), s2.hashCode());

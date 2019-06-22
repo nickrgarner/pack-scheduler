@@ -9,18 +9,8 @@ package edu.ncsu.csc216.pack_scheduler.user;
  * @author Nick Garner
  *
  */
-public class Student implements Comparable<Student> {
+public class Student extends User implements Comparable<Student> {
 
-	/** Student's first name */
-	private String firstName;
-	/** Student's last name */
-	private String lastName;
-	/** Student's Unity ID */
-	private String id;
-	/** Student's email address */
-	private String email;
-	/** Student's password */
-	private String password;
 	/** Maximum number of credits the student can enroll in */
 	private int maxCredits;
 	/** Maximum number of credits any student can enroll in */
@@ -40,11 +30,7 @@ public class Student implements Comparable<Student> {
 	 */
 	public Student(String firstName, String lastName, String id, String email, String password, int maxCredits)
 			throws IllegalArgumentException {
-		setFirstName(firstName);
-		setLastName(lastName);
-		setId(id);
-		setEmail(email);
-		setPassword(password);
+		super(firstName, lastName, id, email, password);
 		setMaxCredits(maxCredits);
 	}
 
@@ -59,124 +45,6 @@ public class Student implements Comparable<Student> {
 	 */
 	public Student(String firstName, String lastName, String id, String email, String password) {
 		this(firstName, lastName, id, email, password, MAX_CREDITS);
-	}
-
-	/**
-	 * Method to return firstName of Student as a String
-	 * 
-	 * @return Returns student's first name
-	 */
-	public String getFirstName() {
-		return firstName;
-	}
-
-	/**
-	 * Method to set firstName of student
-	 * 
-	 * @param firstName The firstName to set
-	 * @throws IllegalArgumentException When parameter is null or the empty string.
-	 */
-	public void setFirstName(String firstName) {
-		if (firstName == null || firstName.equals("")) {
-			throw new IllegalArgumentException("Invalid first name");
-		}
-		this.firstName = firstName;
-	}
-
-	/**
-	 * Method to return lastName of Student as a String
-	 * 
-	 * @return Returns student's last name
-	 */
-	public String getLastName() {
-		return lastName;
-	}
-
-	/**
-	 * Method to set lastName of student to given String parameter.
-	 * 
-	 * @param lastName the lastName to set
-	 * @throws IllegalArgumentException When parameter is null or the empty string.
-	 */
-	public void setLastName(String lastName) {
-		if (lastName == null || lastName.equals("")) {
-			throw new IllegalArgumentException("Invalid last name");
-		}
-		this.lastName = lastName;
-	}
-
-	/**
-	 * Method to return Unity ID of Student as a String
-	 * 
-	 * @return Returns student's Unity ID
-	 */
-	public String getId() {
-		return id;
-	}
-
-	/**
-	 * Method set's student's Unity ID to given String parameter.
-	 * 
-	 * @param id the id to set
-	 */
-	private void setId(String id) {
-		if (id == null || id.equals("")) {
-			throw new IllegalArgumentException("Invalid id");
-		}
-		this.id = id;
-	}
-
-	/**
-	 * Method to return student's email address as a String
-	 * 
-	 * @return Returns student's email address
-	 */
-	public String getEmail() {
-		return email;
-	}
-
-	/**
-	 * Method to set student's email address to given String parameter.
-	 * 
-	 * @param email The email to set
-	 * @throws IllegalArgumentException When parameter is null or the empty string,
-	 *                                  if parameter does not contain at least one
-	 *                                  "@" sign and one . (dot) sign, or if there
-	 *                                  is no dot after the last "@" sign.
-	 */
-	public void setEmail(String email) {
-		if (email == null || email.equals("")) {
-			throw new IllegalArgumentException("Invalid email");
-		}
-		if (!email.contains("@") || !email.contains(".")) {
-			throw new IllegalArgumentException("Invalid email");
-		}
-		if (email.lastIndexOf(".") < email.lastIndexOf("@")) {
-			throw new IllegalArgumentException("Invalid email");
-		}
-		this.email = email;
-	}
-
-	/**
-	 * Method to return password
-	 * 
-	 * @return Returns the student's password
-	 */
-	public String getPassword() {
-		return password;
-	}
-
-	/**
-	 * Method to set student's password
-	 * 
-	 * @param password the password to set
-	 * @throws IllegalArgumentException When parameter is null or the empty string.
-	 */
-	public void setPassword(String password) {
-		if (password == null || password.equals("")) {
-			throw new IllegalArgumentException("Invalid password");
-		}
-		this.password = password;
 	}
 
 	/**
@@ -211,13 +79,8 @@ public class Student implements Comparable<Student> {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		int result = super.hashCode();
 		result = prime * result + maxCredits;
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		return result;
 	}
 
@@ -232,37 +95,12 @@ public class Student implements Comparable<Student> {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		Student other = (Student) obj;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (firstName == null) {
-			if (other.firstName != null)
-				return false;
-		} else if (!firstName.equals(other.firstName))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (lastName == null) {
-			if (other.lastName != null)
-				return false;
-		} else if (!lastName.equals(other.lastName))
-			return false;
 		if (maxCredits != other.maxCredits)
-			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
 			return false;
 		return true;
 	}
@@ -274,7 +112,8 @@ public class Student implements Comparable<Student> {
 	 */
 	@Override
 	public String toString() {
-		return firstName + "," + lastName + "," + id + "," + email + "," + password + "," + maxCredits;
+		return this.getFirstName() + "," + this.getLastName() + "," + this.getId() + "," + this.getEmail() + ","
+				+ this.getPassword() + "," + this.getMaxCredits();
 	}
 
 	/**

@@ -10,6 +10,7 @@ import java.io.File;
 
 import edu.ncsu.csc216.collections.list.SortedList;
 import edu.ncsu.csc216.pack_scheduler.user.Student;
+import edu.ncsu.csc216.pack_scheduler.user.User;
 
 /**
  * Class controls behavior for reading/writing student info in/out of database
@@ -35,7 +36,7 @@ public class StudentRecordIO {
 				Student student = processStudent(fileReader.nextLine());
 				boolean duplicate = false;
 				for (int i = 0; i < output.size(); i++) {
-					Student s = output.get(i);
+					User s = output.get(i);
 					if (student.equals(s)) {
 						// it's a duplicate
 						duplicate = true;
