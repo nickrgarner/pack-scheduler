@@ -122,6 +122,9 @@ public class RegistrationManager {
 	 */
 	public boolean login(String id, String password) {
 		Student s = studentDirectory.getStudentById(id);
+//		if (currentUser != registrar) {
+//			throw new IllegalArgumentException("Cannot login while another student is logged in");
+//		}
 		if (s == null && !(id.equals(registrar.getId()))) {
 			throw new IllegalArgumentException("User doesn't exist.");
 		}

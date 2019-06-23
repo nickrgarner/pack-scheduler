@@ -284,7 +284,7 @@ public abstract class Activity implements Conflict {
 			 * possibleConflictingActivity.meetingDays substring
 			 */
 			boolean dayConflict = this.meetingDays.contains(days.substring(i, i + 1));
-			if (dayConflict && timeConflict) {
+			if (dayConflict && timeConflict && !this.meetingDays.contains("A") && !days.contains("A")) {
 				throw new ConflictException();
 			}
 		}
