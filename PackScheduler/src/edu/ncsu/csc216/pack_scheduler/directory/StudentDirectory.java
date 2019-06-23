@@ -157,6 +157,11 @@ public class StudentDirectory {
 		}
 	}
 	
+	/**
+	 * Searches the studentDirectory SortedList sequentially for the given id parameter and returns the matching Student.
+	 * @param id The Unity ID to search the studentDirectory for.
+	 * @return Returns the Student object if a match is found, else returns null.
+	 */
 	public Student getStudentById (String id) {
 		for (int i = 0; i < studentDirectory.size(); i++) {
 			if (studentDirectory.get(i).getId().equalsIgnoreCase(id)) {

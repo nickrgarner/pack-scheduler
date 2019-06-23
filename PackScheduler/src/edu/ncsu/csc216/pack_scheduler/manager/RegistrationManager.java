@@ -12,21 +12,45 @@ import edu.ncsu.csc216.pack_scheduler.directory.StudentDirectory;
 import edu.ncsu.csc216.pack_scheduler.user.Student;
 import edu.ncsu.csc216.pack_scheduler.user.User;
 
+/**
+ * Class defines Singleton model and behavior for RegistrationManager object.
+ * This class controls login/out logic as well as some basic getters for the
+ * CourseCatalog and StudentDirectory sorted lists. Inner class defines
+ * constructor for Registrar objects.
+ * 
+ * @author Nick Garner
+ *
+ */
 public class RegistrationManager {
 
+	/** Singleton instance of class */
 	private static RegistrationManager instance;
+	/** Catalog of courses in PackScheduler */
 	private CourseCatalog courseCatalog;
+	/** Directory of students in PackScheduler */
 	private StudentDirectory studentDirectory;
+	/** Holds credentials of registrar login */
 	private User registrar;
+	/** The user currently logged into the system */
 	private User currentUser;
 	/** Hashing algorithm */
 	private static final String HASH_ALGORITHM = "SHA-256";
+	/** Properties file for registrar fields */
 	private static final String PROP_FILE = "registrar.properties";
 
+	/**
+	 * Creates a new RegistrationManager object
+	 */
 	private RegistrationManager() {
 		createRegistrar();
+		courseCatalog = new CourseCatalog();
+		studentDirectory = new StudentDirectory();
 	}
 
+	/**
+	 * Creates a new Registrar user based on field data from registrar.properties
+	 * file
+	 */
 	private void createRegistrar() {
 		Properties prop = new Properties();
 
@@ -42,6 +66,11 @@ public class RegistrationManager {
 		}
 	}
 
+	/**
+	 * Helper method to hash passwords for use in comparisons for login.
+	 * @param pw The plain text password to hash
+	 * @return Returns password hashed with SHA-256
+	 */
 	private String hashPW(String pw) {
 		try {
 			MessageDigest digest1 = MessageDigest.getInstance(HASH_ALGORITHM);
@@ -65,26 +94,46 @@ public class RegistrationManager {
 		return instance;
 	}
 
+	/**
+	 * Returns the courseCatalog Sorted List.
+	 * 
+	 * @return Returns the courseCatalog object.
+	 */
 	public CourseCatalog getCourseCatalog() {
 		return courseCatalog;
 	}
 
+	/**
+	 * Returns the studentDirectory Sorted List.
+	 * 
+	 * @return Returns the studentDirectory object.
+	 */
 	public StudentDirectory getStudentDirectory() {
 		return studentDirectory;
 	}
 
+	/**
+	 * Checks that the given password matches the stored student password, or if the
+	 * id is a Registrar id, that the given password matches the Registrar password.
+	 * 
+	 * @param id       The id to compare to records
+	 * @param password The password to compare to records
+	 * @return Returns true if login is successful, false otherwise.
+	 */
 	public boolean login(String id, String password) {
 		Student s = studentDirectory.getStudentById(id);
-		try {
-			MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
-			digest.update(password.getBytes());
-			String localHashPW = new String(digest.digest());
-			if (s.getPassword().equals(localHashPW)) {
-				currentUser = s;
-				return true;
+		if (!(s == null)) {
+			try {
+				MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
+				digest.update(password.getBytes());
+				String localHashPW = new String(digest.digest());
+				if (s.getPassword().equals(localHashPW)) {
+					currentUser = s;
+					return true;
+				}
+			} catch (NoSuchAlgorithmException e) {
+				throw new IllegalArgumentException();
 			}
-		} catch (NoSuchAlgorithmException e) {
-			throw new IllegalArgumentException();
 		}
 
 		if (registrar.getId().equals(id)) {
@@ -105,18 +154,28 @@ public class RegistrationManager {
 		return false;
 	}
 
+	/**
+	 * Ends the session of a Student logged in and returns the system to the
+	 * Registrar control.
+	 */
 	public void logout() {
 		currentUser = registrar;
 	}
 
 	/**
-	 * @return
+	 * Returns the User object that is currently logged into the system. This may be
+	 * a Student or Registrar.
+	 * 
+	 * @return Returns the User that is currently logged into the system.
 	 */
 	public User getCurrentUser() {
-		// TODO implement method
-		return null;
+		return currentUser;
 	}
 
+	/**
+	 * Resets both courseCatalog and studentDirectory to empty Sorted Lists and
+	 * removes all data from them.
+	 */
 	public void clearData() {
 		courseCatalog.newCourseCatalog();
 		studentDirectory.newStudentDirectory();
