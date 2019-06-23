@@ -122,6 +122,9 @@ public class RegistrationManager {
 	 */
 	public boolean login(String id, String password) {
 		Student s = studentDirectory.getStudentById(id);
+		if (s == null && !(id.equals(registrar.getId()))) {
+			throw new IllegalArgumentException("User doesn't exist.");
+		}
 		if (!(s == null)) {
 			try {
 				MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);

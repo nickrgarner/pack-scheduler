@@ -35,7 +35,7 @@ public abstract class Activity implements Conflict {
 	 * @param startTime   Start time for the activity
 	 * @param endTime     End time for the activity
 	 */
-	public Activity(String title, String meetingDays, int startTime, int endTime) {
+	public Activity(String title, String meetingDays, int startTime, int endTime) throws IllegalArgumentException {
 		setTitle(title);
 		setMeetingDays(meetingDays);
 		setActivityTime(startTime, endTime);
@@ -59,7 +59,7 @@ public abstract class Activity implements Conflict {
 	 */
 	public void setTitle(String title) {
 		if (title == null || title.equals("")) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Invalid course title");
 		}
 		this.title = title;
 	}
@@ -77,8 +77,21 @@ public abstract class Activity implements Conflict {
 	 * Sets the days of the week that the activity meets
 	 * 
 	 * @param meetingDays the days of the week to set for the activity schedule
+	 * @throws IllegalArgumentException If parameter is empty, contains invalid
+	 *                                  days, or contains a combination of days and
+	 *                                  Arranged
 	 */
 	public void setMeetingDays(String meetingDays) {
+		if (meetingDays == null || meetingDays.equalsIgnoreCase("")) {
+			throw new IllegalArgumentException("Invalid meeting days");
+		}
+		if (!meetingDays.contains("M") && !meetingDays.contains("T") && !meetingDays.contains("W")
+				&& !meetingDays.contains("H") && !meetingDays.contains("F") && !meetingDays.contains("A")) {
+			throw new IllegalArgumentException("Invalid meeting days");
+		}
+		if (meetingDays.contains("A") && meetingDays.length() > 1) {
+			throw new IllegalArgumentException("Invalid meeting days");
+		}
 		this.meetingDays = meetingDays;
 	}
 
@@ -113,17 +126,23 @@ public abstract class Activity implements Conflict {
 	 *                                  class
 	 */
 	public void setActivityTime(int startTime, int endTime) {
-		if (startTime < 0 || startTime >= UPPER_TIME || endTime < 0 || endTime >= UPPER_TIME) {
-			throw new IllegalArgumentException();
+		if (startTime < 0 || startTime >= UPPER_TIME) {
+			throw new IllegalArgumentException("Invalid start time");
+		}
+		if (endTime < 0 || endTime >= UPPER_TIME) {
+			throw new IllegalArgumentException("Invalid end time");
 		}
 		if (endTime < startTime) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Invalid course times");
 		}
 		if (meetingDays.equalsIgnoreCase("A") && (startTime != 0 || endTime != 0)) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Invalid course times");
 		}
-		if ((startTime % 100) >= UPPER_HOUR || (endTime % 100) >= UPPER_HOUR) {
-			throw new IllegalArgumentException();
+		if ((startTime % 100) >= UPPER_HOUR) {
+			throw new IllegalArgumentException("Invalid start time");
+		}
+		if ((endTime % 100) >= UPPER_HOUR) {
+			throw new IllegalArgumentException("Invalid end time");
 		}
 		this.startTime = startTime;
 		this.endTime = endTime;

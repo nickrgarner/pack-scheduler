@@ -43,7 +43,8 @@ public class Student extends User implements Comparable<Student> {
 	 * @param email     Student's email address
 	 * @param password  Student's password
 	 */
-	public Student(String firstName, String lastName, String id, String email, String password) {
+	public Student(String firstName, String lastName, String id, String email, String password)
+			throws IllegalArgumentException {
 		this(firstName, lastName, id, email, password, MAX_CREDITS);
 	}
 

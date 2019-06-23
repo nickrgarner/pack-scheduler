@@ -40,16 +40,16 @@ public abstract class User {
 	}
 
 	/**
-	 * Method to return firstName of Student as a String
+	 * Method to return firstName of User as a String
 	 * 
-	 * @return Returns student's first name
+	 * @return Returns User's first name
 	 */
 	public String getFirstName() {
 		return firstName;
 	}
 
 	/**
-	 * Method to set firstName of student
+	 * Method to set firstName of User
 	 * 
 	 * @param firstName The firstName to set
 	 * @throws IllegalArgumentException When parameter is null or the empty string.
@@ -62,16 +62,16 @@ public abstract class User {
 	}
 
 	/**
-	 * Method to return lastName of Student as a String
+	 * Method to return lastName of User as a String
 	 * 
-	 * @return Returns student's last name
+	 * @return Returns User's last name
 	 */
 	public String getLastName() {
 		return lastName;
 	}
 
 	/**
-	 * Method to set lastName of student to given String parameter.
+	 * Method to set lastName of User to given String parameter.
 	 * 
 	 * @param lastName the lastName to set
 	 * @throws IllegalArgumentException When parameter is null or the empty string.
@@ -84,16 +84,16 @@ public abstract class User {
 	}
 
 	/**
-	 * Method to return Unity ID of Student as a String
+	 * Method to return Unity ID of User as a String
 	 * 
-	 * @return Returns student's Unity ID
+	 * @return Returns User's Unity ID
 	 */
 	public String getId() {
 		return id;
 	}
 
 	/**
-	 * Method set's student's Unity ID to given String parameter.
+	 * Method set's User's Unity ID to given String parameter.
 	 * 
 	 * @param id the id to set
 	 */
@@ -105,16 +105,16 @@ public abstract class User {
 	}
 
 	/**
-	 * Method to return student's email address as a String
+	 * Method to return User's email address as a String
 	 * 
-	 * @return Returns student's email address
+	 * @return Returns User's email address
 	 */
 	public String getEmail() {
 		return email;
 	}
 
 	/**
-	 * Method to set student's email address to given String parameter.
+	 * Method to set User's email address to given String parameter.
 	 * 
 	 * @param email The email to set
 	 * @throws IllegalArgumentException When parameter is null or the empty string,
@@ -138,14 +138,14 @@ public abstract class User {
 	/**
 	 * Method to return password
 	 * 
-	 * @return Returns the student's password
+	 * @return Returns the User's password
 	 */
 	public String getPassword() {
 		return password;
 	}
 
 	/**
-	 * Method to set student's password
+	 * Method to set User's password
 	 * 
 	 * @param password the password to set
 	 * @throws IllegalArgumentException When parameter is null or the empty string.

@@ -42,7 +42,7 @@ public class Course extends Activity implements Comparable<Course> {
 	 * @param endTime      end time for course
 	 */
 	public Course(String name, String title, String section, int credits, String instructorId, String meetingDays,
-			int startTime, int endTime) {
+			int startTime, int endTime) throws IllegalArgumentException {
 		super(title, meetingDays, startTime, endTime);
 		setName(name);
 		setSection(section);
@@ -61,7 +61,7 @@ public class Course extends Activity implements Comparable<Course> {
 	 * @param instructorId instructor's unity id
 	 * @param meetingDays  meeting days for course as series of Chars
 	 */
-	public Course(String name, String title, String section, int credits, String instructorId, String meetingDays) {
+	public Course(String name, String title, String section, int credits, String instructorId, String meetingDays) throws IllegalArgumentException {
 		this(name, title, section, credits, instructorId, meetingDays, 0, 0);
 	}
 
@@ -85,10 +85,10 @@ public class Course extends Activity implements Comparable<Course> {
 	 */
 	private void setName(String name) {
 		if (name == null) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Invalid course name");
 		}
 		if (name.length() < MIN_NAME_LENGTH || name.length() > MAX_NAME_LENGTH) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Invalid course name");
 		}
 		this.name = name;
 	}
@@ -113,13 +113,13 @@ public class Course extends Activity implements Comparable<Course> {
 	 */
 	public void setSection(String section) {
 		if (section == null) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Invalid section number");
 		}
 		if (section.equals("")) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Invalid section number");
 		}
 		if (section.length() != SECTION_LENGTH) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Invalid section number");
 		}
 		this.section = section;
 	}
@@ -143,7 +143,7 @@ public class Course extends Activity implements Comparable<Course> {
 	 */
 	public void setCredits(int credits) {
 		if (credits < MIN_CREDITS || credits > MAX_CREDITS) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Invalid credit hours");
 		}
 		this.credits = credits;
 	}
@@ -167,7 +167,7 @@ public class Course extends Activity implements Comparable<Course> {
 	 */
 	public void setInstructorId(String instructorId) {
 		if (instructorId == null || instructorId.equals("")) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Invalid instructor unity id");
 		}
 		this.instructorId = instructorId;
 	}
