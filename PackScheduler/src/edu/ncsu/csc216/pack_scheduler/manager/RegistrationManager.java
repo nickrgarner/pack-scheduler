@@ -173,7 +173,7 @@ public class RegistrationManager {
 	 * Registrar control.
 	 */
 	public void logout() {
-		currentUser = registrar;
+		currentUser = null;
 		isLoggedIn = false;
 	}
 
