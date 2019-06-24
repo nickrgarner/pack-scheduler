@@ -65,10 +65,11 @@ public class RegistrationManagerTest {
 	 */
 	@Test
 	public void testLogin() {
-		manager.getStudentDirectory().addStudent("Fred", "Weasley", "fweasle", "fweasle@ncsu.edu", "mischiefmanaged",
-				"mischiefmanaged", 15);
+		manager.logout();
+		manager.getStudentDirectory().addStudent("Fred", "Weasley", "fweasle", "fweasle@ncsu.edu", "pw", "pw", 15);
+		assertTrue(manager.login("fweasle", "pw"));
+		manager.logout();
 		assertFalse(manager.login("fweasle", "pigsnout"));
-		assertTrue(manager.login("fweasle", "mischiefmanaged"));
 
 		Properties prop = new Properties();
 		try (InputStream input = new FileInputStream(PROP_FILE)) {
@@ -78,6 +79,7 @@ public class RegistrationManagerTest {
 		}
 
 		assertTrue(manager.login(prop.getProperty("id"), prop.getProperty("pw")));
+		manager.logout();
 		assertFalse(manager.login(prop.getProperty("id"), "badpassword"));
 	}
 

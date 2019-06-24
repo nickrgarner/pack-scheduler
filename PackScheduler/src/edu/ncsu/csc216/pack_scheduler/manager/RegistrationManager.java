@@ -37,6 +37,8 @@ public class RegistrationManager {
 	private static final String HASH_ALGORITHM = "SHA-256";
 	/** Properties file for registrar fields */
 	private static final String PROP_FILE = "registrar.properties";
+	/** Tracks whether a User is currently logged in */
+	private boolean isLoggedIn = false;
 
 	/**
 	 * Creates a new RegistrationManager object
@@ -121,27 +123,11 @@ public class RegistrationManager {
 	 * @return Returns true if login is successful, false otherwise.
 	 */
 	public boolean login(String id, String password) {
-		Student s = studentDirectory.getStudentById(id);
-		if (currentUser == s) {
+		if (isLoggedIn) {
 			return false;
 		}
-		if (s == null && !(id.equals(registrar.getId()))) {
-			throw new IllegalArgumentException("User doesn't exist.");
-		}
-		if (s != null) {
-			try {
-				MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
-				digest.update(password.getBytes());
-				String localHashPW = new String(digest.digest());
-				if (s.getPassword().equals(localHashPW)) {
-					currentUser = s;
-					return true;
-				}
-			} catch (NoSuchAlgorithmException e) {
-				throw new IllegalArgumentException();
-			}
-		}
-
+		
+		//Registrar login if ID == registrar ID
 		if (registrar.getId().equals(id)) {
 			MessageDigest digest;
 			try {
@@ -150,13 +136,35 @@ public class RegistrationManager {
 				String localHashPW = new String(digest.digest());
 				if (registrar.getPassword().equals(localHashPW)) {
 					currentUser = registrar;
+					isLoggedIn = true;
 					return true;
+				}
+				else {
+					return false;
 				}
 			} catch (NoSuchAlgorithmException e) {
 				throw new IllegalArgumentException();
 			}
 		}
-
+		
+		//If student cannot be found in directory, throw exception
+		Student s = studentDirectory.getStudentById(id);
+		if (s == null) {
+			throw new IllegalArgumentException("User doesn't exist.");
+		}
+		//If student exists, check login password
+		try {
+			MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
+			digest.update(password.getBytes());
+			String localHashPW = new String(digest.digest());
+			if (s.getPassword().equals(localHashPW)) {
+				currentUser = s;
+				isLoggedIn = true;
+				return true;
+			}
+		} catch (NoSuchAlgorithmException e) {
+			throw new IllegalArgumentException();
+		}
 		return false;
 	}
 
@@ -166,6 +174,7 @@ public class RegistrationManager {
 	 */
 	public void logout() {
 		currentUser = registrar;
+		isLoggedIn = false;
 	}
 
 	/**
