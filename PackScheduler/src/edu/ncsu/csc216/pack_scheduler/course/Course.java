@@ -1,5 +1,8 @@
 package edu.ncsu.csc216.pack_scheduler.course;
 
+import edu.ncsu.csc216.pack_scheduler.course.validator.CourseNameValidator;
+import edu.ncsu.csc216.pack_scheduler.course.validator.InvalidTransitionException;
+
 /**
  * Class defines state and behavior for Course objects to be used in
  * WolfScheduler object. Courses can be created with either set meeting times or
@@ -18,6 +21,8 @@ public class Course extends Activity implements Comparable<Course> {
 	private int credits;
 	/** Course instructor's Unity ID */
 	private String instructorId;
+	/** CourseNameValidator object to check that course name is valid */
+	private CourseNameValidator validator;
 	/** Expected number of digits for section number */
 	private static final int SECTION_LENGTH = 3;
 	/** Max # of chars for course name */
@@ -44,6 +49,7 @@ public class Course extends Activity implements Comparable<Course> {
 	public Course(String name, String title, String section, int credits, String instructorId, String meetingDays,
 			int startTime, int endTime) throws IllegalArgumentException {
 		super(title, meetingDays, startTime, endTime);
+		validator = new CourseNameValidator();
 		setName(name);
 		setSection(section);
 		setCredits(credits);
@@ -88,6 +94,11 @@ public class Course extends Activity implements Comparable<Course> {
 			throw new IllegalArgumentException("Invalid course name");
 		}
 		if (name.length() < MIN_NAME_LENGTH || name.length() > MAX_NAME_LENGTH) {
+			throw new IllegalArgumentException("Invalid course name");
+		}
+		try {
+			validator.isValid(name);
+		} catch (InvalidTransitionException e) {
 			throw new IllegalArgumentException("Invalid course name");
 		}
 		this.name = name;
