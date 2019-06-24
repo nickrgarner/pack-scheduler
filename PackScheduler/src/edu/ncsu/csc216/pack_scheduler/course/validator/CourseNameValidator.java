@@ -56,7 +56,7 @@ public class CourseNameValidator {
 				currentState.onDigit();
 			}
 		}
-		if (currentState == stateSuffix || currentState == stateNumber) {
+		if (currentState == stateSuffix || (currentState == stateNumber && digitCount == 3)) {
 			validEndState = true;
 		}
 
