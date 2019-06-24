@@ -424,4 +424,25 @@ public class CourseNameValidatorTest {
 			assertEquals("Course name can only contain letters and digits.", e.getMessage());
 		}
 	}
+	
+//	@Test
+//	public void testTwoLetterSuffix() throws Exception {
+//		validator = new CourseNameValidator();
+//		String courseName = "CS216E";
+//		assertTrue(validator.isValid(courseName));
+//	}
+//	
+//	@Test
+//	public void testOneLetterSuffix() throws Exception {
+//		validator = new CourseNameValidator();
+//		String courseName = "C216E";
+//		assertTrue(validator.isValid(courseName));
+//	}
+//	
+//	@Test
+//	public void testFourLetterSuffix() throws Exception {
+//		validator = new CourseNameValidator();
+//		String courseName = "CSCS216E";
+//		assertTrue(validator.isValid(courseName));
+//	}
 }
