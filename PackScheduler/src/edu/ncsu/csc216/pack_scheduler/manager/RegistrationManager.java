@@ -70,6 +70,7 @@ public class RegistrationManager {
 
 	/**
 	 * Helper method to hash passwords for use in comparisons for login.
+	 * 
 	 * @param pw The plain text password to hash
 	 * @return Returns password hashed with SHA-256
 	 */
@@ -126,8 +127,8 @@ public class RegistrationManager {
 		if (isLoggedIn) {
 			return false;
 		}
-		
-		//Registrar login if ID == registrar ID
+
+		// Registrar login if ID == registrar ID
 		if (registrar.getId().equals(id)) {
 			MessageDigest digest;
 			try {
@@ -138,21 +139,20 @@ public class RegistrationManager {
 					currentUser = registrar;
 					isLoggedIn = true;
 					return true;
-				}
-				else {
+				} else {
 					return false;
 				}
 			} catch (NoSuchAlgorithmException e) {
 				throw new IllegalArgumentException();
 			}
 		}
-		
-		//If student cannot be found in directory, throw exception
+
+		// If student cannot be found in directory, throw exception
 		Student s = studentDirectory.getStudentById(id);
 		if (s == null) {
 			throw new IllegalArgumentException("User doesn't exist.");
 		}
-		//If student exists, check login password
+		// If student exists, check login password
 		try {
 			MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
 			digest.update(password.getBytes());
@@ -213,7 +213,7 @@ public class RegistrationManager {
 		 * @param lastName  Last name to set for Registrar
 		 * @param id        Unity ID to set for Registrar
 		 * @param email     Email address to set for Registrar
-		 * @param password  Plain text password to set for Registrar
+		 * @param hashPW    Hashed password to set for Registrar
 		 */
 		public Registrar(String firstName, String lastName, String id, String email, String hashPW) {
 			super(firstName, lastName, id, email, hashPW);
