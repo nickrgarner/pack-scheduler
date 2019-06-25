@@ -58,13 +58,6 @@ public class CourseNameValidator {
 			} else {
 				currentState.onOther();
 			}
-//			if (!Character.isLetterOrDigit(currentChar)) {
-//				currentState.onOther();
-//			} else if (Character.isLetter(currentChar)) {
-//				currentState.onLetter();
-//			} else if (Character.isDigit(currentChar)) {
-//				currentState.onDigit();
-//			}
 		}
 		if (currentState != stateLetter && digitCount == 3) {
 			validEndState = true;
@@ -176,8 +169,8 @@ public class CourseNameValidator {
 		 * When parsing a letter, increments letterCount unless letterCount is equal to
 		 * MAX_PREFIX_LETTERS
 		 * 
-		 * @throws InvalidTransitionException If called when letterCount >=
-		 *                                    MAX_PREFIX_LETTERS
+		 * @throws InvalidTransitionException If called when letterCount is greater than
+		 *                                    or equal to MAX_PREFIX_LETTERS
 		 */
 		@Override
 		public void onLetter() throws InvalidTransitionException {
@@ -231,10 +224,11 @@ public class CourseNameValidator {
 		}
 
 		/**
-		 * When parsing a digit, throws an exception if digitCount >=
-		 * COURSE_NUMBER_LENGTH, otherwise increments digitCount.
+		 * When parsing a digit, throws an exception if digitCount is greater than or
+		 * equal to COURSE_NUMBER_LENGTH, otherwise increments digitCount.
 		 * 
-		 * @throws InvalidTransitionException If digitCount >= COURSE_NUMBER_LENGTH
+		 * @throws InvalidTransitionException If digitCount is greater than or equal to
+		 *                                    COURSE_NUMBER_LENGTH
 		 */
 		@Override
 		public void onDigit() throws InvalidTransitionException {
