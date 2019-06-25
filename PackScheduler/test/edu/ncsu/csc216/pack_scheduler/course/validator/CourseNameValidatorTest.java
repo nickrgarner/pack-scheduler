@@ -128,7 +128,7 @@ public class CourseNameValidatorTest {
 	@Test
 	public void testStateLLDigit() throws Exception {
 		validator = new CourseNameValidator();
-		String courseName = "CS216";
+		String courseName = "AN231";
 		assertTrue(validator.isValid(courseName));
 	}
 
@@ -424,25 +424,86 @@ public class CourseNameValidatorTest {
 			assertEquals("Course name can only contain letters and digits.", e.getMessage());
 		}
 	}
-	
-//	@Test
-//	public void testTwoLetterSuffix() throws Exception {
-//		validator = new CourseNameValidator();
-//		String courseName = "CS216E";
-//		assertTrue(validator.isValid(courseName));
-//	}
-//	
+
+	@Test
+	public void testTwoLetterSuffix() throws Exception {
+		validator = new CourseNameValidator();
+		String courseName = "CS216E";
+		assertTrue(validator.isValid(courseName));
+	}
+
 //	@Test
 //	public void testOneLetterSuffix() throws Exception {
 //		validator = new CourseNameValidator();
 //		String courseName = "C216E";
 //		assertTrue(validator.isValid(courseName));
 //	}
-//	
+//
 //	@Test
 //	public void testFourLetterSuffix() throws Exception {
 //		validator = new CourseNameValidator();
 //		String courseName = "CSCS216E";
 //		assertTrue(validator.isValid(courseName));
 //	}
+//
+//	@Test
+//	public void testTwoLetterDigit() throws Exception {
+//		validator = new CourseNameValidator();
+//		String courseName = "CS216";
+//		assertTrue(validator.isValid(courseName));
+//	}
+
+//	@Test
+//	public void testThreeLetterTwoDigit() throws Exception {
+//		validator = new CourseNameValidator();
+//		String courseName = "CSC21";
+//		assertTrue(validator.isValid("A111"));
+//		
+//		assertTrue(validator.isValid("A111F"));
+//		
+//		assertTrue(validator.isValid("CS216"));
+//		
+//		assertTrue(validator.isValid("AN231"));
+//		
+//		assertTrue(validator.isValid("AN231G"));
+//		
+//		assertTrue(validator.isValid("ANT231"));
+//		
+//		assertTrue(validator.isValid("ANT231X"));
+//		
+//		assertFalse(validator.isValid("CSCS21"));
+//		
+//		assertFalse(validator.isValid("CSCS2"));
+//		
+//		assertFalse(validator.isValid("CSCS2"));
+//		
+//		//assertFalse(validator.isValid("CSCS21E"));
+//		
+//		assertFalse(validator.isValid("CSCS2E"));
+//		
+//		assertFalse(validator.isValid("CSC21"));
+//		
+//		assertFalse(validator.isValid("CSC2"));
+//		
+//		assertFalse(validator.isValid("CSC21E"));
+//		
+//		assertFalse(validator.isValid("CSC2E"));
+//		
+//		assertFalse(validator.isValid("CS21"));
+//		
+//		assertFalse(validator.isValid("CS2"));
+//		
+//		assertFalse(validator.isValid("CS21E"));
+//		
+//		assertFalse(validator.isValid("CS2E"));
+//		
+//		assertFalse(validator.isValid("C21"));
+//		
+//		assertFalse(validator.isValid("C2"));
+//		
+//		assertFalse(validator.isValid("C21E"));
+//		
+//		assertFalse(validator.isValid("C2E"));
+//	}
+
 }

@@ -46,19 +46,31 @@ public class CourseNameValidator {
 	 *                                    allowed.
 	 */
 	public boolean isValid(String courseName) throws InvalidTransitionException {
+		validEndState = false;
+		letterCount = 0;
+		digitCount = 0;
 		for (int i = 0; i < courseName.length(); i++) {
 			char currentChar = courseName.charAt(i);
-			if (!Character.isLetterOrDigit(currentChar)) {
-				currentState.onOther();
-			} else if (Character.isLetter(currentChar)) {
+			if (Character.isLetter(currentChar)) {
 				currentState.onLetter();
 			} else if (Character.isDigit(currentChar)) {
 				currentState.onDigit();
+			} else {
+				currentState.onOther();
 			}
+//			if (!Character.isLetterOrDigit(currentChar)) {
+//				currentState.onOther();
+//			} else if (Character.isLetter(currentChar)) {
+//				currentState.onLetter();
+//			} else if (Character.isDigit(currentChar)) {
+//				currentState.onDigit();
+//			}
 		}
-		if (currentState == stateSuffix || currentState == stateNumber && digitCount == 3) {
+		if (currentState != stateLetter && digitCount == 3) {
 			validEndState = true;
 		}
+
+		currentState = stateInitial;
 
 		return validEndState;
 	}
@@ -75,7 +87,7 @@ public class CourseNameValidator {
 		 * Null constructor
 		 */
 		public State() {
-			//Null
+			// Null
 		}
 
 		/**
@@ -124,6 +136,7 @@ public class CourseNameValidator {
 		 * Increments the letter counter and transitions the currentState to the letter
 		 * state when parsing a letter at the beginning of a Course name
 		 */
+		@Override
 		public void onLetter() {
 			letterCount++;
 			currentState = stateLetter;
@@ -136,6 +149,7 @@ public class CourseNameValidator {
 		 * @throws InvalidTransitionException To notify the user that a Course name
 		 *                                    cannot start with a digit.
 		 */
+		@Override
 		public void onDigit() throws InvalidTransitionException {
 			throw new InvalidTransitionException("Course name must start with a letter.");
 		}
@@ -165,6 +179,7 @@ public class CourseNameValidator {
 		 * @throws InvalidTransitionException If called when letterCount >=
 		 *                                    MAX_PREFIX_LETTERS
 		 */
+		@Override
 		public void onLetter() throws InvalidTransitionException {
 			if (letterCount < MAX_PREFIX_LETTERS) {
 				letterCount++;
@@ -177,6 +192,7 @@ public class CourseNameValidator {
 		 * When parsing a digit, increments digitCount and transitions currentState to
 		 * stateNumber
 		 */
+		@Override
 		public void onDigit() {
 			digitCount++;
 			currentState = stateNumber;
@@ -205,6 +221,7 @@ public class CourseNameValidator {
 		 * 
 		 * @throws InvalidTransitionException If digitCount != COURSE_NUMBER_LENGTH
 		 */
+		@Override
 		public void onLetter() throws InvalidTransitionException {
 			if (digitCount < COURSE_NUMBER_LENGTH) {
 				throw new InvalidTransitionException("Course name must have 3 digits.");
@@ -219,6 +236,7 @@ public class CourseNameValidator {
 		 * 
 		 * @throws InvalidTransitionException If digitCount >= COURSE_NUMBER_LENGTH
 		 */
+		@Override
 		public void onDigit() throws InvalidTransitionException {
 			if (digitCount < COURSE_NUMBER_LENGTH) {
 				digitCount++;
@@ -248,6 +266,7 @@ public class CourseNameValidator {
 		 * @throws InvalidTransitionException Course name is only allowed one suffix
 		 *                                    letter
 		 */
+		@Override
 		public void onLetter() throws InvalidTransitionException {
 			throw new InvalidTransitionException("Course name can only have a 1 letter suffix.");
 		}
@@ -259,6 +278,7 @@ public class CourseNameValidator {
 		 * @throws InvalidTransitionException Course name is only allowed to have
 		 *                                    letters in the suffix
 		 */
+		@Override
 		public void onDigit() throws InvalidTransitionException {
 			throw new InvalidTransitionException("Course name cannot contain digits after the suffix.");
 		}
