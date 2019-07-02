@@ -15,20 +15,29 @@ import edu.ncsu.csc216.pack_scheduler.course.Course;
  */
 public class ScheduleTest {
 
+	/** Schedule object to test */
 	private Schedule testSchedule;
+	/** Valid course */
 	private static final Course COURSE1 = new Course("AS231", "Care of Magical Creatures", "001", 3, "rhagrid", "MWF",
 			1020, 1150);
+	/** Valid course */
 	private static final Course COURSE2 = new Course("HI310", "A History of Magic", "002", 3, "cbinns", "TH", 1300,
 			1450);
+	/** Valid course */
 	private static final Course COURSE3 = new Course("CS115", "Intro to Herbology", "001", 3, "psprout", "MWF", 1400,
 			1450);
+	/** Valid course */
 	private static final Course COURSE4 = new Course("T226", "Advanced Transfiguration", "003", 3, "mmcgonagall", "MWF",
 			830, 1000);
+	/** Valid course */
 	private static final Course COURSE5 = new Course("CH330", "Advanced Potions", "001", 4, "ssnape", "TH", 900, 1130);
+	/** Course that conflicts with COURSE5 */
 	private static final Course COURSECONFLICT = new Course("DF316", "Defense Against the Dark Arts", "001", 4,
 			"rlupin", "TH", 830, 1000);
+	/** Course with same name as COURSE1 */
 	private static final Course COURSEDUPE = new Course("AS231", "Care of Magical Creatures", "002", 3, "rhagrid", "TH",
 			1200, 1250);
+	/** Course to be left off Schedule to test removeCourseFromSchedule exception */
 	private static final Course COURSEMIA = new Course("C110", "Charms I", "002", 3, "fflitwick", "A");
 
 	/**

@@ -14,7 +14,9 @@ import edu.ncsu.csc216.pack_scheduler.util.ArrayList;
  */
 public class Schedule {
 
+	/** ArrayList of courses to manipulate */
 	private ArrayList<Course> schedule;
+	/** Title of the schedule object */
 	private String title;
 
 	/**
