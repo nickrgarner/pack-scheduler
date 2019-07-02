@@ -6,26 +6,41 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Tests ArrayList<E> class
+ * Tests ArrayList<E> class for proper add, remove, size, set, and get
+ * funcionality
  * 
  * @author Nick Garner
  *
  */
 public class ArrayListTest {
 
+	/** ArrayList object to test */
 	ArrayList<String> testList;
+	/** Valid string */
 	private static final String STRING1 = "One ring to rule them all. One ring to find them. One ring to bring them all. And in the darkness bind them.";
+	/** Valid string */
 	private static final String STRING2 = "YOU SHALL NOT PASS!";
+	/** Valid string */
 	private static final String STRING3 = "The beacons are lit! Gondor calls for aid!";
+	/** Valid string */
 	private static final String STRING4 = "Nobody tosses a Dwarf!";
+	/** Valid string */
 	private static final String STRING5 = "A wizard is never late, Frodo Baggins. Nor is he early.";
+	/** Valid string */
 	private static final String STRING6 = "One does not simply walk into Mordor";
+	/** Valid string */
 	private static final String STRING7 = "You fool. No man can kill me. Die now.";
+	/** Valid string */
 	private static final String STRING8 = "I am no man.";
+	/** Valid string */
 	private static final String STRING9 = "Fly, you fools!";
+	/** Valid string */
 	private static final String STRING10 = "They're taking the hobbits to Isengard!";
+	/** Valid string */
 	private static final String STRING11 = "So it begins";
+	/** Duplicate string to test adding a duplicate */
 	private static final String STRINGDUPE = "They're taking the hobbits to Isengard!";
+	/** Null string to test adding a null object */
 	private static final String STRINGNULL = null;
 
 	/**

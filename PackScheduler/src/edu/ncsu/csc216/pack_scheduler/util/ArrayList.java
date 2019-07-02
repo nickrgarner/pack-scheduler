@@ -12,8 +12,11 @@ import java.util.AbstractList;
  */
 public class ArrayList<E> extends AbstractList<E> {
 
+	/** Default list capacity */
 	private static final int INIT_SIZE = 10;
+	/** List to hold E objects */
 	private E[] list;
+	/** Current capacity of list */
 	private int size;
 
 	/**

@@ -185,7 +185,7 @@ public class Course extends Activity implements Comparable<Course> {
 
 	/**
 	 * Compares method caller course to given activity to check if they have the
-	 * same name, used in WolfScheduler.addCourse
+	 * same name, used in PackScheduler.addCourse
 	 * 
 	 * @param activity Activity to compare to this course
 	 * @return True if activity name matches course name
