@@ -61,6 +61,9 @@ public class Schedule {
 	 * @return Returns true if course was successfully removed, false otherwise
 	 */
 	public boolean removeCourseFromSchedule(Course c) {
+		if (c == null) {
+			return false;
+		}
 		for (int i = 0; i < schedule.size(); i++) {
 			if (c.getName().equals(schedule.get(i).getName())) {
 				schedule.remove(i);
