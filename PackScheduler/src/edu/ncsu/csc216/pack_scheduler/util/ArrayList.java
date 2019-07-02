@@ -40,31 +40,35 @@ public class ArrayList<E> extends AbstractList<E> {
 	 */
 	public void add(int index, E obj) {
 		if (obj == null) {
-			throw new NullPointerException();
+			throw new NullPointerException("Object to add cannot be null");
 		}
 		if (index < 0 || index > this.size()) {
-			throw new IndexOutOfBoundsException();
+			throw new IndexOutOfBoundsException("Index is out of bounds");
 		}
 		// Check for dupes
 		for (int i = 0; i < size(); i++) {
-			if (obj.equals(get(index))) {
-				throw new IllegalArgumentException();
+			if (obj.equals(get(i))) {
+				throw new IllegalArgumentException("Object to add cannot be a duplicate");
 			}
 		}
 		// Check if capacity needs to be increased
-		if (size() + 1 >= size) {
-			growArray();
+		if (this.size() == size) {
+			this.growArray();
 		}
-		// Save specified index, replace with obj
-		E temp = get(index);
-		set(index, obj);
-		// Shift elements after index to the right
-		for (int i = size(); i > index; i--) {
-			set(i, get(i - 1));
+		// Add element to end
+		if (index == size()) {
+			list[index] = obj;
 		}
-		set(index + 1, temp);
+		// Add element to front or middle
+		else if (index < size()) {
+			// Shift elements after index to the right
+			for (int i = size(); i > index; i--) {
+				list[i] = list[i - 1];
+			}
+			set(index, obj);
+		}
 	}
-
+	
 	/**
 	 * Creates a new list with double the current list's capacity and copies over
 	 * the original list's elements
@@ -76,6 +80,7 @@ public class ArrayList<E> extends AbstractList<E> {
 			newList[i] = get(i);
 		}
 		list = (E[]) newList;
+		size *= 2;
 	}
 
 	/**
@@ -92,16 +97,14 @@ public class ArrayList<E> extends AbstractList<E> {
 	 * 
 	 */
 	public E remove(int index) {
-		if (index < 0 || index > this.size()) {
-			throw new IndexOutOfBoundsException();
+		if (index < 0 || index >= this.size()) {
+			throw new IndexOutOfBoundsException("Index is out of bounds");
 		}
 		E removed = get(index);
-		list[index] = null;
 		// Loop to shift elements left
 		for (int i = index; i < size(); i++) {
 			list[i] = list[i + 1];
 		}
-		list[size() - 1] = null;
 		return removed;
 	}
 
@@ -119,15 +122,15 @@ public class ArrayList<E> extends AbstractList<E> {
 	 */
 	public E set(int index, E obj) {
 		if (obj == null) {
-			throw new NullPointerException();
+			throw new NullPointerException("Object to set cannot be null");
 		}
-		if (index < 0 || index > this.size()) {
-			throw new IndexOutOfBoundsException();
+		if (index < 0 || index >= this.size()) {
+			throw new IndexOutOfBoundsException("Index is out of bounds");
 		}
 		// Check for dupes
 		for (int i = 0; i < size(); i++) {
-			if (obj.equals(get(index))) {
-				throw new IllegalArgumentException();
+			if (obj.equals(get(i))) {
+				throw new IllegalArgumentException("Object to set cannot be a duplicate");
 			}
 		}
 		E temp = get(index);
@@ -145,20 +148,21 @@ public class ArrayList<E> extends AbstractList<E> {
 	 */
 	public E get(int index) {
 		if (index < 0 || index >= size()) {
-			throw new IndexOutOfBoundsException();
+			throw new IndexOutOfBoundsException("Index is out of bounds");
+		} else {
+			return list[index];
 		}
-		return list[index];
 	}
 
 	/**
 	 * Returns the number of elements in the list as an int
-	 * @return Returns the number of elements in the list
 	 * 
+	 * @return Returns the number of elements in the list
 	 */
 	public int size() {
 		int numElements = 0;
 		for (int i = 0; i < this.size; i++) {
-			if (get(i) != null) {
+			if (list[i] != null) {
 				numElements++;
 			}
 		}
