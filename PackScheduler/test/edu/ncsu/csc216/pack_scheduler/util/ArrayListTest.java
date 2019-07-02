@@ -6,8 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Tests ArrayList<E> class for proper add, remove, size, set, and get
- * funcionality
+ * Tests custom ArrayList class for proper add, remove, size, set, and get
+ * functionality
  * 
  * @author Nick Garner
  *

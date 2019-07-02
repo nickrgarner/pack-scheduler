@@ -7,7 +7,7 @@ import edu.ncsu.csc216.pack_scheduler.util.ArrayList;
 /**
  * Class defines state and behavior for Schedule object to maintain an ArrayList
  * of courses. Class features basic add, remove and reset functionality as well
- * as set/get funcionality for schedule title.
+ * as set/get functionality for schedule title.
  * 
  * @author Nick Garner
  *
@@ -76,7 +76,6 @@ public class Schedule {
 	public void resetSchedule() {
 		schedule = new ArrayList<Course>();
 		setTitle("My Schedule");
-
 	}
 
 	/**
