@@ -25,10 +25,10 @@ public class Course extends Activity implements Comparable<Course> {
 	private CourseNameValidator validator;
 	/** Expected number of digits for section number */
 	private static final int SECTION_LENGTH = 3;
-	/** Max # of chars for course name */
-	private static final int MAX_NAME_LENGTH = 6;
-	/** Min # of chars for course name */
-	private static final int MIN_NAME_LENGTH = 4;
+//	/** Max # of chars for course name */
+//	private static final int MAX_NAME_LENGTH = 6;
+//	/** Min # of chars for course name */
+//	private static final int MIN_NAME_LENGTH = 4;
 	/** Max # of credit hours for course */
 	private static final int MAX_CREDITS = 5;
 	/** Min # of credit hours for course */
