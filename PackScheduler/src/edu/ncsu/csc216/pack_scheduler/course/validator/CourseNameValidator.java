@@ -3,22 +3,32 @@ package edu.ncsu.csc216.pack_scheduler.course.validator;
 /**
  * Class defines State pattern implementation for CourseNameValidator function.
  * Four inner classes serve as possible states when parsing a Course name, with
- * isValid method serving as the main validation check.
+ * isValid method serving as the main validation check. CourseName starts in
+ * initial state, moves to letter state for 1-4 letters, then number state for
+ * exactly 3 numbers, and finally suffix state for an optional suffix letter.
  * 
  * @author Nick Garner
  *
  */
 public class CourseNameValidator {
 
+	/** Boolean var to track if name has landed on a valid state to end with */
 	private boolean validEndState;
+	/** Running count of letters in the letter state */
 	private int letterCount;
+	/** Running count of numbers in the number state */
 	private int digitCount;
+	/** Current FSM state that the name validation is in */
 	private State currentState;
+	/** The default state that the FSM starts in */
 	private State stateInitial;
+	/** The second FSM state, where 1-4 letters are input */
 	private State stateLetter;
+	/** The third FSM state, where exactly 3 numbers are input */
 	private State stateNumber;
+	/** The final FSM state, where an optional single letter suffix can be input */
 	private State stateSuffix;
-
+	
 	/**
 	 * Constructs a new CourseNameValidator object with reset letter and digit
 	 * counts, and instantiates possible course name states.

@@ -90,14 +90,17 @@ public class Course extends Activity implements Comparable<Course> {
 	 *                                  MAX_NAME_LENGTH
 	 */
 	private void setName(String name) {
-		if (name == null) {
+		if (name == null || name.equals("")) {
 			throw new IllegalArgumentException("Invalid course name");
 		}
-		if (name.length() < MIN_NAME_LENGTH || name.length() > MAX_NAME_LENGTH) {
-			throw new IllegalArgumentException("Invalid course name");
-		}
+//		if (name.length() < MIN_NAME_LENGTH || name.length() > MAX_NAME_LENGTH) {
+//			throw new IllegalArgumentException("Invalid course name");
+//		}
 		try {
 			validator.isValid(name);
+			if (!validator.isValid(name)) {
+				throw new IllegalArgumentException("Invalid course name");
+			}
 		} catch (InvalidTransitionException e) {
 			throw new IllegalArgumentException("Invalid course name");
 		}
