@@ -214,10 +214,10 @@ public class Course extends Activity implements Comparable<Course> {
 	@Override
 	public void setMeetingDays(String meetingDays) {
 		if (meetingDays == null || meetingDays.equals("")) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Invalid meeting days");
 		}
 		if (meetingDays.contains("A") && meetingDays.length() != 1) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Invalid meeting days");
 		}
 		// Checks for invalid meeting day characters
 		for (int i = 0; i < meetingDays.length(); i++) {
