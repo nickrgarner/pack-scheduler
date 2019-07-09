@@ -56,26 +56,27 @@ public class CourseCatalog {
 	 * successfully added and false if the course was unable to be added because it
 	 * matched an existing course in name and section.
 	 * 
-	 * @param name         Name of course to add
-	 * @param title        Title of course to add
-	 * @param section      Section of course to add
-	 * @param credits      Number of credits of course to add
-	 * @param instructorId Unity ID of instructor of course to add
-	 * @param meetingDays  Days that the course to be added meets
-	 * @param startTime    Starting time of the course to be added in 24hr format
-	 * @param endTime      Ending time of the course to be added in 24hr format
+	 * @param name          Name of course to add
+	 * @param title         Title of course to add
+	 * @param section       Section of course to add
+	 * @param credits       Number of credits of course to add
+	 * @param instructorId  Unity ID of instructor of course to add
+	 * @param enrollmentCap Max number of students that can be enrolled in Course
+	 * @param meetingDays   Days that the course to be added meets
+	 * @param startTime     Starting time of the course to be added in 24hr format
+	 * @param endTime       Ending time of the course to be added in 24hr format
 	 * @return True if successfully added, false otherwise
 	 * @throws IllegalArgumentException When course to add cannot be created due to
 	 *                                  violated constructor constraints
 	 */
 	public boolean addCourseToCatalog(String name, String title, String section, int credits, String instructorId,
-			String meetingDays, int startTime, int endTime) throws IllegalArgumentException {
+			int enrollmentCap, String meetingDays, int startTime, int endTime) throws IllegalArgumentException {
 		Course courseAdd;
 		if (meetingDays.equals("A")) {
-			courseAdd = new Course(name, title, section, credits, instructorId, meetingDays);
-		}
-		else {
-			courseAdd = new Course(name, title, section, credits, instructorId, meetingDays, startTime, endTime);
+			courseAdd = new Course(name, title, section, credits, instructorId, enrollmentCap, meetingDays);
+		} else {
+			courseAdd = new Course(name, title, section, credits, instructorId, enrollmentCap, meetingDays, startTime,
+					endTime);
 		}
 		for (int i = 0; i < catalog.size(); i++) {
 			if (courseAdd.compareTo(catalog.get(i)) == 0) {

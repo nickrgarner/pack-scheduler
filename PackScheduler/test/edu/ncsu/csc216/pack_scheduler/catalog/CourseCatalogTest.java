@@ -35,6 +35,8 @@ public class CourseCatalogTest {
 	private static final int CREDITS = 4;
 	/** Course instructor id */
 	private static final String INSTRUCTOR_ID = "sesmith5";
+	/** Course enrollment cap */
+	private static final int ENROLLMENT_CAP = 10;
 	/** Course meeting days */
 	private static final String MEETING_DAYS = "MW";
 	/** Course start time */
@@ -77,9 +79,9 @@ public class CourseCatalogTest {
 	@Test
 	public void testNewCourseCatalog() {
 		CourseCatalog testCatalog = new CourseCatalog();
-		testCatalog.addCourseToCatalog("CH101", "Intro to Potions", "001", 4, "ssnape", "MWF", 1030, 1230);
-		testCatalog.addCourseToCatalog("CS210", "Advanced Herbology", "002", 3, "psprout", "TH", 1100, 1300);
-		testCatalog.addCourseToCatalog("HI305", "A History of Magic", "001", 3, "cbinns", "MW", 1400, 1500);
+		testCatalog.addCourseToCatalog("CH101", "Intro to Potions", "001", 4, "ssnape", 10, "MWF", 1030, 1230);
+		testCatalog.addCourseToCatalog("CS210", "Advanced Herbology", "002", 3, "psprout", 10, "TH", 1100, 1300);
+		testCatalog.addCourseToCatalog("HI305", "A History of Magic", "001", 3, "cbinns", 10, "MW", 1400, 1500);
 
 		assertEquals(3, testCatalog.getCourseCatalog().length);
 
@@ -111,7 +113,7 @@ public class CourseCatalogTest {
 		CourseCatalog cc = new CourseCatalog();
 
 		// Test valid course
-		assertTrue(cc.addCourseToCatalog(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, MEETING_DAYS, START_TIME,
+		assertTrue(cc.addCourseToCatalog(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, ENROLLMENT_CAP, MEETING_DAYS, START_TIME,
 				END_TIME));
 		String[][] catalog = cc.getCourseCatalog();
 		assertEquals(1, catalog.length);
@@ -121,7 +123,7 @@ public class CourseCatalogTest {
 		assertEquals("MW 1:30PM-2:45PM", catalog[0][3]);
 
 		// Test add course with duplicate course
-		assertFalse(cc.addCourseToCatalog(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, MEETING_DAYS, START_TIME,
+		assertFalse(cc.addCourseToCatalog(NAME, TITLE, SECTION, CREDITS, INSTRUCTOR_ID, ENROLLMENT_CAP, MEETING_DAYS, START_TIME,
 				END_TIME));
 		assertEquals(1, cc.getCourseCatalog().length);
 	}
@@ -158,7 +160,7 @@ public class CourseCatalogTest {
 		CourseCatalog cc = new CourseCatalog();
 		cc.loadCoursesFromFile(validTestFile);
 		assertEquals(8, cc.getCourseCatalog().length);
-		Course testCourse = new Course("CSC216", "Programming Concepts - Java", "001", 4, "sesmith5", "TH", 1330, 1445);
+		Course testCourse = new Course("CSC216", "Programming Concepts - Java", "001", 4, "sesmith5", 10, "TH", 1330, 1445);
 		assertEquals(testCourse, cc.getCourseFromCatalog("CSC216", "001"));
 		assertEquals(null, cc.getCourseFromCatalog("MA241", "004"));
 	}
@@ -177,10 +179,10 @@ public class CourseCatalogTest {
 
 		// Add a course
 		assertTrue(
-				cc.addCourseToCatalog("CSC116", "Intro to Programming - Java", "003", 3, "spbalik", "MW", 1250, 1440));
+				cc.addCourseToCatalog("CSC116", "Intro to Programming - Java", "003", 3, "spbalik", 10, "MW", 1250, 1440));
 		assertTrue(
-				cc.addCourseToCatalog("CSC216", "Programming Concepts - Java", "001", 4, "sesmith5", "MW", 1330, 1445));
-		assertTrue(cc.addCourseToCatalog("CSC216", "Programming Concepts - Java", "601", 4, "jep", "A", 0, 0));
+				cc.addCourseToCatalog("CSC216", "Programming Concepts - Java", "001", 4, "sesmith5", 10, "MW", 1330, 1445));
+		assertTrue(cc.addCourseToCatalog("CSC216", "Programming Concepts - Java", "601", 4, "jep", 10, "A", 0, 0));
 		assertEquals(3, cc.getCourseCatalog().length);
 		cc.saveCourseCatalog("test-files/actual_course_records.txt");
 		checkFiles("test-files/expected_course_records.txt", "test-files/actual_course_records.txt");
