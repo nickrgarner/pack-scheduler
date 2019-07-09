@@ -89,7 +89,7 @@ public class Schedule {
 	 *         information for every course in schedule.
 	 */
 	public String[][] getScheduledCourses() {
-		String[][] output = new String[schedule.size()][4];
+		String[][] output = new String[schedule.size()][5];
 		for (int i = 0; i < schedule.size(); i++) {
 			output[i] = schedule.get(i).getShortDisplayArray();
 		}
@@ -117,12 +117,42 @@ public class Schedule {
 	public String getTitle() {
 		return title;
 	}
-	
+
+	/**
+	 * Returns the total number of credits of all the Courses currently on the
+	 * schedule
+	 * 
+	 * @return Returns the total number of credits currently on the schedule
+	 */
 	public int getScheduleCredits() {
-		return 0;
+		int creditTotal = 0;
+		for (int i = 0; i < schedule.size(); i++) {
+			creditTotal += schedule.get(i).getCredits();
+		}
+		return creditTotal;
 	}
-	
+
+	/**
+	 * Checks if a Course is null, a duplicate, or conflicts with another Activity
+	 * on the schedule and returns false if so.
+	 * 
+	 * @param c Course to check for eligibility to add to schedule.
+	 * @return True if course can be added, false if course is null, duplicate, or
+	 *         conflicts with schedule.
+	 */
 	public boolean canAdd(Course c) {
-		return false;
+		boolean duplicate = false;
+		boolean conflict = false;
+		for (int i = 0; i < schedule.size() && !duplicate && !conflict; i++) {
+			if (c.isDuplicate(schedule.get(i))) {
+				duplicate = true;
+			}
+			try {
+				c.checkConflict(schedule.get(i));
+			} catch (ConflictException e) {
+				conflict = true;
+			}
+		}
+		return (!(duplicate || conflict || c == null));
 	}
 }

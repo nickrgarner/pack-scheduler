@@ -18,25 +18,26 @@ public class ScheduleTest {
 	/** Schedule object to test */
 	private Schedule testSchedule;
 	/** Valid course */
-	private static final Course COURSE1 = new Course("AS231", "Care of Magical Creatures", "001", 3, "rhagrid", 10, "MWF",
-			1020, 1150);
+	private static final Course COURSE1 = new Course("AS231", "Care of Magical Creatures", "001", 3, "rhagrid", 10,
+			"MWF", 1020, 1150);
 	/** Valid course */
 	private static final Course COURSE2 = new Course("HI310", "A History of Magic", "002", 3, "cbinns", 10, "TH", 1300,
 			1450);
 	/** Valid course */
-	private static final Course COURSE3 = new Course("CS115", "Intro to Herbology", "001", 3, "psprout", 10, "MWF", 1400,
-			1450);
+	private static final Course COURSE3 = new Course("CS115", "Intro to Herbology", "001", 3, "psprout", 10, "MWF",
+			1400, 1450);
 	/** Valid course */
-	private static final Course COURSE4 = new Course("T226", "Advanced Transfiguration", "003", 3, "mmcgonagall", 10, "MWF",
-			830, 1000);
+	private static final Course COURSE4 = new Course("T226", "Advanced Transfiguration", "003", 3, "mmcgonagall", 10,
+			"MWF", 830, 1000);
 	/** Valid course */
-	private static final Course COURSE5 = new Course("CH330", "Advanced Potions", "001", 4, "ssnape", 10, "TH", 900, 1130);
+	private static final Course COURSE5 = new Course("CH330", "Advanced Potions", "001", 4, "ssnape", 10, "TH", 900,
+			1130);
 	/** Course that conflicts with COURSE5 */
 	private static final Course COURSECONFLICT = new Course("DF316", "Defense Against the Dark Arts", "001", 4,
 			"rlupin", 10, "TH", 830, 1000);
 	/** Course with same name as COURSE1 */
-	private static final Course COURSEDUPE = new Course("AS231", "Care of Magical Creatures", "002", 3, "rhagrid", 10, "TH",
-			1200, 1250);
+	private static final Course COURSEDUPE = new Course("AS231", "Care of Magical Creatures", "002", 3, "rhagrid", 10,
+			"TH", 1200, 1250);
 	/** Course to be left off Schedule to test removeCourseFromSchedule exception */
 	private static final Course COURSEMIA = new Course("C110", "Charms I", "002", 3, "fflitwick", 10, "A");
 
@@ -153,5 +154,36 @@ public class ScheduleTest {
 		} catch (IllegalArgumentException e) {
 			assertEquals("Title cannot be null.", e.getMessage());
 		}
+	}
+
+	/**
+	 * Tests that getScheduleCredits returns proper total number of credits
+	 * currently on schedule
+	 */
+	@Test
+	public void testGetScheduleCredits() {
+		assertTrue(testSchedule.addCourseToSchedule(COURSE1));
+		assertTrue(testSchedule.addCourseToSchedule(COURSE2));
+		assertTrue(testSchedule.addCourseToSchedule(COURSE3));
+		assertTrue(testSchedule.addCourseToSchedule(COURSE4));
+		assertTrue(testSchedule.addCourseToSchedule(COURSE5));
+		assertEquals(5, testSchedule.getScheduledCourses().length);
+		assertEquals(16, testSchedule.getScheduleCredits());
+	}
+
+	/**
+	 * Tests that canAdd() method returns false for duplicate or conflicting courses
+	 * and true for valid courses.
+	 */
+	@Test
+	public void testCanAdd() {
+		assertTrue(testSchedule.addCourseToSchedule(COURSE1));
+		assertTrue(testSchedule.addCourseToSchedule(COURSE2));
+		assertTrue(testSchedule.addCourseToSchedule(COURSE3));
+		assertTrue(testSchedule.addCourseToSchedule(COURSE5));
+		assertEquals(4, testSchedule.getScheduledCourses().length);
+		assertFalse(testSchedule.canAdd(COURSEDUPE));
+		assertFalse(testSchedule.canAdd(COURSECONFLICT));
+		assertTrue(testSchedule.canAdd(COURSE4));
 	}
 }

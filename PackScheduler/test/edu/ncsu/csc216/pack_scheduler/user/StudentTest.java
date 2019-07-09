@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import edu.ncsu.csc216.pack_scheduler.course.Course;
+
 /**
  * Test Student class.
  * 
@@ -468,5 +470,30 @@ public class StudentTest {
 		assertEquals(-1, s1.compareTo(s2));
 		assertEquals(1, s3.compareTo(s4));
 		assertEquals(0, s4.compareTo(s5));
+	}
+
+	/**
+	 * Tests that canAdd() method properly returns false if Course would cause
+	 * Student to exceed their maxCredits, or if Course is null, duplicate, or a
+	 * conflict.
+	 */
+	@Test
+	public void testCanAdd() {
+		Student s1 = new Student(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, MAX_CREDITS);
+		Course c1 = new Course("AS231", "Care of Magical Creatures", "001", 3, "rhagrid", 10, "MWF", 1020, 1150);
+		Course c2 = new Course("HI310", "A History of Magic", "002", 3, "cbinns", 10, "TH", 1300, 1450);
+		Course c3 = new Course("CS115", "Intro to Herbology", "001", 3, "psprout", 10, "MWF", 1400, 1450);
+		Course c4 = new Course("T226", "Advanced Transfiguration", "003", 3, "mmcgonagall", 10, "MWF", 830, 1000);
+		Course c5 = new Course("CH330", "Advanced Potions", "001", 4, "ssnape", 10, "TH", 900, 1130);
+		Course conflict = new Course("DF316", "Defense Against the Dark Arts", "001", 4, "rlupin", 10, "TH", 830, 1000);
+
+		assertTrue(s1.getSchedule().addCourseToSchedule(c1));
+		assertTrue(s1.getSchedule().addCourseToSchedule(c2));
+		assertTrue(s1.getSchedule().addCourseToSchedule(c5));
+		assertFalse(s1.canAdd(c5));
+		assertFalse(s1.canAdd(conflict));
+		assertTrue(s1.canAdd(c4));
+		assertTrue(s1.getSchedule().addCourseToSchedule(c4));
+		assertFalse(s1.canAdd(c3));
 	}
 }
