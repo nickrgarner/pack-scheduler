@@ -90,11 +90,13 @@ public class CourseRoll {
 			throw new IllegalArgumentException("Student cannot be null.");
 		}
 		int index = 0;
-		while (index < roll.size() - 1 && !s.equals(roll.get(index))) {
+		while (index < roll.size() && !s.equals(roll.get(index))) {
 			index++;
 		}
-		if (s.equals(roll.get(index))) {
-			roll.remove(index);
+		if (index < roll.size()) {
+			if (s.equals(roll.get(index))) {
+				roll.remove(index);
+			}
 		}
 	}
 
@@ -118,7 +120,7 @@ public class CourseRoll {
 	public boolean canEnroll(Student s) {
 		// boolean dupeCheck = false;
 		int index = 0;
-		while (index < getEnrollmentCap() - 1 && !s.equals(roll.get(index))) {
+		while (index < roll.size() && !s.equals(roll.get(index))) {
 			index++;
 		}
 		return (!(index != roll.size() || roll.size() == getEnrollmentCap()));
