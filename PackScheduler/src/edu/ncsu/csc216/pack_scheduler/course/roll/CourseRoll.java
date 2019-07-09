@@ -26,8 +26,8 @@ public class CourseRoll {
 	 * @throws IllegalArgumentException If enrollmentCap is less than 0.
 	 */
 	public CourseRoll(int enrollmentCap) throws IllegalArgumentException {
+		roll = new LinkedAbstractList<Student>(enrollmentCap);
 		setEnrollmentCap(enrollmentCap);
-		roll = new LinkedAbstractList<Student>(this.enrollmentCap);
 	}
 
 	/**
@@ -55,7 +55,10 @@ public class CourseRoll {
 		if (roll != null && enrollmentCap < roll.size()) {
 			throw new IllegalArgumentException("Enrollment cap is not valid.");
 		}
-		this.enrollmentCap = enrollmentCap;
+		if (roll != null) {
+			this.enrollmentCap = enrollmentCap;
+			roll.setCapacity(enrollmentCap);
+		}
 	}
 
 	/**
@@ -87,15 +90,11 @@ public class CourseRoll {
 			throw new IllegalArgumentException("Student cannot be null.");
 		}
 		int index = 0;
-		while (!s.equals(roll.get(index)) && index < roll.size()) {
+		while (index < roll.size() - 1 && !s.equals(roll.get(index))) {
 			index++;
 		}
 		if (s.equals(roll.get(index))) {
-			try {
-				roll.remove(index);
-			} catch (IndexOutOfBoundsException e) {
-				throw new IllegalArgumentException("Student could not be dropped.");
-			}
+			roll.remove(index);
 		}
 	}
 
@@ -119,7 +118,7 @@ public class CourseRoll {
 	public boolean canEnroll(Student s) {
 		// boolean dupeCheck = false;
 		int index = 0;
-		while (!s.equals(roll.get(index)) && index < getEnrollmentCap()) {
+		while (index < getEnrollmentCap() - 1 && !s.equals(roll.get(index))) {
 			index++;
 		}
 		return (!(index != roll.size() || roll.size() == getEnrollmentCap()));

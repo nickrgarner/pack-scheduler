@@ -14,12 +14,19 @@ import org.junit.Test;
  */
 public class LinkedAbstractListTest {
 
+	/** List object to test */
 	private LinkedAbstractList<String> prequelMemes;
+	/** String to add to list */
 	private static final String MEME1 = "Not just the men, but the women and the children too.";
+	/** String to add to list */
 	private static final String MEME2 = "This is getting ridiculous. Now there are two of them!";
+	/** String to add to list */
 	private static final String MEME3 = "It's over Anakin, I have the higher ground.";
+	/** String to add to list */
 	private static final String MEME4 = "So this is how democracy dies. With thunderous applause.";
+	/** String to add to list */
 	private static final String MEME5 = "Ah General Kenobi, you are a bold one.";
+	/** String to add to list */
 	private static final String MEME6 = "I AM THE SENATE!";
 
 	/**
