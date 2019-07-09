@@ -2,10 +2,20 @@ package edu.ncsu.csc216.pack_scheduler.util;
 
 import java.util.AbstractList;
 
+/**
+ * Class defines state and behavior for a custom LinkedList class that does not
+ * allow duplicates or null elements. Used for CourseRoll to manage the list of
+ * Students registered for a Course. Class implements AbstractList methods for
+ * get, set, add, remove, and size.
+ * 
+ * @author Nick Garner
+ *
+ * @param <E> The object type that the list will manage.
+ */
 public class LinkedAbstractList<E> extends AbstractList<E> {
 
 	/** The node representing the front of the LinkedList */
-	private ListNode<E> front;
+	private ListNode front;
 	/** The number of elements in the list */
 	private int size;
 	/** The maximum allowed number of elements in the list */
@@ -61,11 +71,23 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 			i++;
 		}
 		if (current != null && i == index) {
-			return (E) current.data;
+			return current.data;
 		}
 		return null;
 	}
 
+	/**
+	 * Replaces the object data at the given index with the parameter data.
+	 * 
+	 * @param index The index of the element to replace the data of.
+	 * @param data  The data to set.
+	 * @return Returns the data that was overwritten.
+	 * @throws NullPointerException      When data parameter is null.
+	 * @throws IllegalArgumentException  When data parameter is a duplicate of data
+	 *                                   already in the list.
+	 * @throws IndexOutOfBoundsException When index is less than 0 or greater than
+	 *                                   or equal to the list's size.
+	 */
 	@Override
 	public E set(int index, E data) {
 		if (data == null) {
@@ -84,13 +106,13 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 			i++;
 		}
 		if (index == 0) {
-			Object temp = front.data;
+			E temp = front.data;
 			front.data = data;
-			return (E)temp;
+			return temp;
 		} else if (current != null && i == index) {
-			Object temp = current.data;
+			E temp = current.data;
 			current.data = data;
-			return (E)temp;
+			return temp;
 		}
 		return null;
 	}
@@ -102,8 +124,8 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 	 * @param data  The object data to add to the list at the specified index.
 	 * @throws IllegalArgumentException  If list is full or element is a duplicate.
 	 * @throws NullPointerException      If element to add is null.
-	 * @throws IndexOutOfBoundsException If index is less than 0 or greater than or
-	 *                                   equal to the list's size.
+	 * @throws IndexOutOfBoundsException If index is less than 0 or greater than the
+	 *                                   list's size.
 	 */
 	@Override
 	public void add(int index, E data) {
@@ -113,14 +135,13 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 		if (data == null) {
 			throw new NullPointerException("Cannot add null element.");
 		}
-		// TODO Implement duplicate check here
 		if (dupeCheck(data)) {
 			throw new IllegalArgumentException("Cannot add duplicate element.");
 		}
-		if (index < 0 || index >= size()) {
+		if (index < 0 || index > size()) {
 			throw new IndexOutOfBoundsException("Index is out of bounds.");
 		}
-		ListNode<E> toAdd = new ListNode<E>(data);
+		ListNode toAdd = new ListNode(data);
 		ListNode current = front;
 		ListNode previous = null;
 		int i = 0;
@@ -133,7 +154,7 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 			toAdd.next = front;
 			front = toAdd;
 			size++;
-		} else if (current != null && i == index) {
+		} else if (i == index) {
 			previous.next = toAdd;
 			toAdd.next = current;
 			size++;
@@ -149,7 +170,6 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 	 * @throws IndexOutOfBoundsException If index is less than 0 or greater than or
 	 *                                   equal to the list's size.
 	 */
-	//@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public E remove(int index) {
 		if (index < 0 || index >= size()) {
@@ -167,11 +187,11 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 			if (current == front) {
 				front = current.next;
 				size--;
-				return (E) current.data;
+				return current.data;
 			} else {
 				previous.next = current.next;
 				size--;
-				return (E) current.data;
+				return current.data;
 			}
 		}
 		return null;
@@ -188,7 +208,7 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 	}
 
 	private boolean dupeCheck(E data) {
-		ListNode<E> current = front;
+		ListNode current = front;
 		while (current != null) {
 			if (current.data == data) {
 				return true;
@@ -205,12 +225,11 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 	 * 
 	 * @author Nick Garner
 	 *
-	 * @param <E> The object type of the node's data.
 	 */
-	private class ListNode<E> {
+	private class ListNode {
 
 		/** The object data contained in the node */
-		private E data;
+		E data;
 		/** Reference to the next node in the linked list */
 		private ListNode next;
 
