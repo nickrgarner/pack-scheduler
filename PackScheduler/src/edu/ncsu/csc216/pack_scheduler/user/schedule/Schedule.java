@@ -117,4 +117,12 @@ public class Schedule {
 	public String getTitle() {
 		return title;
 	}
+	
+	public int getScheduleCredits() {
+		return 0;
+	}
+	
+	public boolean canAdd(Course c) {
+		return false;
+	}
 }
