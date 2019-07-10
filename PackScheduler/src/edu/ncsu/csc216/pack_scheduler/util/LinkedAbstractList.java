@@ -3,7 +3,7 @@ package edu.ncsu.csc216.pack_scheduler.util;
 import java.util.AbstractList;
 
 /**
- * Class defines state and behavior for a custom LinkedList class that does not
+ * Class defines state and behavior for a custom LinkedAbstractList class that does not
  * allow duplicates or null elements. Used for CourseRoll to manage the list of
  * Students registered for a Course. Class implements AbstractList methods for
  * get, set, add, remove, and size.
@@ -14,7 +14,7 @@ import java.util.AbstractList;
  */
 public class LinkedAbstractList<E> extends AbstractList<E> {
 
-	/** The node representing the front of the LinkedList */
+	/** The node representing the front of the LinkedAbstractList */
 	private ListNode front;
 	/** The number of elements in the list */
 	private int size;
@@ -219,8 +219,8 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 	}
 
 	/**
-	 * Inner class defines state and constructors for LinkedList node objects. Each
-	 * element in the LinkedList consists of a data Object and a reference to the
+	 * Inner class defines state and constructors for LinkedAbstractList node objects. Each
+	 * element in the LinkedAbstractList consists of a data Object and a reference to the
 	 * next element in the list.
 	 * 
 	 * @author Nick Garner
@@ -230,7 +230,7 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 
 		/** The object data contained in the node */
 		E data;
-		/** Reference to the next node in the linked list */
+		/** Reference to the next node in the LinkedAbstractList */
 		private ListNode next;
 
 		/**

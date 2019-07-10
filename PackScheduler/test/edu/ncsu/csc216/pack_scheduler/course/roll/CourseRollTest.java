@@ -58,7 +58,7 @@ public class CourseRollTest {
 	 * Runs before every test to instantiate a new CourseRoll object with capacity
 	 * 10.
 	 * 
-	 * @throws Exception
+	 * @throws Exception If error occurs during setup.
 	 */
 	@Before
 	public void setUp() throws Exception {
