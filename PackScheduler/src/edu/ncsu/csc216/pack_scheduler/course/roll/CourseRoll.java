@@ -93,10 +93,10 @@ public class CourseRoll {
 		while (index < roll.size() && !s.equals(roll.get(index))) {
 			index++;
 		}
-		if (index < roll.size()) {
-			if (s.equals(roll.get(index))) {
+		if (index < roll.size() && s.equals(roll.get(index))) {
+			//if (s.equals(roll.get(index))) {
 				roll.remove(index);
-			}
+			//}
 		}
 	}
 
@@ -123,6 +123,6 @@ public class CourseRoll {
 		while (index < roll.size() && !s.equals(roll.get(index))) {
 			index++;
 		}
-		return (!(index != roll.size() || roll.size() == getEnrollmentCap()));
+		return !(index != roll.size() || roll.size() == getEnrollmentCap());
 	}
 }

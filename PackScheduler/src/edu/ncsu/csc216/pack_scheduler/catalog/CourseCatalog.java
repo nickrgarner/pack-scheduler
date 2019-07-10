@@ -124,19 +124,20 @@ public class CourseCatalog {
 
 	/**
 	 * Returns all courses in the catalog as a 2D string array with columns for
-	 * name, section, title, and meeting information.
+	 * name, section, title, meeting information, and open seats.
 	 * 
-	 * @return 2D String array containing name, section, title, and meeting
-	 *         information for all course in catalog.
+	 * @return 2D String array containing name, section, title, meeting information,
+	 *         and open seats for all course in catalog.
 	 */
 	public String[][] getCourseCatalog() {
-		String[][] output = new String[catalog.size()][4];
+		String[][] output = new String[catalog.size()][5];
 		for (int i = 0; i < catalog.size(); i++) {
 			Course c = catalog.get(i);
 			output[i][0] = c.getName();
 			output[i][1] = c.getSection();
 			output[i][2] = c.getTitle();
 			output[i][3] = c.getMeetingString();
+			output[i][4] = String.valueOf(c.getCourseRoll().getOpenSeats());
 		}
 		return output;
 	}

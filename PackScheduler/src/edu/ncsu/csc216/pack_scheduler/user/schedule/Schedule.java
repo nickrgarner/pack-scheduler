@@ -153,6 +153,6 @@ public class Schedule {
 				conflict = true;
 			}
 		}
-		return (!(duplicate || conflict || c == null));
+		return !(duplicate || conflict || c == null);
 	}
 }
