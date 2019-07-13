@@ -102,7 +102,7 @@ public class ArrayStackTest {
 	}
 
 	/**
-	 * Tests that setCapacity properly updates the list's capacity
+	 * Tests that setCapacity properly updates the stack's capacity
 	 */
 	@Test
 	public void testSetCapacity() {
