@@ -116,9 +116,11 @@ public class CourseRoll {
 			throw new IllegalArgumentException("Student cannot be null.");
 		}
 		int index = 0;
+		// Check if Student is on main roll
 		while (index < roll.size() && !s.equals(roll.get(index))) {
 			index++;
 		}
+		// If on main roll, drop Student and add from waitlist
 		if (index < roll.size() && s.equals(roll.get(index))) {
 			roll.remove(index);
 			// If room on course roll and student on waitlist, add student to course roll
@@ -130,6 +132,15 @@ public class CourseRoll {
 			} catch (NoSuchElementException e) {
 				// Waitlist is empty, do nothing
 			}
+		} else if (waitlist.contains(s)) {
+			LinkedQueue<Student> tempQueue = new LinkedQueue<Student>(10);
+			while (!waitlist.isEmpty()) {
+				Student tempStudent = waitlist.dequeue();
+				if (!tempStudent.equals(s)) {
+					tempQueue.enqueue(tempStudent);
+				}
+			}
+			waitlist = tempQueue;
 		}
 	}
 
@@ -156,8 +167,15 @@ public class CourseRoll {
 		while (index < roll.size() && !s.equals(roll.get(index))) {
 			index++;
 		}
-		return index == roll.size() && roll.size() != getEnrollmentCap()
-				|| (!waitlist.contains(s) && waitlist.size() < 10);
+		// True if no dupes
+		boolean dupeCheck = index == roll.size();
+		// True if can add to waitlist
+		boolean waitlistEligible = !waitlist.contains(s) && waitlist.size() < 10;
+		// True if class is full
+		boolean classFull = roll.size() == getEnrollmentCap();
+		// Return true if no dupes and class not full, OR class is full and waitlist
+		// eligible
+		return dupeCheck && !classFull || classFull && waitlistEligible;
 	}
 
 	/**
