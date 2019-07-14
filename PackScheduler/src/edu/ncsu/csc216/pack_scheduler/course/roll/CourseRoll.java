@@ -1,5 +1,7 @@
 package edu.ncsu.csc216.pack_scheduler.course.roll;
 
+import java.util.NoSuchElementException;
+
 import edu.ncsu.csc216.pack_scheduler.course.Course;
 import edu.ncsu.csc216.pack_scheduler.user.Student;
 import edu.ncsu.csc216.pack_scheduler.util.LinkedAbstractList;
@@ -119,7 +121,15 @@ public class CourseRoll {
 		}
 		if (index < roll.size() && s.equals(roll.get(index))) {
 			roll.remove(index);
-			roll.add(index, waitlist.dequeue());
+			// If room on course roll and student on waitlist, add student to course roll
+			// and course to student's schedule
+			try {
+				Student temp = waitlist.dequeue();
+				roll.add(temp);
+				temp.getSchedule().addCourseToSchedule(this.course);
+			} catch (NoSuchElementException e) {
+				// Waitlist is empty, do nothing
+			}
 		}
 	}
 
@@ -146,7 +156,8 @@ public class CourseRoll {
 		while (index < roll.size() && !s.equals(roll.get(index))) {
 			index++;
 		}
-		return (index == roll.size() && (roll.size() != getEnrollmentCap() || (!waitlist.contains(s) && waitlist.size() < 10)));
+		return (index == roll.size()
+				&& (roll.size() != getEnrollmentCap() || (!waitlist.contains(s) && waitlist.size() < 10)));
 	}
 
 	/**

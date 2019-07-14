@@ -137,4 +137,15 @@ public class LinkedQueueTest {
 		assertEquals(6, queue.size());
 		assertEquals(STRING1, queue.dequeue());
 	}
+
+	/**
+	 * Tests that contains properly returns true if element is present in the Queue
+	 */
+	@Test
+	public void testContains() {
+		queue.enqueue(STRING1);
+		queue.enqueue(STRING2);
+		assertTrue(queue.contains(STRING2));
+		assertFalse(queue.contains(STRING3));
+	}
 }

@@ -95,7 +95,7 @@ public class LinkedQueue<E> implements Queue<E> {
 	 */
 	public boolean contains(E element) {
 		int index = 0;
-		while (list.get(index) != null) {
+		while (index < list.size() && list.get(index) != null) {
 			if (list.get(index).equals(element)) {
 				return true;
 			}
@@ -103,17 +103,4 @@ public class LinkedQueue<E> implements Queue<E> {
 		}
 		return false;
 	}
-
 }
-
-
-
-
-
-
-
-
-
-
-
-

@@ -2,6 +2,7 @@ package edu.ncsu.csc216.pack_scheduler.course.roll;
 
 import static org.junit.Assert.*;
 
+import edu.ncsu.csc216.pack_scheduler.course.Course;
 import edu.ncsu.csc216.pack_scheduler.user.Student;
 
 import org.junit.Before;
@@ -17,6 +18,8 @@ public class CourseRollTest {
 
 	/** CourseRoll object to test */
 	private CourseRoll testRoll;
+	/** Course to test with roll */
+	private static final Course COURSE1 = new Course("CSC216", "Java II", "651", 4, "jep", 10, "MW", 1030, 1130);
 	/** Valid student */
 	private static final Student STUDENT1 = new Student("Harry", "Potter", "hpotter", "hpotter@ncsu.edu",
 			"caputdraconis");
@@ -62,16 +65,23 @@ public class CourseRollTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		testRoll = new CourseRoll(10);
+		testRoll = new CourseRoll(COURSE1, 10);
 	}
 
 	/**
 	 * Tests CourseRoll constructor with minimum enrollmentCap
 	 */
+	@SuppressWarnings("unused")
 	@Test
 	public void testCourseRoll() {
 		assertEquals(10, testRoll.getEnrollmentCap());
 		assertEquals(10, testRoll.getOpenSeats());
+		try {
+			CourseRoll nullCourse = new CourseRoll(null, 10);
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals("Course cannot be null.", e.getMessage());
+		}
 	}
 
 	/**
@@ -123,6 +133,18 @@ public class CourseRollTest {
 		} catch (IllegalArgumentException e) {
 			assertEquals("Student could not be enrolled.", e.getMessage());
 		}
+		testRoll.enroll(STUDENT1);
+		testRoll.enroll(STUDENT2);
+		testRoll.enroll(STUDENT3);
+		testRoll.enroll(STUDENT4);
+		testRoll.enroll(STUDENT5);
+		testRoll.enroll(STUDENT6);
+		testRoll.enroll(STUDENT7);
+		testRoll.enroll(STUDENT8);
+		testRoll.enroll(STUDENT9);
+		testRoll.enroll(STUDENT10);
+		testRoll.enroll(STUDENT11);
+		assertEquals(1, testRoll.getNumberOnWaitlist());
 	}
 
 	/**
@@ -147,14 +169,17 @@ public class CourseRollTest {
 		testRoll.enroll(STUDENT8);
 		testRoll.enroll(STUDENT9);
 		testRoll.enroll(STUDENT10);
+		testRoll.enroll(STUDENT11);
+		assertEquals(1, testRoll.getNumberOnWaitlist());
 		testRoll.drop(STUDENT1);
-		assertEquals(1, testRoll.getOpenSeats());
+		assertEquals(0, testRoll.getOpenSeats());
+		assertEquals(0, testRoll.getNumberOnWaitlist());
 		testRoll.drop(STUDENT10);
-		assertEquals(2, testRoll.getOpenSeats());
+		assertEquals(1, testRoll.getOpenSeats());
 		testRoll.drop(STUDENT4);
-		assertEquals(3, testRoll.getOpenSeats());
+		assertEquals(2, testRoll.getOpenSeats());
 		testRoll.drop(STUDENT1);
-		assertEquals(3, testRoll.getOpenSeats());
+		assertEquals(2, testRoll.getOpenSeats());
 	}
 
 	/**
@@ -176,7 +201,7 @@ public class CourseRollTest {
 		assertFalse(testRoll.canEnroll(STUDENT9));
 		assertFalse(testRoll.canEnroll(DUPESTUDENT));
 		testRoll.enroll(STUDENT10);
-		assertFalse(testRoll.canEnroll(STUDENT11));
+		assertTrue(testRoll.canEnroll(STUDENT11));
 	}
 
 }
