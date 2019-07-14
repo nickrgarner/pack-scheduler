@@ -1,7 +1,9 @@
 package edu.ncsu.csc216.pack_scheduler.course.roll;
 
+import edu.ncsu.csc216.pack_scheduler.course.Course;
 import edu.ncsu.csc216.pack_scheduler.user.Student;
 import edu.ncsu.csc216.pack_scheduler.util.LinkedAbstractList;
+import edu.ncsu.csc216.pack_scheduler.util.LinkedQueue;
 
 /**
  * Class defines state and behavior for CourseRoll objects that maintain a
@@ -13,19 +15,33 @@ import edu.ncsu.csc216.pack_scheduler.util.LinkedAbstractList;
  */
 public class CourseRoll {
 
+	/** List to hold Students enrolled in Course */
 	private LinkedAbstractList<Student> roll;
+	/** Max number of Students that can enroll in Course */
 	private int enrollmentCap;
+	/** Queue to hold students waiting for an enrollment spot */
+	private LinkedQueue<Student> waitlist;
+	/** Course object associated with this CourseRoll */
+	private Course course;
+	/** Minimum Course enrollment capacity */
 	private static final int MIN_ENROLLMENT = 10;
+	/** Maximum Course enrollment capacity */
 	private static final int MAX_ENROLLMENT = 250;
 
 	/**
-	 * Creates a CourseRoll object with the specified enrollmentCap
+	 * Creates a CourseRoll object with the specified enrollmentCap and Course
 	 * 
+	 * @param c             The Course that this roll is associated with
 	 * @param enrollmentCap The maximum number of students that can be added to the
 	 *                      CourseRoll
 	 * @throws IllegalArgumentException If enrollmentCap is less than 0.
 	 */
-	public CourseRoll(int enrollmentCap) throws IllegalArgumentException {
+	public CourseRoll(Course c, int enrollmentCap) throws IllegalArgumentException {
+		if (c == null) {
+			throw new IllegalArgumentException("Course cannot be null.");
+		}
+		course = c;
+		waitlist = new LinkedQueue<Student>(10);
 		roll = new LinkedAbstractList<Student>(enrollmentCap);
 		setEnrollmentCap(enrollmentCap);
 	}
@@ -72,7 +88,15 @@ public class CourseRoll {
 		try {
 			roll.add(roll.size(), s);
 		} catch (Exception e) {
-			throw new IllegalArgumentException("Student could not be enrolled.");
+			if (roll.size() == enrollmentCap) {
+				try {
+					waitlist.enqueue(s);
+				} catch (IllegalArgumentException f) {
+					throw f;
+				}
+			} else {
+				throw new IllegalArgumentException("Student could not be enrolled.");
+			}
 		}
 	}
 
@@ -94,9 +118,8 @@ public class CourseRoll {
 			index++;
 		}
 		if (index < roll.size() && s.equals(roll.get(index))) {
-			//if (s.equals(roll.get(index))) {
-				roll.remove(index);
-			//}
+			roll.remove(index);
+			roll.add(index, waitlist.dequeue());
 		}
 	}
 
@@ -123,6 +146,15 @@ public class CourseRoll {
 		while (index < roll.size() && !s.equals(roll.get(index))) {
 			index++;
 		}
-		return !(index != roll.size() || roll.size() == getEnrollmentCap());
+		return (index == roll.size() && (roll.size() != getEnrollmentCap() || (!waitlist.contains(s) && waitlist.size() < 10)));
+	}
+
+	/**
+	 * Returns the number of Students on the waitlist
+	 * 
+	 * @return Number of students on the waitlist
+	 */
+	public int getNumberOnWaitlist() {
+		return waitlist.size();
 	}
 }

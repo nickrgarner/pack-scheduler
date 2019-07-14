@@ -87,5 +87,33 @@ public class LinkedQueue<E> implements Queue<E> {
 		}
 		list.setCapacity(capacity);
 	}
+	
+	/**
+	 * Returns true if the specified element is present in the Queue
+	 * @param element The element to search for
+	 * @return True if the element is present in the Queue
+	 */
+	public boolean contains(E element) {
+		int index = 0;
+		while (list.get(index) != null) {
+			if (list.get(index).equals(element)) {
+				return true;
+			}
+			index++;
+		}
+		return false;
+	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
