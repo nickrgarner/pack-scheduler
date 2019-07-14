@@ -16,6 +16,8 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 
 	/** The node representing the front of the LinkedAbstractList */
 	private ListNode front;
+	/** The node representing the back of the LinkedAbstractList */
+	private ListNode back;
 	/** The number of elements in the list */
 	private int size;
 	/** The maximum allowed number of elements in the list */
@@ -30,6 +32,7 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 	 */
 	public LinkedAbstractList(int capacity) throws IllegalArgumentException {
 		front = null;
+		back = null;
 		size = 0;
 		setCapacity(capacity);
 	}
@@ -145,19 +148,33 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 		ListNode current = front;
 		ListNode previous = null;
 		int i = 0;
-		while (current != null && i < index) {
-			previous = current;
-			current = current.next;
-			i++;
-		}
-		if (index == 0) {
+		// Front insert on empty list
+		if (front == null) {
+			front = toAdd;
+			back = front;
+			size++;
+		// Front insert on occupied list
+		} else if (index == 0) {
 			toAdd.next = front;
 			front = toAdd;
 			size++;
-		} else if (i == index) {
-			previous.next = toAdd;
-			toAdd.next = current;
+		// Back insert
+		} else if (index == size()) {
+			back.next = toAdd;
+			back = back.next;
 			size++;
+		// Middle insert
+		} else {
+			while (current != null && i < index) {
+				previous = current;
+				current = current.next;
+				i++;
+			}
+			if (i == index) {
+				previous.next = toAdd;
+				toAdd.next = current;
+				size++;
+			}
 		}
 	}
 
@@ -186,6 +203,11 @@ public class LinkedAbstractList<E> extends AbstractList<E> {
 		if (current != null && i == index) {
 			if (current == front) {
 				front = current.next;
+				size--;
+				return current.data;
+			} else if (current == back) {
+				previous.next = null;
+				back = previous;
 				size--;
 				return current.data;
 			} else {
