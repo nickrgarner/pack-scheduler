@@ -9,7 +9,7 @@ import java.util.EmptyStackException;
  * 
  * @author Nick Garner
  *
- * @param <E>
+ * @param <E> Generic parameter
  */
 public class LinkedStack<E> implements Stack<E> {
 
