@@ -156,8 +156,8 @@ public class CourseRoll {
 		while (index < roll.size() && !s.equals(roll.get(index))) {
 			index++;
 		}
-		return (index == roll.size()
-				&& (roll.size() != getEnrollmentCap() || (!waitlist.contains(s) && waitlist.size() < 10)));
+		return index == roll.size() && roll.size() != getEnrollmentCap()
+				|| (!waitlist.contains(s) && waitlist.size() < 10);
 	}
 
 	/**

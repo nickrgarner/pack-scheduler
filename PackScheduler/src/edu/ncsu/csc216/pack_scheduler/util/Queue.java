@@ -18,7 +18,7 @@ public interface Queue<E> {
 	 * @param element The element to add
 	 * @throws IllegalArgumentException If there is no room to add element
 	 */
-	public void enqueue(E element);
+	void enqueue(E element);
 
 	/**
 	 * Removes and returns the element at the front of the Queue
@@ -26,21 +26,21 @@ public interface Queue<E> {
 	 * @return Returns the element at the front of the Queue
 	 * @throws NoSuchElementException If Queue is empty
 	 */
-	public E dequeue();
+	E dequeue();
 
 	/**
 	 * Returns true if Queue is empty
 	 * 
 	 * @return True if Queue is empty
 	 */
-	public boolean isEmpty();
+	boolean isEmpty();
 
 	/**
 	 * Returns number of elements in the Queue
 	 * 
 	 * @return Number of elements in the Queue
 	 */
-	public int size();
+	int size();
 
 	/**
 	 * Sets the capacity of the Queue to the given int param
@@ -48,5 +48,5 @@ public interface Queue<E> {
 	 * @param capacity Capacity to set
 	 * @throws IllegalArgumentException If param is negative or less than size()
 	 */
-	public void setCapacity(int capacity);
+	void setCapacity(int capacity);
 }
