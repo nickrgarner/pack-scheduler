@@ -4,18 +4,36 @@ import java.util.AbstractSequentialList;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
+/**
+ * Class defines LinkedList structure with generic type using Iterator to carry
+ * out list operations.
+ * 
+ * @author Nick Garner
+ *
+ * @param <E> Generic type
+ */
 public class LinkedList<E> extends AbstractSequentialList<E> {
 
-	private ListNode front = null;
-	private ListNode back = null;
+	private ListNode front;
+	private ListNode back;
 	private int size;
 
+	/**
+	 * Constructs a new LinkedList with null front and back elements
+	 */
 	public LinkedList() {
-		front = new ListNode(null, null, back);
-		back = new ListNode(null, front, null);
+		front = new ListNode(null);
+		back = new ListNode(null);
+		front.next = back;
+		back.prev = front;
 		size = 0;
 	}
 
+	/**
+	 * Instantiates a new list iterator at the given index
+	 * 
+	 * @param index The position to instantiate the iterator at
+	 */
 	@Override
 	public ListIterator<E> listIterator(int index) {
 		try {
@@ -25,15 +43,53 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 		}
 	}
 
+	/**
+	 * Adds the specified element at the given list index
+	 * 
+	 * @param index   The index to insert the new element at
+	 * @param element The element to add to the list
+	 * @throws IllegalArgumentException If element is a duplicate of an existing
+	 *                                  list element
+	 */
 	@Override
 	public void add(int index, E element) {
-		if (contains(element)) {
-			throw new IllegalArgumentException("List cannot contain duplicate elements.");
-		} else {
-			super.add(index, element);
+		for (int i = 0; i < size; i++) {
+			if (get(i).equals(element)) {
+				throw new IllegalArgumentException ("List cannot contain duplicate elements.");
+			}
 		}
+		super.add(index, element);
+//		if (index < 0 || index > size) {
+//			throw new IndexOutOfBoundsException("Index is out of bounds.");
+//		} else {
+//			ListIterator<E> iterator = listIterator(index);
+//			iterator.add(element);
+//		}
 	}
 
+	/**
+	 * Sets the element at the given index to the element param
+	 * 
+	 * @param index   Index of the element to set
+	 * @param element The element to override the target node with
+	 * @throws IllegalArgumentException If element is a duplicate of an existing
+	 *                                  list element
+	 */
+	@Override
+	public E set(int index, E element) {
+		for (int i = 0; i < size; i++) {
+			if (get(i).equals(element)) {
+				throw new IllegalArgumentException("List cannot contain duplicate elements.");
+			}
+		}
+		return super.set(index, element);
+	}
+
+	/**
+	 * Returns the elements of items in the list
+	 * 
+	 * @return Number of elements in the list
+	 */
 	@Override
 	public int size() {
 		return size;
@@ -81,32 +137,51 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 		}
 	}
 
+	/**
+	 * Inner class defines state and behavior of iterator object to traverse outer
+	 * LinkedList class. Iterator shares LinkedList's type and provides most of the
+	 * list's add, remove, get etc functionality.
+	 * 
+	 * @author Nick Garner
+	 *
+	 */
 	private class LinkedListIterator implements ListIterator<E> {
 
+		/** Pointer referencing the previous node in the list */
 		public ListNode previous;
+		/** Pointer referencing the next node in the list */
 		public ListNode next;
+		/** Index of the previous node */
 		public int previousIndex;
+		/** Index of the next node */
 		public int nextIndex;
+		/** Node object last retrieved by previous() or next() methods */
 		public ListNode lastRetrieved;
 
+		/**
+		 * Constructs a new LinkedListIterator at the specified list index
+		 * 
+		 * @param index Determines the starting location of the iterator in the list.
+		 *              Iterator is placed between index and index - 1.
+		 */
 		public LinkedListIterator(int index) {
-			if (index < 0 || index >= size) {
-				throw new IndexOutOfBoundsException();
+			if (index < 0 || index > size) {
+				throw new IndexOutOfBoundsException("Index is out of bounds.");
 			}
 			lastRetrieved = null;
 			// Set pointers to front and null, set counter to -1 since we're starting at
 			// null front
-			ListNode current = front;
-			ListNode previous = null;
+			ListNode ptrCurrent = front;
+			ListNode ptrPrevious = null;
 			int counter = -1;
 			// Move pointers through list until counter = the index you want
-			while (current.next != null && counter < index) {
-				previous = current;
-				current = current.next;
+			while (ptrCurrent.next != null && counter < index) {
+				ptrPrevious = ptrCurrent;
+				ptrCurrent = ptrCurrent.next;
 				counter++;
 			}
-			this.previous = previous;
-			this.next = current;
+			this.previous = ptrPrevious;
+			this.next = ptrCurrent;
 			previousIndex = counter - 1;
 			nextIndex = counter;
 		}
@@ -121,9 +196,10 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 		@Override
 		public void add(E data) {
 			if (data == null) {
-				throw new NullPointerException();
+				throw new NullPointerException("Object to add cannot be null.");
 			} else {
 				previous.next = new ListNode(data, previous, next);
+				next.prev = previous.next;
 				lastRetrieved = null;
 				size++;
 			}
@@ -201,17 +277,39 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 			return previousIndex;
 		}
 
+		/**
+		 * Removes the lastRetrieved element. Throws exception if lastRetrieved is null.
+		 * 
+		 * @throws IllegalStateException If lastRetrieved is null
+		 */
 		@Override
 		public void remove() {
-			// TODO Auto-generated method stub
+			if (lastRetrieved == null) {
+				throw new IllegalStateException("lastRetrieved is null.");
+			} else {
+				lastRetrieved.prev.next = lastRetrieved.next;
+				lastRetrieved.next.prev = lastRetrieved.prev;
+				lastRetrieved = null;
+				size--;
+			}
 
 		}
 
+		/**
+		 * Sets the lastRetrieved element to the given data param
+		 * 
+		 * @param data The data to set the lastRetrieved element to
+		 * @throws IllegalStateException if data is null
+		 */
 		@Override
-		public void set(E arg0) {
-			// TODO Auto-generated method stub
-
+		public void set(E data) {
+			if (lastRetrieved == null) {
+				throw new IllegalStateException("lastRetrieved is null.");
+			} else if (data == null) {
+				throw new NullPointerException("Object to set cannot be null.");	
+			} else {
+				lastRetrieved.data = data;
+			}
 		}
-
 	}
 }
