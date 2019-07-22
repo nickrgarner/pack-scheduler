@@ -68,7 +68,7 @@ public class StudentRecordIOTest {
 	}
 
 	/**
-	 * Tests readValidCourseRecords().
+	 * Tests readValidStudentRecords().
 	 */
 	@Test
 	public void testReadValidStudentRecords() {
@@ -85,7 +85,7 @@ public class StudentRecordIOTest {
 	}
 
 	/**
-	 * Tests readInvalidCourseRecords().
+	 * Tests readInvalidStudentRecords().
 	 */
 	@Test
 	public void testReadInvalidStudentRecords() {

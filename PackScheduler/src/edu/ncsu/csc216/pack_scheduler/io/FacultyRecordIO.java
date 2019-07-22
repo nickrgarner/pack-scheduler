@@ -29,7 +29,7 @@ public class FacultyRecordIO {
 	 * @return Returns LinkedList of Faculty
 	 * @throws FileNotFoundException File cannot be found as named
 	 */
-	public static LinkedList<Faculty> readStudentRecords(String fileName) throws FileNotFoundException {
+	public static LinkedList<Faculty> readFacultyRecords(String fileName) throws FileNotFoundException {
 		Scanner fileReader = new Scanner(new FileInputStream(fileName));
 		LinkedList<Faculty> output = new LinkedList<Faculty>();
 		while (fileReader.hasNextLine()) {
@@ -62,7 +62,7 @@ public class FacultyRecordIO {
 	 * @param facultyDirectory LinkedList of stored faculty records
 	 * @throws IOException Cannot write student records to file
 	 */
-	public static void writeStudentRecords(String fileName, LinkedList<Faculty> facultyDirectory) throws IOException {
+	public static void writeFacultyRecords(String fileName, LinkedList<Faculty> facultyDirectory) throws IOException {
 		PrintStream fileWriter = new PrintStream(new File(fileName));
 		for (int i = 0; i < facultyDirectory.size(); i++) {
 			fileWriter.println(facultyDirectory.get(i).toString());
