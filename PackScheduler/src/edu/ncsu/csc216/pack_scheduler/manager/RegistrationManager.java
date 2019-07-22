@@ -10,6 +10,7 @@ import java.util.Properties;
 import edu.ncsu.csc216.pack_scheduler.catalog.CourseCatalog;
 import edu.ncsu.csc216.pack_scheduler.course.Course;
 import edu.ncsu.csc216.pack_scheduler.course.roll.CourseRoll;
+import edu.ncsu.csc216.pack_scheduler.directory.FacultyDirectory;
 import edu.ncsu.csc216.pack_scheduler.directory.StudentDirectory;
 import edu.ncsu.csc216.pack_scheduler.user.Student;
 import edu.ncsu.csc216.pack_scheduler.user.User;
@@ -32,6 +33,8 @@ public class RegistrationManager {
 	private CourseCatalog courseCatalog;
 	/** Directory of students in PackScheduler */
 	private StudentDirectory studentDirectory;
+	/** List of Faculty in PackScheduler */
+	private FacultyDirectory facultyDirectory;
 	/** Holds credentials of registrar login */
 	private User registrar;
 	/** The user currently logged into the system */
@@ -50,6 +53,7 @@ public class RegistrationManager {
 		createRegistrar();
 		courseCatalog = new CourseCatalog();
 		studentDirectory = new StudentDirectory();
+		facultyDirectory = new FacultyDirectory();
 	}
 
 	/**
@@ -116,6 +120,15 @@ public class RegistrationManager {
 	 */
 	public StudentDirectory getStudentDirectory() {
 		return studentDirectory;
+	}
+
+	/**
+	 * Returns the facultyDirectory Linked List.
+	 * 
+	 * @return Returns the facultyDirectory object.
+	 */
+	public FacultyDirectory getFacultyDirectory() {
+		return facultyDirectory;
 	}
 
 	/**
@@ -198,71 +211,73 @@ public class RegistrationManager {
 		courseCatalog.newCourseCatalog();
 		studentDirectory.newStudentDirectory();
 	}
-	
+
 	/**
 	 * Returns true if the logged in student can enroll in the given course.
+	 * 
 	 * @param c Course to enroll in
 	 * @return true if enrolled
 	 */
 	public boolean enrollStudentInCourse(Course c) {
-	    if (currentUser == null || !(currentUser instanceof Student)) {
-	        throw new IllegalArgumentException("Illegal Action");
-	    }
-	    try {
-	        Student s = (Student)currentUser;
-	        Schedule schedule = s.getSchedule();
-	        CourseRoll roll = c.getCourseRoll();
-	        
-	        if (s.canAdd(c) && roll.canEnroll(s)) {
-	            schedule.addCourseToSchedule(c);
-	            roll.enroll(s);
-	            return true;
-	        }
-	        
-	    } catch (IllegalArgumentException e) {
-	        return false;
-	    }
-	    return false;
+		if (currentUser == null || !(currentUser instanceof Student)) {
+			throw new IllegalArgumentException("Illegal Action");
+		}
+		try {
+			Student s = (Student) currentUser;
+			Schedule schedule = s.getSchedule();
+			CourseRoll roll = c.getCourseRoll();
+
+			if (s.canAdd(c) && roll.canEnroll(s)) {
+				schedule.addCourseToSchedule(c);
+				roll.enroll(s);
+				return true;
+			}
+
+		} catch (IllegalArgumentException e) {
+			return false;
+		}
+		return false;
 	}
 
 	/**
 	 * Returns true if the logged in student can drop the given course.
+	 * 
 	 * @param c Course to drop
 	 * @return true if dropped
 	 */
 	public boolean dropStudentFromCourse(Course c) {
-	    if (currentUser == null || !(currentUser instanceof Student)) {
-	        throw new IllegalArgumentException("Illegal Action");
-	    }
-	    try {
-	        Student s = (Student)currentUser;
-	        c.getCourseRoll().drop(s);
-	        return s.getSchedule().removeCourseFromSchedule(c);
-	    } catch (IllegalArgumentException e) {
-	        return false; 
-	    }
+		if (currentUser == null || !(currentUser instanceof Student)) {
+			throw new IllegalArgumentException("Illegal Action");
+		}
+		try {
+			Student s = (Student) currentUser;
+			c.getCourseRoll().drop(s);
+			return s.getSchedule().removeCourseFromSchedule(c);
+		} catch (IllegalArgumentException e) {
+			return false;
+		}
 	}
 
 	/**
-	 * Resets the logged in student's schedule by dropping them
-	 * from every course and then resetting the schedule.
+	 * Resets the logged in student's schedule by dropping them from every course
+	 * and then resetting the schedule.
 	 */
 	public void resetSchedule() {
-	    if (currentUser == null || !(currentUser instanceof Student)) {
-	        throw new IllegalArgumentException("Illegal Action");
-	    }
-	    try {
-	        Student s = (Student)currentUser;
-	        Schedule schedule = s.getSchedule();
-	        String [][] scheduleArray = schedule.getScheduledCourses();
-	        for (int i = 0; i < scheduleArray.length; i++) {
-	            Course c = courseCatalog.getCourseFromCatalog(scheduleArray[i][0], scheduleArray[i][1]);
-	            c.getCourseRoll().drop(s);
-	        }
-	        schedule.resetSchedule();
-	    } catch (IllegalArgumentException e) {
-	        //do nothing 
-	    }
+		if (currentUser == null || !(currentUser instanceof Student)) {
+			throw new IllegalArgumentException("Illegal Action");
+		}
+		try {
+			Student s = (Student) currentUser;
+			Schedule schedule = s.getSchedule();
+			String[][] scheduleArray = schedule.getScheduledCourses();
+			for (int i = 0; i < scheduleArray.length; i++) {
+				Course c = courseCatalog.getCourseFromCatalog(scheduleArray[i][0], scheduleArray[i][1]);
+				c.getCourseRoll().drop(s);
+			}
+			schedule.resetSchedule();
+		} catch (IllegalArgumentException e) {
+			// do nothing
+		}
 	}
 
 	/**
