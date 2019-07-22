@@ -1,5 +1,7 @@
 package edu.ncsu.csc216.pack_scheduler.user;
 
+import edu.ncsu.csc216.pack_scheduler.user.schedule.FacultySchedule;
+
 /**
  * Class defines state and behavior for Faculty objects. Faculty are a subclass
  * of Users and have the additional field maxCourses, denoting how many courses
@@ -10,6 +12,8 @@ package edu.ncsu.csc216.pack_scheduler.user;
  */
 public class Faculty extends User {
 
+	/** Schedule of classes for Faculty member */
+	private FacultySchedule schedule;
 	/** Maximum number of courses the Faculty member can teach */
 	private int maxCourses;
 	/** Smallest maxCourses number a Faculty can have */
@@ -18,18 +22,19 @@ public class Faculty extends User {
 	public static final int MAX_COURSES = 3;
 
 	/**
-	 * Constructs a new Faculty object
+	 * Constructs a new Faculty object with an empty schedule
 	 * 
-	 * @param firstName First name to set
-	 * @param lastName  Last name to set
-	 * @param id        Unity ID to set
-	 * @param email     Email address to set
-	 * @param password  Plain text password to set
+	 * @param firstName  First name to set
+	 * @param lastName   Last name to set
+	 * @param id         Unity ID to set
+	 * @param email      Email address to set
+	 * @param password   Plain text password to set
 	 * @param maxCourses Max courses to set
 	 */
 	public Faculty(String firstName, String lastName, String id, String email, String password, int maxCourses) {
 		super(firstName, lastName, id, email, password);
 		setMaxCourses(maxCourses);
+		schedule = new FacultySchedule(id);
 	}
 
 	/**
@@ -51,6 +56,25 @@ public class Faculty extends User {
 	 */
 	public int getMaxCourses() {
 		return maxCourses;
+	}
+
+	/**
+	 * Returns the FacultySchedule for this Faculty
+	 * 
+	 * @return FacultySchedule object for this Faculty
+	 */
+	public FacultySchedule getSchedule() {
+		return schedule;
+	}
+
+	/**
+	 * Returns true if faculty is scheduled for more than their max number of
+	 * courses.
+	 * 
+	 * @return True if FacultySchedule.getNumScheduledCourses() > maxCourses
+	 */
+	public boolean isOverloaded() {
+		return schedule.getNumScheduledCourses() > maxCourses;
 	}
 
 	/**
