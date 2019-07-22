@@ -68,12 +68,22 @@ public class RegistrationManagerTest {
 	 */
 	@Test
 	public void testLogin() {
+		// Test Student login
 		manager.logout();
 		manager.getStudentDirectory().addStudent("Fred", "Weasley", "fweasle", "fweasle@ncsu.edu", "pw", "pw", 15);
 		assertTrue(manager.login("fweasle", "pw"));
 		manager.logout();
 		assertFalse(manager.login("fweasle", "pigsnout"));
 
+		// Test Faculty login
+		manager.logout();
+		manager.getFacultyDirectory().addFaculty("Albus", "Dumbledore", "adumble", "adumble@ncsu.edu", "pw", "pw", 3);
+		manager.getFacultyDirectory().addFaculty("Severus", "Snape", "ssnape", "ssnape@ncsu.edu", "pw", "pw", 2);
+		assertTrue(manager.login("adumble", "pw"));
+		assertFalse(manager.login("ssnape", "pw"));
+		manager.logout();
+		assertFalse(manager.login("adumble", "badpassword"));
+		
 		Properties prop = new Properties();
 		try (InputStream input = new FileInputStream(PROP_FILE)) {
 			prop.load(input);
@@ -84,6 +94,14 @@ public class RegistrationManagerTest {
 		assertTrue(manager.login(prop.getProperty("id"), prop.getProperty("pw")));
 		manager.logout();
 		assertFalse(manager.login(prop.getProperty("id"), "badpassword"));
+		
+		// Test user doesn't exist
+		try {
+			manager.login("fflitwick", "pw");
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertEquals("User doesn't exist.", e.getMessage());
+		}
 	}
 
 	/**
