@@ -1,3 +1,1 @@
-Albus,Dumbledore,adumble,adumble@ncsu.edu,pw,2
-Minerva,McGonagall,mmcgonag,mmcgonag@ncsu.edu,pw,3
-Severus,Snape,ssnape,ssnape@ncsu.edu,pw,1
+Albus,Dumbledore,adumble,adumble@ncsu.edu,pw,3
