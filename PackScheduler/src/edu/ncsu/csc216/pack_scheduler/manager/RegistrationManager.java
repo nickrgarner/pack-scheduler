@@ -276,6 +276,69 @@ public class RegistrationManager {
 	}
 
 	/**
+	 * Checks if the registrar is currently logged in and if so, attempts to add the
+	 * given course to the given faculty's schedule. Returns true if successfully
+	 * added.
+	 * 
+	 * @param c Course to add to faculty schedule
+	 * @param f Faculty to add course to
+	 * @return True if successfully added, false otherwise.
+	 * @throws IllegalArgumentException If exception is thrown from
+	 *                                  FacultySchedule.addCourseToSchedule
+	 */
+	public boolean addFacultytoCourse(Course c, Faculty f) {
+		if (currentUser == registrar && currentUser != null) {
+			try {
+				f.getSchedule().addCourseToSchedule(c);
+				return true;
+			} catch (IllegalArgumentException e) {
+				throw e;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Checks if the registrar is currently logged in and if so, attempts to remove
+	 * the given course from the given faculty's schedule. Returns true if
+	 * successful, false otherwise.
+	 * 
+	 * @param c Course to remove
+	 * @param f Faculty to remove course from schedule for
+	 * @return True if successful, false otherwise.
+	 * @throws Exception If thrown by FacultySchedule.removeCourseFromSchedule
+	 */
+	public boolean removeFacultyFromCourse(Course c, Faculty f) {
+		if (currentUser == registrar && currentUser != null) {
+			try {
+				if (f.getSchedule().removeCourseFromSchedule(c)) {
+					return true;
+				}
+			} catch (Exception e) {
+				throw e;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Checks if the registrar is logged in and if so, resets the given Faculty's
+	 * schedule.
+	 * 
+	 * @param f Faculty whose schedule to reset
+	 * @throws Exception If thrown by FacultySchedule.resetSchedule
+	 */
+	public void resetFacultySchedule(Faculty f) {
+		if (currentUser == registrar && currentUser != null) {
+			try {
+				f.getSchedule().resetSchedule();
+			} catch (Exception e) {
+				throw e;
+			}
+		}
+	}
+
+	/**
 	 * Resets the logged in student's schedule by dropping them from every course
 	 * and then resetting the schedule.
 	 */

@@ -6,7 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import edu.ncsu.csc216.pack_scheduler.catalog.CourseCatalog;
+import edu.ncsu.csc216.pack_scheduler.course.Course;
 import edu.ncsu.csc216.pack_scheduler.directory.StudentDirectory;
+import edu.ncsu.csc216.pack_scheduler.user.Faculty;
 import edu.ncsu.csc216.pack_scheduler.user.Student;
 import edu.ncsu.csc216.pack_scheduler.user.schedule.Schedule;
 
@@ -413,4 +415,134 @@ public class RegistrationManagerTest {
 	    
 	    manager.logout();
 	}
+	
+	/**
+	 * Tests addFacultyToCourse
+	 */
+	@Test
+	public void testAddFacultyToCourse() {
+		// Create Course and Faculty object
+		Course c = new Course("CSC216", "Java II", "001", 4, null, 10, "MWF", 1030, 1200);
+		Course c1 = new Course("CSC230", "C and Software Tools", "002", 3, null, 10, "MWF", 1100, 1300);
+		Faculty f = new Faculty("First", "Last", "flast", "flast@ncsu.edu", "pw", 1);
+		
+		// Attempt to add without login
+		assertFalse(manager.addFacultytoCourse(c, f));
+		
+		// Login as registrar
+		Properties prop = new Properties();
+		try (InputStream input = new FileInputStream(PROP_FILE)) {
+			prop.load(input);
+		} catch (IOException e) {
+			throw new IllegalArgumentException("Cannot load properties file");
+		}
+
+		assertTrue(manager.login(prop.getProperty("id"), prop.getProperty("pw")));
+		
+		// Add Faculty to course
+		assertTrue(manager.addFacultytoCourse(c, f));
+		assertEquals("flast", c.getInstructorId());
+		assertEquals(1, f.getSchedule().getNumScheduledCourses());
+		
+		// Check exception propagation
+		try {
+			manager.addFacultytoCourse(c1, f);
+		} catch (IllegalArgumentException e) {
+			assertEquals("The course cannot be assigned due to a conflict.", e.getMessage());
+		}
+		
+		manager.logout();
+	}
+	
+	/**
+	 * Tests removeFacultyFromCourse
+	 */
+	@Test
+	public void testRemoveFacultyFromCourse() {
+		// Create Course and Faculty object
+		Course c = new Course("CSC216", "Java II", "001", 4, null, 10, "MWF", 1030, 1200);
+		Faculty f = new Faculty("First", "Last", "flast", "flast@ncsu.edu", "pw", 1);
+		
+		// Attempt to remove without login
+		assertFalse(manager.removeFacultyFromCourse(c, f));
+		
+		// Login as registrar
+		Properties prop = new Properties();
+		try (InputStream input = new FileInputStream(PROP_FILE)) {
+			prop.load(input);
+		} catch (IOException e) {
+			throw new IllegalArgumentException("Cannot load properties file");
+		}
+		
+		assertTrue(manager.login(prop.getProperty("id"), prop.getProperty("pw")));
+		
+		// Attempt to remove without adding
+		assertFalse(manager.removeFacultyFromCourse(c, f));
+		
+		// Add course, check, and remove
+		assertTrue(manager.addFacultytoCourse(c, f));
+		assertEquals("flast", c.getInstructorId());
+		assertEquals(1, f.getSchedule().getNumScheduledCourses());
+		assertTrue(manager.removeFacultyFromCourse(c, f));
+		assertNull(c.getInstructorId());
+		assertEquals(0, f.getSchedule().getNumScheduledCourses());
+		
+		manager.logout();
+		
+	}
+	
+	/**
+	 * Tests resetFacultySchedule
+	 */
+	@Test
+	public void resetFacultySchedule() {
+		// Create Course and Faculty object
+		Course c = new Course("CSC216", "Java II", "001", 4, null, 10, "MWF", 1030, 1200);
+		Faculty f = new Faculty("First", "Last", "flast", "flast@ncsu.edu", "pw", 1);
+		
+		// Login as registrar
+		Properties prop = new Properties();
+		try (InputStream input = new FileInputStream(PROP_FILE)) {
+			prop.load(input);
+		} catch (IOException e) {
+			throw new IllegalArgumentException("Cannot load properties file");
+		}
+		
+		assertTrue(manager.login(prop.getProperty("id"), prop.getProperty("pw")));
+		
+		// Add course, check, and reset schedule
+		assertTrue(f.getSchedule().addCourseToSchedule(c));
+		assertEquals("flast", c.getInstructorId());
+		assertEquals(1, f.getSchedule().getNumScheduledCourses());
+		manager.resetFacultySchedule(f);
+		assertNull(c.getInstructorId());
+		assertEquals(0, f.getSchedule().getNumScheduledCourses());
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
