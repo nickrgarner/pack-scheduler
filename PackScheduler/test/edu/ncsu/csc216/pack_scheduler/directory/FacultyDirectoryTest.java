@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -34,6 +36,8 @@ public class FacultyDirectoryTest {
 	private static final String PASSWORD = "pw";
 	/** Test max courses */
 	private static final int MAX_COURSES = 3;
+	/** Hashing algorithm for passwords */
+	private static final String HASH_ALGORITHM = "SHA-256";
 
 	/**
 	 * Resets faculty_records.txt for use in other tests.
@@ -145,9 +149,18 @@ public class FacultyDirectoryTest {
 	@Test
 	public void testGetFacultyById() {
 		FacultyDirectory testDir = new FacultyDirectory();
-		Faculty testFaculty = new Faculty(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, MAX_COURSES);
 		assertTrue(testDir.addFaculty(FIRST_NAME, LAST_NAME, ID, EMAIL, PASSWORD, PASSWORD, MAX_COURSES));
 		assertEquals(1, testDir.getFacultyDirectory().length);
+		String hashPW = "";
+		try {
+			String password = "pw";
+			MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
+			digest.update(password.getBytes());
+			hashPW = new String(digest.digest());
+		} catch (NoSuchAlgorithmException e) {
+			fail("Unable to create hash during setup");
+		}
+		Faculty testFaculty = new Faculty(FIRST_NAME, LAST_NAME, ID, EMAIL, hashPW, MAX_COURSES);
 		assertEquals(testFaculty, testDir.getFacultyById(ID));
 	}
 

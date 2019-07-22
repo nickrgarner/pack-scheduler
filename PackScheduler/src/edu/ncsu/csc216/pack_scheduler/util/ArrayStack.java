@@ -9,7 +9,7 @@ import java.util.EmptyStackException;
  * 
  * @author Nick Garner
  *
- * @param <E>
+ * @param <E> Generic type
  */
 public class ArrayStack<E> implements Stack<E> {
 
