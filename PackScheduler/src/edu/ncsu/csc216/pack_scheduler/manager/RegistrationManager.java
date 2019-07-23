@@ -306,16 +306,11 @@ public class RegistrationManager {
 	 * @param c Course to remove
 	 * @param f Faculty to remove course from schedule for
 	 * @return True if successful, false otherwise.
-	 * @throws Exception If thrown by FacultySchedule.removeCourseFromSchedule
 	 */
 	public boolean removeFacultyFromCourse(Course c, Faculty f) {
 		if (currentUser == registrar && currentUser != null) {
-			try {
-				if (f.getSchedule().removeCourseFromSchedule(c)) {
-					return true;
-				}
-			} catch (Exception e) {
-				throw e;
+			if (f.getSchedule().removeCourseFromSchedule(c)) {
+				return true;
 			}
 		}
 		return false;
@@ -326,15 +321,10 @@ public class RegistrationManager {
 	 * schedule.
 	 * 
 	 * @param f Faculty whose schedule to reset
-	 * @throws Exception If thrown by FacultySchedule.resetSchedule
 	 */
 	public void resetFacultySchedule(Faculty f) {
 		if (currentUser == registrar && currentUser != null) {
-			try {
-				f.getSchedule().resetSchedule();
-			} catch (Exception e) {
-				throw e;
-			}
+			f.getSchedule().resetSchedule();
 		}
 	}
 
