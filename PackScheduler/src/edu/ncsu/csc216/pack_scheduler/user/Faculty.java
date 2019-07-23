@@ -44,7 +44,7 @@ public class Faculty extends User {
 	 */
 	public void setMaxCourses(int maxCourses) {
 		if (maxCourses < 1 || maxCourses > 3) {
-			throw new IllegalArgumentException("Maximum Courses must be between 1 and 3 inclusive.");
+			throw new IllegalArgumentException("Invalid max courses");
 		}
 		this.maxCourses = maxCourses;
 	}
