@@ -286,7 +286,7 @@ public class RegistrationManager {
 	 * @throws IllegalArgumentException If exception is thrown from
 	 *                                  FacultySchedule.addCourseToSchedule
 	 */
-	public boolean addFacultytoCourse(Course c, Faculty f) {
+	public boolean addFacultyToCourse(Course c, Faculty f) {
 		if (currentUser == registrar && currentUser != null) {
 			try {
 				f.getSchedule().addCourseToSchedule(c);
