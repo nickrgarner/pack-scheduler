@@ -237,11 +237,7 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 				throw new NoSuchElementException();
 			} else {
 				lastRetrieved = next;
-				previous = next;
-				next = next.next;
-				previousIndex++;
-				nextIndex++;
-				return lastRetrieved.data;
+				return next.data;
 			}
 		}
 
@@ -267,11 +263,7 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 				throw new NoSuchElementException();
 			} else {
 				lastRetrieved = previous;
-				next = previous;
-				previous = previous.prev;
-				previousIndex--;
-				nextIndex--;
-				return lastRetrieved.data;
+				return previous.data;
 			}
 		}
 

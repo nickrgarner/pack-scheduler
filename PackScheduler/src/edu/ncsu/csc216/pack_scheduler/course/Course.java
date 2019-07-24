@@ -187,9 +187,9 @@ public class Course extends Activity implements Comparable<Course> {
 	 *                                  empty string.
 	 */
 	public void setInstructorId(String instructorId) {
-//		if (instructorId == null || instructorId.equals("")) {
-//			throw new IllegalArgumentException("Invalid instructor unity id");
-//		}
+		if (instructorId == null || instructorId.equals("")) {
+			throw new IllegalArgumentException("Invalid instructor unity id");
+		}
 		this.instructorId = instructorId;
 	}
 

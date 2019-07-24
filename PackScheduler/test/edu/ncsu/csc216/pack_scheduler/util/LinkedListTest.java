@@ -17,7 +17,7 @@ import org.junit.Test;
  */
 public class LinkedListTest {
 
-	/** LinkedList object to test */
+	/** ArrayList object to test */
 	LinkedList<String> testList;
 	/** Valid string */
 	private static final String STRING1 = "One ring to rule them all. One ring to find them. One ring to bring them all. And in the darkness bind them.";
@@ -47,7 +47,7 @@ public class LinkedListTest {
 	private static final String STRINGNULL = null;
 
 	/**
-	 * Runs before each test to instantiate a new LinkedList object to test on
+	 * Runs before each test to instantiate a new ArrayList object to test on
 	 * 
 	 * @throws Exception If error occurs during setup
 	 */
@@ -308,7 +308,6 @@ public class LinkedListTest {
 		assertEquals(0, iterator.previousIndex());
 		assertEquals(1, iterator.nextIndex());
 		assertEquals(STRING1, iterator.previous());
-		assertEquals(STRING1, iterator.next());
 		assertEquals(STRING2, iterator.next());
 	}
 }

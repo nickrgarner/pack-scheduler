@@ -160,7 +160,7 @@ public class CourseCatalogTest {
 		CourseCatalog cc = new CourseCatalog();
 		cc.loadCoursesFromFile(validTestFile);
 		assertEquals(8, cc.getCourseCatalog().length);
-		Course testCourse = new Course("CSC216", "Programming Concepts - Java", "001", 4, null, 10, "TH", 1330, 1445);
+		Course testCourse = new Course("CSC216", "Programming Concepts - Java", "001", 4, "sesmith5", 10, "TH", 1330, 1445);
 		assertEquals(testCourse, cc.getCourseFromCatalog("CSC216", "001"));
 		assertEquals(null, cc.getCourseFromCatalog("MA241", "004"));
 	}
