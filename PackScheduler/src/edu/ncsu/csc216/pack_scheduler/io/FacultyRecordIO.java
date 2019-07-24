@@ -55,8 +55,7 @@ public class FacultyRecordIO {
 	}
 
 	/**
-	 * Writes stored studentDirectory SortedList of Students to given output
-	 * fileName
+	 * Writes stored facultyDirectory to given output fileName
 	 * 
 	 * @param fileName         File to write to
 	 * @param facultyDirectory LinkedList of stored faculty records

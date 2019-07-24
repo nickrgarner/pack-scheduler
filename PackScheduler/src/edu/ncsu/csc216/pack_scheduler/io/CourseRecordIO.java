@@ -86,11 +86,10 @@ public class CourseRecordIO {
 			if (meetingDays.equals("A") && !lineParse.hasNext()) {
 				lineParse.close();
 				Faculty professor = RegistrationManager.getInstance().getFacultyDirectory().getFacultyById(instructorId);
+				Course output = new Course(name, title, section, credits, null, enrollmentCap, meetingDays);
 				if (professor == null) {
-					Course output = new Course(name, title, section, credits, null, enrollmentCap, meetingDays);
 					return output;
 				} else {
-					Course output = new Course(name, title, section, credits, instructorId, enrollmentCap, meetingDays);
 					professor.getSchedule().addCourseToSchedule(output);
 					return output;
 				}
@@ -102,11 +101,10 @@ public class CourseRecordIO {
 			throw new IllegalArgumentException();
 		}
 		Faculty professor = RegistrationManager.getInstance().getFacultyDirectory().getFacultyById(instructorId);
+		Course output = new Course(name, title, section, credits, null, enrollmentCap, meetingDays, startTime, endTime);
 		if (professor == null) {
-			Course output = new Course(name, title, section, credits, null, enrollmentCap, meetingDays, startTime, endTime);
 			return output;
 		} else {
-			Course output = new Course(name, title, section, credits, instructorId, enrollmentCap, meetingDays, startTime, endTime);
 			professor.getSchedule().addCourseToSchedule(output);
 			return output;
 		}

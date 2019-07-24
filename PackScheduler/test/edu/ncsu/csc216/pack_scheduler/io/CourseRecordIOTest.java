@@ -16,6 +16,7 @@ import org.junit.Test;
 import edu.ncsu.csc216.collections.list.SortedList;
 import edu.ncsu.csc216.pack_scheduler.course.Course;
 import edu.ncsu.csc216.pack_scheduler.io.CourseRecordIO;
+import edu.ncsu.csc216.pack_scheduler.manager.RegistrationManager;
 
 /**
  * Tests CouresRecordIO.
@@ -30,12 +31,12 @@ public class CourseRecordIOTest {
 	private final String invalidTestFile = "test-files/invalid_course_records.txt";
 
 	/** Expected results for valid courses */
-	private final String validCourse1 = "CSC116,Intro to Programming - Java,001,3,null,10,MW,910,1100";
+	private final String validCourse1 = "CSC116,Intro to Programming - Java,001,3,jdyoung2,10,MW,910,1100";
 	private final String validCourse2 = "CSC116,Intro to Programming - Java,002,3,null,10,MW,1120,1310";
 	private final String validCourse3 = "CSC116,Intro to Programming - Java,003,3,null,10,TH,1120,1310";
-	private final String validCourse4 = "CSC216,Programming Concepts - Java,001,4,null,10,TH,1330,1445";
+	private final String validCourse4 = "CSC216,Programming Concepts - Java,001,4,sesmith5,10,TH,1330,1445";
 	private final String validCourse5 = "CSC216,Programming Concepts - Java,002,4,null,10,MW,1330,1445";
-	private final String validCourse6 = "CSC216,Programming Concepts - Java,601,4,null,10,A";
+	private final String validCourse6 = "CSC216,Programming Concepts - Java,601,4,jep,10,A";
 	private final String validCourse7 = "CSC226,Discrete Mathematics for Computer Scientists,001,3,null,10,MWF,935,1025";
 	private final String validCourse8 = "CSC230,C and Software Tools,001,3,null,10,MW,1145,1300";
 
@@ -66,6 +67,11 @@ public class CourseRecordIOTest {
 	 */
 	@Test
 	public void testReadValidCourseRecords() {
+		//Create faculty directory, add some faculty
+		RegistrationManager.getInstance().getFacultyDirectory().addFaculty("James", "Young", "jdyoung2", "jdyoung2@ncsu.edu", "pw", "pw", 2);
+		RegistrationManager.getInstance().getFacultyDirectory().addFaculty("Sean", "Smith", "sesmith5", "sesmith5@ncsu.edu", "pw", "pw", 3);
+		RegistrationManager.getInstance().getFacultyDirectory().addFaculty("Jo Ellen", "Page", "jep", "jep@ncsu.edu", "pw", "pw", 1);
+		
 		try {
 			SortedList<Course> courses = CourseRecordIO.readCourseRecords(validTestFile);
 			assertEquals(8, courses.size());
