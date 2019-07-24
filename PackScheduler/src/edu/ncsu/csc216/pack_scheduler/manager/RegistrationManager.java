@@ -309,7 +309,9 @@ public class RegistrationManager {
 	 */
 	public boolean removeFacultyFromCourse(Course c, Faculty f) {
 		if (currentUser == registrar && currentUser != null) {
-			return f.getSchedule().removeCourseFromSchedule(c);
+			if (f.getSchedule().removeCourseFromSchedule(c)) {
+				return true;
+			}
 		}
 		return false;
 	}
