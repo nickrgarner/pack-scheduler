@@ -102,7 +102,7 @@ public class FacultyTest {
 		assertTrue(f.equals(compare));
 		compare.setMaxCourses(2);
 		assertFalse(f.equals(compare));
-		assertFalse(f.equals(null));
+		assertFalse(f == null);
 	}
 
 }
