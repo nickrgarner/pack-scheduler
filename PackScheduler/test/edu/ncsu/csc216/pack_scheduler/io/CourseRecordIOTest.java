@@ -66,6 +66,7 @@ public class CourseRecordIOTest {
 	 */
 	@Test
 	public void testReadValidCourseRecords() {
+		
 		try {
 			SortedList<Course> courses = CourseRecordIO.readCourseRecords(validTestFile);
 			assertEquals(8, courses.size());
