@@ -308,6 +308,7 @@ public class LinkedListTest {
 		assertEquals(0, iterator.previousIndex());
 		assertEquals(1, iterator.nextIndex());
 		assertEquals(STRING1, iterator.previous());
+		assertEquals(STRING1, iterator.next());
 		assertEquals(STRING2, iterator.next());
 	}
 }

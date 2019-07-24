@@ -61,13 +61,13 @@ public class FacultyTest {
 			f.setMaxCourses(0);
 			fail();
 		} catch (IllegalArgumentException e) {
-			assertEquals("Maximum Courses must be between 1 and 3 inclusive.", e.getMessage());
+			assertEquals("Invalid max courses", e.getMessage());
 		}
 		try {
 			f.setMaxCourses(4);
 			fail();
 		} catch (IllegalArgumentException e) {
-			assertEquals("Maximum Courses must be between 1 and 3 inclusive.", e.getMessage());
+			assertEquals("Invalid max courses", e.getMessage());
 		}
 		// Good value
 		f.setMaxCourses(2);
