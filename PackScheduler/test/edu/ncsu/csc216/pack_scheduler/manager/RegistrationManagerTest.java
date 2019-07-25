@@ -531,7 +531,11 @@ public class RegistrationManagerTest {
 		Faculty f = new Faculty("First", "Last", "flast", "flast@ncsu.edu", "pw", 1);
 
 		// Attempt to remove without login
-		assertFalse(manager.removeFacultyFromCourse(c, f));
+		try {
+			manager.removeFacultyFromCourse(c, f);
+		} catch (IllegalArgumentException e) {
+			assertEquals("Must be logged in as registrar.", e.getMessage());
+		}
 
 		// Login as registrar
 		Properties prop = new Properties();

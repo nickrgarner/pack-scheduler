@@ -39,7 +39,7 @@ public class RegistrationManager {
 	/** Holds credentials of registrar login */
 	private User registrar;
 	/** The user currently logged into the system */
-	private User currentUser;
+	private User currentUser = null;
 	/** Hashing algorithm */
 	private static final String HASH_ALGORITHM = "SHA-256";
 	/** Properties file for registrar fields */
@@ -221,12 +221,13 @@ public class RegistrationManager {
 	}
 
 	/**
-	 * Resets both courseCatalog and studentDirectory to empty Sorted Lists and
-	 * removes all data from them.
+	 * Resets both courseCatalog, studentDirectory, and facultyDirectory to empty
+	 * lists and removes all data from them.
 	 */
 	public void clearData() {
 		courseCatalog.newCourseCatalog();
 		studentDirectory.newStudentDirectory();
+		facultyDirectory.newFacultyDirectory();
 	}
 
 	/**
@@ -310,8 +311,12 @@ public class RegistrationManager {
 	 * @param c Course to remove
 	 * @param f Faculty to remove course from schedule for
 	 * @return True if successful, false otherwise.
+	 * @throws IllegalArgumentException If currentUser is not registrar.
 	 */
 	public boolean removeFacultyFromCourse(Course c, Faculty f) {
+		if (currentUser != registrar) {
+			throw new IllegalArgumentException("Must be logged in as registrar.");
+		}
 		if (currentUser == registrar && currentUser != null) {
 			if (f.getSchedule().removeCourseFromSchedule(c)) {
 				return true;

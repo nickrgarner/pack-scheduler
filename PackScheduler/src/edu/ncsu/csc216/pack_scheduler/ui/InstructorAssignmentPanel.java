@@ -192,7 +192,7 @@ public class InstructorAssignmentPanel  extends JPanel implements ActionListener
 		
 		//Set up Faculty Directory table
 		facultyTableModel = new FacultyDirectoryTableModel();
-		tableFaculty = new JTable(facultyTableModel){
+		tableFaculty = new JTable(facultyTableModel) {
 			private static final long serialVersionUID = 1L;
 			
 			/**
