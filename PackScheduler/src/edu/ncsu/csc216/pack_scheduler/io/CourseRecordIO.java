@@ -13,6 +13,8 @@ import java.util.Scanner;
 
 import edu.ncsu.csc216.collections.list.SortedList;
 import edu.ncsu.csc216.pack_scheduler.course.Course;
+import edu.ncsu.csc216.pack_scheduler.manager.RegistrationManager;
+import edu.ncsu.csc216.pack_scheduler.user.Faculty;
 
 /**
  * Class controls behavior for reading/writing course info in/out of
@@ -71,6 +73,7 @@ public class CourseRecordIO {
 		String meetingDays;
 		int startTime;
 		int endTime;
+		Course output;
 		try {
 			Scanner lineParse = new Scanner(nextLine);
 			lineParse.useDelimiter(",");
@@ -83,8 +86,14 @@ public class CourseRecordIO {
 			meetingDays = lineParse.next();
 			if (meetingDays.equals("A") && !lineParse.hasNext()) {
 				lineParse.close();
-				Course output = new Course(name, title, section, credits, instructorId, enrollmentCap, meetingDays);
-				return output;
+				Faculty professor = RegistrationManager.getInstance().getFacultyDirectory().getFacultyById(instructorId);
+				output = new Course(name, title, section, credits, null, enrollmentCap, meetingDays);
+				if (professor == null) {
+					return output;
+				} else {
+					professor.getSchedule().addCourseToSchedule(output);
+					return output;
+				}
 			}
 			startTime = Integer.parseInt(lineParse.next());
 			endTime = Integer.parseInt(lineParse.next());
@@ -92,9 +101,56 @@ public class CourseRecordIO {
 		} catch (NoSuchElementException e) {
 			throw new IllegalArgumentException();
 		}
-		Course output = new Course(name, title, section, credits, instructorId, enrollmentCap, meetingDays, startTime, endTime);
-		return output;
+		Faculty professor = RegistrationManager.getInstance().getFacultyDirectory().getFacultyById(instructorId);
+		output = new Course(name, title, section, credits, null, enrollmentCap, meetingDays, startTime, endTime);
+		if (professor == null) {
+			return output;
+		} else {
+			professor.getSchedule().addCourseToSchedule(output);
+			return output;
+		}
 	}
+	
+//	/**
+//	 * Reads line in from input file and passes to Course constructor
+//	 * 
+//	 * @param nextLine Line to read from
+//	 * @return output Course constructed from parsed text input
+//	 */
+//	private static Course readCourse(String nextLine) {
+//		String name;
+//		String title;
+//		String section;
+//		int credits;
+//		String instructorId;
+//		int enrollmentCap;
+//		String meetingDays;
+//		int startTime;
+//		int endTime;
+//		try {
+//			Scanner lineParse = new Scanner(nextLine);
+//			lineParse.useDelimiter(",");
+//			name = lineParse.next();
+//			title = lineParse.next();
+//			section = lineParse.next();
+//			credits = Integer.parseInt(lineParse.next());
+//			instructorId = lineParse.next();
+//			enrollmentCap = Integer.parseInt(lineParse.next());
+//			meetingDays = lineParse.next();
+//			if (meetingDays.equals("A") && !lineParse.hasNext()) {
+//				lineParse.close();
+//				Course output = new Course(name, title, section, credits, instructorId, enrollmentCap, meetingDays);
+//				return output;
+//			}
+//			startTime = Integer.parseInt(lineParse.next());
+//			endTime = Integer.parseInt(lineParse.next());
+//			lineParse.close();
+//		} catch (NoSuchElementException e) {
+//			throw new IllegalArgumentException();
+//		}
+//		Course output = new Course(name, title, section, credits, instructorId, enrollmentCap, meetingDays, startTime, endTime);
+//		return output;
+//	}
 	
 	/**
 	 * Writes stored SortedList of courses to output file
