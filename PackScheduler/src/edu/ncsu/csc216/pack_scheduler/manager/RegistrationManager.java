@@ -284,9 +284,13 @@ public class RegistrationManager {
 	 * @param f Faculty to add course to
 	 * @return True if successfully added, false otherwise.
 	 * @throws IllegalArgumentException If exception is thrown from
-	 *                                  FacultySchedule.addCourseToSchedule
+	 *                                  FacultySchedule.addCourseToSchedule or if
+	 *                                  currentUser is not registrar.
 	 */
 	public boolean addFacultyToCourse(Course c, Faculty f) {
+		if (currentUser != registrar) {
+			throw new IllegalArgumentException("Must be logged in as registrar.");
+		}
 		if (currentUser == registrar && currentUser != null) {
 			try {
 				f.getSchedule().addCourseToSchedule(c);
@@ -321,13 +325,17 @@ public class RegistrationManager {
 	 * schedule.
 	 * 
 	 * @param f Faculty whose schedule to reset
+	 * @throws IllegalArgumentException If currentUser is not registrar.
 	 */
 	public void resetFacultySchedule(Faculty f) {
+		if (currentUser != registrar) {
+			throw new IllegalArgumentException("Must be logged in as registrar.");
+		}
 		if (currentUser == registrar && currentUser != null) {
 			f.getSchedule().resetSchedule();
 		}
 	}
-	
+
 	/**
 	 * Resets the logged in student's schedule by dropping them from every course
 	 * and then resetting the schedule.

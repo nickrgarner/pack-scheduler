@@ -169,6 +169,8 @@ public class LinkedListRecursive<E> {
 			throw new NullPointerException("List cannot contain null elements.");
 		} else if (index < 0 || index >= size) {
 			throw new IndexOutOfBoundsException("Index is out of bounds.");
+		} else if (contains(element)) {
+			throw new IllegalArgumentException("List cannot contain duplicate elements.");
 		} else {
 			return front.set(index, element);
 		}

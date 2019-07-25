@@ -40,8 +40,12 @@ public class FacultySchedule {
 				throw new IllegalArgumentException("The course cannot be assigned due to a conflict.");
 			}
 		}
-		if (course.getInstructorId() != null) {
-			throw new IllegalArgumentException("The course already has an instructor.");
+		try {
+			if (course.getInstructorId() != null) {
+				throw new IllegalArgumentException("The course already has an instructor.");
+			}
+		} catch (NullPointerException e) {
+			// don't throw IAE
 		}
 		if (schedule.add(course)) {
 			course.setInstructorId(instructorId);

@@ -490,7 +490,11 @@ public class RegistrationManagerTest {
 		Faculty f = new Faculty("First", "Last", "flast", "flast@ncsu.edu", "pw", 1);
 
 		// Attempt to add without login
-		assertFalse(manager.addFacultyToCourse(c, f));
+		try {
+			manager.addFacultyToCourse(c, f);
+		} catch (IllegalArgumentException e) {
+			assertEquals("Must be logged in as registrar.", e.getMessage());
+		}
 
 		// Login as registrar
 		Properties prop = new Properties();
