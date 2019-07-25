@@ -107,7 +107,11 @@ public class LinkedListRecursive<E> {
 		if (index < 0 || index >= size) {
 			throw new IndexOutOfBoundsException("Index is out of bounds.");
 		} else {
-			return front.get(index);
+			try {
+				return front.get(index);
+			} catch (NullPointerException e) {
+				return null;
+			}
 		}
 	}
 
